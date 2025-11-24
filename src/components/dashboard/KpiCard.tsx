@@ -47,16 +47,16 @@ export function KpiCard({
   }, [numericValue, animateValue]);
 
   const variantStyles = {
-    primary: "border-primary/30 hover:border-primary/50 glow-primary",
-    secondary: "border-secondary/30 hover:border-secondary/50 glow-secondary",
-    accent: "border-accent/30 hover:border-accent/50 glow-accent",
-    success: "border-success/30 hover:border-success/50",
-    warning: "border-warning/30 hover:border-warning/50",
+    primary: "border-primary/20 hover:border-primary/40 bg-white",
+    secondary: "border-border hover:border-border/60 bg-white",
+    accent: "border-accent/20 hover:border-accent/40 bg-white",
+    success: "border-success/20 hover:border-success/40 bg-white",
+    warning: "border-warning/20 hover:border-warning/40 bg-white",
   };
 
   const iconColorStyles = {
     primary: "text-primary",
-    secondary: "text-secondary",
+    secondary: "text-muted-foreground",
     accent: "text-accent",
     success: "text-success",
     warning: "text-warning",
@@ -69,7 +69,7 @@ export function KpiCard({
       transition={{ duration: 0.5 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className={`glass-panel rounded-lg p-6 transition-all duration-300 hover:scale-105 ${variantStyles[variant]}`}
+      className={`rounded-lg p-6 border-2 transition-all duration-300 hover:shadow-lg ${variantStyles[variant]}`}
     >
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
@@ -89,11 +89,11 @@ export function KpiCard({
       </div>
 
       <div className="flex items-baseline gap-1 mb-2">
-        {prefix && <span className="text-2xl font-semibold text-foreground/70">{prefix}</span>}
-        <motion.span className="text-4xl font-bold text-glow">
+        {prefix && <span className="text-2xl font-semibold text-muted-foreground">{prefix}</span>}
+        <motion.span className="text-4xl font-bold text-foreground">
           {animateValue && typeof value === "number" ? rounded : displayValue}
         </motion.span>
-        {suffix && <span className="text-2xl font-semibold text-foreground/70">{suffix}</span>}
+        {suffix && <span className="text-2xl font-semibold text-muted-foreground">{suffix}</span>}
       </div>
 
       {trend && (
@@ -112,25 +112,6 @@ export function KpiCard({
         </div>
       )}
 
-      {/* Animated border gradient */}
-      <motion.div
-        className="absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300"
-        style={{
-          background: `linear-gradient(90deg, transparent, hsl(var(--${variant})) , transparent)`,
-          backgroundSize: "200% 100%",
-        }}
-        animate={{
-          backgroundPosition: isHovered ? ["0% 0%", "200% 0%"] : "0% 0%",
-          opacity: isHovered ? 0.2 : 0,
-        }}
-        transition={{
-          backgroundPosition: {
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "linear",
-          },
-        }}
-      />
     </motion.div>
   );
 }

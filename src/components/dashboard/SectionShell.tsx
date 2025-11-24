@@ -23,12 +23,12 @@ export function SectionShell({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6 }}
-      className="glass-panel rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-300"
+      className="bg-white rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-all duration-300"
     >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           {Icon && (
-            <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+            <div className="p-2 rounded-lg bg-primary/5 border border-primary/20">
               <Icon className="w-6 h-6 text-primary" />
             </div>
           )}
@@ -44,7 +44,7 @@ export function SectionShell({
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
-                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-secondary to-transparent origin-left"
+                className="absolute -bottom-1 left-0 w-16 h-0.5 bg-primary origin-left"
               />
             </motion.h2>
             {description && (
