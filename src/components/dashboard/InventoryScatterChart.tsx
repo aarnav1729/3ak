@@ -1,18 +1,17 @@
+// src/components/dashboard/InventoryScatterChart.tsx
 import {
+  ResponsiveContainer,
   ScatterChart,
   Scatter,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
+  Legend,
   Cell,
-  ZAxis,
-  ReferenceLine,
 } from "recharts";
 import { InventoryItem } from "@/types/dashboard";
 import { formatCurrency, formatNumber } from "@/utils/format";
-import { motion } from "framer-motion";
 
 interface InventoryScatterChartProps {
   items: InventoryItem[];
@@ -20,163 +19,191 @@ interface InventoryScatterChartProps {
   onItemClick?: (item: InventoryItem) => void;
 }
 
-export function InventoryScatterChart({
+export const InventoryScatterChart: React.FC<InventoryScatterChartProps> = ({
   items,
   slowMovers,
   onItemClick,
-}: InventoryScatterChartProps) {
-  const slowMoverIds = new Set(slowMovers.map((item) => item.itemNumber));
+}) => {
+  // mark slow movers
+  const slowSet = new Set(slowMovers.map((i) => i.itemNumber));
 
-  const chartData = items.map((item) => ({
-    x: item.inventoryValue,
-    y: item.soldQtyLast90,
-    z: item.inventoryQty,
-    name: item.itemName,
-    item,
-    isSlow: slowMoverIds.has(item.itemNumber),
+  // focus on highest value SKUs
+  const sortedByValue = [...items].sort(
+    (a, b) => b.inventoryValue - a.inventoryValue
+  );
+  const limited = sortedByValue.slice(0, 80); // avoid clutter
+
+  const data = limited.map((i) => ({
+    ...i,
+    valueCr: i.inventoryValue / 10_000_000,
+    sold: i.soldQtyLast90,
+    isSlow: slowSet.has(i.itemNumber),
   }));
 
-  // Calculate median values for quadrant lines
-  const sortedByValue = [...items].sort((a, b) => a.inventoryValue - b.inventoryValue);
-  const sortedBySales = [...items].sort((a, b) => a.soldQtyLast90 - b.soldQtyLast90);
-  const medianValue = sortedByValue[Math.floor(sortedByValue.length / 2)]?.inventoryValue || 0;
-  const medianSales = sortedBySales[Math.floor(sortedBySales.length / 2)]?.soldQtyLast90 || 0;
+  const maxValueCr = data.length ? Math.max(...data.map((d) => d.valueCr)) : 0;
+  const maxSold = data.length ? Math.max(...data.map((d) => d.sold)) : 0;
+
+  const domainValue: [number, number] = [0, Math.ceil(maxValueCr * 1.1)];
+  const domainSold: [number, number] = [0, Math.ceil(maxSold * 1.1)];
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="w-full h-[500px]"
-    >
-      <div className="mb-4 grid grid-cols-2 gap-2 text-xs">
-        <div className="glass-panel p-2 rounded">
-          <span className="inline-block w-3 h-3 rounded-full bg-success mr-2"></span>
-          <span className="text-muted-foreground">Stars (High Value, High Sales)</span>
-        </div>
-        <div className="glass-panel p-2 rounded">
-          <span className="inline-block w-3 h-3 rounded-full bg-warning mr-2"></span>
-          <span className="text-muted-foreground">Slow Movers (High Value, Low Sales)</span>
-        </div>
-        <div className="glass-panel p-2 rounded">
-          <span className="inline-block w-3 h-3 rounded-full bg-primary mr-2"></span>
-          <span className="text-muted-foreground">Fast Movers (Low Value, High Sales)</span>
-        </div>
-        <div className="glass-panel p-2 rounded">
-          <span className="inline-block w-3 h-3 rounded-full bg-muted mr-2"></span>
-          <span className="text-muted-foreground">Low Priority (Low Value, Low Sales)</span>
+    <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-border shadow-sm p-4 h-[380px] flex flex-col">
+      <div className="flex items-baseline justify-between mb-2">
+        <div>
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+            Inventory Value vs Movement
+          </p>
+          <p className="text-[11px] text-muted-foreground">
+            Bubble size = stock qty, color = slow vs normal
+          </p>
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height="100%">
-        <ScatterChart margin={{ top: 20, right: 30, bottom: 60, left: 60 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
-          <XAxis
-            type="number"
-            dataKey="x"
-            name="Inventory Value"
-            stroke="hsl(var(--muted-foreground))"
-            label={{
-              value: "Inventory Value",
-              position: "bottom",
-              offset: 40,
-              style: { fill: "hsl(var(--muted-foreground))", fontSize: 12 },
-            }}
-            tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
-            tickFormatter={(value) => formatCurrency(value)}
-          />
-          <YAxis
-            type="number"
-            dataKey="y"
-            name="Sold Qty (90d)"
-            stroke="hsl(var(--muted-foreground))"
-            label={{
-              value: "Sold Qty (Last 90 Days)",
-              angle: -90,
-              position: "left",
-              offset: 40,
-              style: { fill: "hsl(var(--muted-foreground))", fontSize: 12 },
-            }}
-            tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
-            tickFormatter={(value) => formatNumber(value)}
-          />
-          <ZAxis type="number" dataKey="z" range={[50, 400]} />
-          
-          {/* Quadrant dividers */}
-          <ReferenceLine
-            x={medianValue}
-            stroke="hsl(var(--primary))"
-            strokeDasharray="3 3"
-            opacity={0.4}
-          />
-          <ReferenceLine
-            y={medianSales}
-            stroke="hsl(var(--primary))"
-            strokeDasharray="3 3"
-            opacity={0.4}
-          />
+      <div className="flex-1">
+        <ResponsiveContainer width="100%" height="100%">
+          <ScatterChart margin={{ top: 12, right: 24, bottom: 32, left: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <XAxis
+              type="number"
+              dataKey="valueCr"
+              name="Inventory Value"
+              domain={domainValue}
+              tickFormatter={(v) => `${v.toFixed(1)} Cr`}
+              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+              axisLine={{ stroke: "hsl(var(--border))" }}
+              tickLine={false}
+              label={{
+                value: "Inventory Value (₹ Cr)",
+                position: "insideBottom",
+                offset: -18,
+                fill: "hsl(var(--muted-foreground))",
+                fontSize: 11,
+              }}
+            />
+            <YAxis
+              type="number"
+              dataKey="sold"
+              name="Sold (90 days)"
+              domain={domainSold}
+              tickFormatter={(v) => formatNumber(v)}
+              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+              axisLine={{ stroke: "hsl(var(--border))" }}
+              tickLine={false}
+              label={{
+                value: "Sold Qty (last 90 days)",
+                angle: -90,
+                position: "insideLeft",
+                offset: 10,
+                fill: "hsl(var(--muted-foreground))",
+                fontSize: 11,
+              }}
+            />
+            <Tooltip
+              cursor={{ stroke: "hsl(var(--muted))", strokeDasharray: "3 3" }}
+              content={({ active, payload }) => {
+                if (!active || !payload?.length) return null;
+                const item = payload[0].payload as any;
 
-          <Tooltip
-            contentStyle={{
-              backgroundColor: "hsl(var(--card))",
-              border: "1px solid hsl(var(--border))",
-              borderRadius: "8px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-            }}
-            content={({ active, payload }) => {
-              if (active && payload && payload[0]) {
-                const data = payload[0].payload;
                 return (
-                  <div className="glass-panel p-3 rounded-lg">
-                    <p className="font-semibold text-foreground mb-2">{data.name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      Value: {formatCurrency(data.x)}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Sold (90d): {formatNumber(data.y)}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Stock Qty: {formatNumber(data.z)}
-                    </p>
-                    {data.isSlow && (
-                      <div className="mt-2 text-xs text-warning font-medium">⚠️ Slow Mover</div>
+                  <div className="rounded-md border bg-popover px-3 py-2 text-xs shadow-md space-y-1 max-w-xs">
+                    <div className="font-medium text-foreground">
+                      {item.itemName}
+                    </div>
+                    <div className="text-[11px] text-muted-foreground">
+                      Item #{item.itemNumber}
+                    </div>
+                    <div className="flex justify-between gap-6">
+                      <span className="text-muted-foreground">
+                        Inventory value
+                      </span>
+                      <span className="font-semibold">
+                        {formatCurrency(item.inventoryValue)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between gap-6">
+                      <span className="text-muted-foreground">Stock qty</span>
+                      <span>{formatNumber(item.inventoryQty)}</span>
+                    </div>
+                    <div className="flex justify-between gap-6">
+                      <span className="text-muted-foreground">
+                        Sold (90 days)
+                      </span>
+                      <span>{formatNumber(item.soldQtyLast90)}</span>
+                    </div>
+                    {item.isSlow && (
+                      <div className="text-warning text-[11px]">
+                        🐌 Marked as slow mover
+                      </div>
                     )}
                   </div>
                 );
+              }}
+            />
+            <Legend
+              verticalAlign="top"
+              align="right"
+              iconSize={10}
+              wrapperStyle={{ fontSize: 11 }}
+            />
+            <Scatter
+              name="Normal"
+              data={data.filter((d) => !d.isSlow)}
+              onClick={
+                onItemClick
+                  ? (entry) =>
+                      onItemClick({
+                        itemNumber: (entry as any).itemNumber,
+                        itemName: (entry as any).itemName,
+                        inventoryQty: (entry as any).inventoryQty,
+                        unitCost: (entry as any).unitCost,
+                        inventoryValue: (entry as any).inventoryValue,
+                        soldQtyLast90: (entry as any).soldQtyLast90,
+                      })
+                  : undefined
               }
-              return null;
-            }}
-          />
-
-          <Scatter
-            data={chartData}
-            cursor="pointer"
-            onClick={(data) => onItemClick?.(data.item)}
-          >
-            {chartData.map((entry, index) => {
-              let color = "hsl(var(--muted))";
-              
-              // Determine color based on quadrant
-              if (entry.x > medianValue && entry.y > medianSales) {
-                color = "hsl(var(--success))"; // Stars
-              } else if (entry.x > medianValue && entry.y <= medianSales) {
-                color = "hsl(var(--warning))"; // Slow movers
-              } else if (entry.x <= medianValue && entry.y > medianSales) {
-                color = "hsl(var(--primary))"; // Fast movers
+            >
+              {data
+                .filter((d) => !d.isSlow)
+                .map((d) => (
+                  <Cell
+                    key={`normal-${d.itemNumber}`}
+                    fill="hsl(var(--success))"
+                    r={6}
+                    className={onItemClick ? "cursor-pointer" : undefined}
+                  />
+                ))}
+            </Scatter>
+            <Scatter
+              name="Slow mover"
+              data={data.filter((d) => d.isSlow)}
+              onClick={
+                onItemClick
+                  ? (entry) =>
+                      onItemClick({
+                        itemNumber: (entry as any).itemNumber,
+                        itemName: (entry as any).itemName,
+                        inventoryQty: (entry as any).inventoryQty,
+                        unitCost: (entry as any).unitCost,
+                        inventoryValue: (entry as any).inventoryValue,
+                        soldQtyLast90: (entry as any).soldQtyLast90,
+                      })
+                  : undefined
               }
-
-              return (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={color}
-                  opacity={0.8}
-                  className="hover:opacity-100 transition-opacity"
-                />
-              );
-            })}
-          </Scatter>
-        </ScatterChart>
-      </ResponsiveContainer>
-    </motion.div>
+            >
+              {data
+                .filter((d) => d.isSlow)
+                .map((d) => (
+                  <Cell
+                    key={`slow-${d.itemNumber}`}
+                    fill="hsl(var(--warning))"
+                    r={7}
+                    className={onItemClick ? "cursor-pointer" : undefined}
+                  />
+                ))}
+            </Scatter>
+          </ScatterChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
-}
+};

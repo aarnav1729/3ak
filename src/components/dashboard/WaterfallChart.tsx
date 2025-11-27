@@ -1,129 +1,156 @@
+// src/components/dashboard/WaterfallChart.tsx
 import {
-  BarChart,
+  ResponsiveContainer,
+  ComposedChart,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
-  Cell,
   ReferenceLine,
+  Cell,
 } from "recharts";
+import { FinanceLine } from "@/types/dashboard";
 import { formatCurrency } from "@/utils/format";
-import { motion } from "framer-motion";
-
-interface WaterfallData {
-  name: string;
-  value: number;
-  start: number;
-  end: number;
-  isTotal?: boolean;
-  isNegative?: boolean;
-}
 
 interface WaterfallChartProps {
-  data: {
-    label: string;
-    amount: number;
-    lineType: string;
-  }[];
+  data: FinanceLine[];
 }
 
-export function WaterfallChart({ data }: WaterfallChartProps) {
-  // Build waterfall data structure
-  const waterfallData: WaterfallData[] = [];
-  let runningTotal = 0;
+interface WaterfallPoint {
+  name: string;
+  type: FinanceLine["lineType"];
+  base: number;
+  value: number;
+  bar: number;
+}
 
-  data.forEach((item) => {
-    if (item.lineType === "total" || item.lineType === "header") {
-      const start = 0;
-      const end = item.amount;
-      waterfallData.push({
-        name: item.label,
-        value: item.amount,
-        start,
-        end,
-        isTotal: true,
-        isNegative: item.amount < 0,
+export const WaterfallChart: React.FC<WaterfallChartProps> = ({ data }) => {
+  // Keep only meaningful lines
+  const lines = data.filter((l) => l.label && l.lineType !== "spacer");
+
+  const wfData: WaterfallPoint[] = [];
+  let running = 0;
+
+  for (const line of lines) {
+    if (line.amount === 0 && line.lineType !== "total") continue;
+
+    if (line.lineType === "total") {
+      // treat totals as absolute anchors
+      wfData.push({
+        name: line.label,
+        type: line.lineType,
+        base: 0,
+        value: line.amount,
+        bar: line.amount,
       });
-      runningTotal = item.amount;
-    } else if (item.lineType === "detail") {
-      const start = runningTotal;
-      const end = runningTotal + item.amount;
-      waterfallData.push({
-        name: item.label,
-        value: Math.abs(item.amount),
-        start: Math.min(start, end),
-        end: Math.max(start, end),
-        isTotal: false,
-        isNegative: item.amount < 0,
+      running = line.amount;
+    } else {
+      const start = running;
+      const end = running + line.amount;
+      const barValue = end - start;
+
+      wfData.push({
+        name: line.label,
+        type: line.lineType,
+        base: Math.min(start, end),
+        value: barValue,
+        bar: Math.abs(barValue),
       });
-      runningTotal = end;
+
+      running = end;
     }
-  });
+  }
+
+  const allValues = wfData.flatMap((p) => [p.base, p.base + p.value]);
+  const minVal = allValues.length > 0 ? Math.min(...allValues) : 0;
+  const maxVal = allValues.length > 0 ? Math.max(...allValues) : 0;
+
+  const padding = (maxVal - minVal || 1) * 0.15;
+  const domain: [number, number] = [minVal - padding, maxVal + padding];
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="w-full h-[400px]"
-    >
+    <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-border shadow-sm p-4 h-[320px]">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={waterfallData}
-          margin={{ top: 20, right: 30, left: 60, bottom: 80 }}
+        <ComposedChart
+          data={wfData}
+          margin={{ top: 12, right: 16, left: 0, bottom: 32 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
           <XAxis
             dataKey="name"
-            angle={-45}
+            tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+            tickLine={false}
+            axisLine={{ stroke: "hsl(var(--border))" }}
+            interval={0}
+            angle={-25}
             textAnchor="end"
-            height={100}
-            tick={{ fill: "hsl(var(--foreground))", fontSize: 11 }}
+            height={60}
           />
           <YAxis
-            tick={{ fill: "hsl(var(--foreground))", fontSize: 12 }}
-            tickFormatter={(value) => formatCurrency(value)}
+            tickFormatter={(v) => `${(v / 10_000_000).toFixed(1)} Cr`}
+            tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+            axisLine={{ stroke: "hsl(var(--border))" }}
+            tickLine={false}
+            domain={domain}
           />
           <Tooltip
-            contentStyle={{
-              backgroundColor: "hsl(var(--card))",
-              border: "1px solid hsl(var(--border))",
-              borderRadius: "8px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-            }}
-            formatter={(value: number, name: string, props: any) => {
-              const item = props.payload;
-              return [
-                formatCurrency(item.end - item.start),
-                item.isNegative ? "Decrease" : "Increase",
-              ];
+            content={({ active, payload }) => {
+              if (!active || !payload?.length) return null;
+              const item = payload[0].payload as WaterfallPoint;
+
+              return (
+                <div className="rounded-md border bg-popover px-3 py-2 text-xs shadow-md space-y-1">
+                  <div className="font-medium text-foreground">{item.name}</div>
+                  <div className="flex justify-between gap-6">
+                    <span className="text-muted-foreground">Delta</span>
+                    <span
+                      className={
+                        item.value < 0
+                          ? "text-destructive font-semibold"
+                          : "text-success font-semibold"
+                      }
+                    >
+                      {formatCurrency(item.value)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between gap-6">
+                    <span className="text-muted-foreground">Level after</span>
+                    <span className="font-semibold">
+                      {formatCurrency(item.base + item.value)}
+                    </span>
+                  </div>
+                </div>
+              );
             }}
           />
-          <ReferenceLine y={0} stroke="hsl(var(--border))" />
-          <Bar dataKey="start" stackId="a" fill="transparent" />
-          <Bar dataKey="value" stackId="a">
-            {waterfallData.map((entry, index) => {
-              let color = "hsl(var(--chart-3))"; // Green for positive
-              if (entry.isNegative) {
-                color = "hsl(var(--destructive))"; // Red for negative
+          <ReferenceLine
+            y={0}
+            stroke="hsl(var(--muted-foreground))"
+            strokeDasharray="3 3"
+          />
+          <Bar
+            dataKey="bar"
+            stackId="wf"
+            radius={[4, 4, 0, 0]}
+            isAnimationActive={true}
+          >
+            {wfData.map((p, index) => {
+              let fill = "hsl(var(--primary))";
+
+              if (p.type === "total") {
+                fill = "hsl(var(--primary))";
+              } else if (p.value > 0) {
+                fill = "hsl(var(--success))";
+              } else if (p.value < 0) {
+                fill = "hsl(var(--destructive))";
               }
-              if (entry.isTotal) {
-                color = "hsl(var(--primary))"; // Blue for totals
-              }
-              return (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={color}
-                  stroke="hsl(var(--border))"
-                  strokeWidth={1}
-                />
-              );
+
+              return <Cell key={`${p.name}-${index}`} fill={fill} />;
             })}
           </Bar>
-        </BarChart>
+        </ComposedChart>
       </ResponsiveContainer>
-    </motion.div>
+    </div>
   );
-}
+};

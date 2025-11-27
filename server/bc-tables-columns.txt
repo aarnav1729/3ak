@@ -1,0 +1,1714 @@
+=== TABLES & COLUMNS AVAILABLE VIA BC API v2.0 ===
+
+==================================================
+TABLE (EntityType): entityMetadata
+Columns:
+  - entityName : Edm.String  (NOT NULL)
+  - entitySetName : Edm.String  (nullable)
+  - entityCaptions : Collection(Microsoft.NAV.entityMetadataLabel)  (nullable)
+  - entitySetCaptions : Collection(Microsoft.NAV.entityMetadataLabel)  (nullable)
+  - properties : Collection(Microsoft.NAV.entityMetadataField)  (nullable)
+  - actions : Collection(Microsoft.NAV.entityMetadataAction)  (nullable)
+  - enumMembers : Collection(Microsoft.NAV.entityMetadataEnumMember)  (nullable)
+
+==================================================
+TABLE (EntityType): company
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - systemVersion : Edm.String  (nullable)
+  - timestamp : Edm.Int64  (nullable)
+  - name : Edm.String  (nullable)
+  - displayName : Edm.String  (nullable)
+  - businessProfileId : Edm.String  (nullable)
+  - systemCreatedAt : Edm.DateTimeOffset  (nullable)
+  - systemCreatedBy : Edm.Guid  (nullable)
+  - systemModifiedAt : Edm.DateTimeOffset  (nullable)
+  - systemModifiedBy : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): subscriptions
+Columns:
+  - subscriptionId : Edm.String  (NOT NULL)
+  - notificationUrl : Edm.String  (NOT NULL)
+  - resource : Edm.String  (NOT NULL)
+  - timestamp : Edm.Int64  (nullable)
+  - userId : Edm.Guid  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - clientState : Edm.String  (nullable)
+  - expirationDateTime : Edm.DateTimeOffset  (nullable)
+  - systemCreatedAt : Edm.DateTimeOffset  (nullable)
+  - systemCreatedBy : Edm.Guid  (nullable)
+  - systemModifiedAt : Edm.DateTimeOffset  (nullable)
+  - systemModifiedBy : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): externaleventsubscriptions
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - companyId : Edm.Guid  (nullable)
+  - timestamp : Edm.Int64  (nullable)
+  - appId : Edm.Guid  (nullable)
+  - eventName : Edm.String  (nullable)
+  - companyName : Edm.String  (nullable)
+  - userId : Edm.Guid  (nullable)
+  - notificationUrl : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - clientState : Edm.String  (nullable)
+  - subscriptionType : Edm.String  (nullable)
+  - eventVersion : Edm.String  (nullable)
+  - subscriptionState : Edm.String  (nullable)
+  - systemCreatedAt : Edm.DateTimeOffset  (nullable)
+  - systemCreatedBy : Edm.Guid  (nullable)
+  - systemModifiedAt : Edm.DateTimeOffset  (nullable)
+  - systemModifiedBy : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): externalbusinesseventdefinitions
+Columns:
+  - appId : Edm.Guid  (NOT NULL)
+  - name : Edm.String  (NOT NULL)
+  - eventVersion : Edm.String  (NOT NULL)
+  - isObsolete : Edm.Boolean  (nullable)
+  - obsoleteReason : Edm.String  (nullable)
+  - obsoleteTag : Edm.String  (nullable)
+  - payload : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - category : Edm.String  (nullable)
+  - appName : Edm.String  (nullable)
+  - appPublisher : Edm.String  (nullable)
+  - appVersion : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): apicategoryroutes
+Columns:
+  - route : Edm.String  (NOT NULL)
+  - publisher : Edm.String  (nullable)
+  - group : Edm.String  (nullable)
+  - version : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): item
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - displayName : Edm.String  (nullable)
+  - displayName2 : Edm.String  (nullable)
+  - type : Microsoft.NAV.itemType  (nullable)
+  - itemCategoryId : Edm.Guid  (nullable)
+  - itemCategoryCode : Edm.String  (nullable)
+  - blocked : Edm.Boolean  (nullable)
+  - gtin : Edm.String  (nullable)
+  - inventory : Edm.Decimal  (nullable)
+  - unitPrice : Edm.Decimal  (nullable)
+  - priceIncludesTax : Edm.Boolean  (nullable)
+  - unitCost : Edm.Decimal  (nullable)
+  - taxGroupId : Edm.Guid  (nullable)
+  - taxGroupCode : Edm.String  (nullable)
+  - baseUnitOfMeasureId : Edm.Guid  (nullable)
+  - baseUnitOfMeasureCode : Edm.String  (nullable)
+  - generalProductPostingGroupId : Edm.Guid  (nullable)
+  - generalProductPostingGroupCode : Edm.String  (nullable)
+  - inventoryPostingGroupId : Edm.Guid  (nullable)
+  - inventoryPostingGroupCode : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): inventoryPostingGroup
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - description : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): generalProductPostingGroup
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - description : Edm.String  (nullable)
+  - defaultVATProductPostingGroup : Edm.String  (nullable)
+  - autoInsertDefault : Edm.Boolean  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): unitOfMeasure
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - internationalStandardCode : Edm.String  (nullable)
+  - symbol : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): picture
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - parentType : Microsoft.NAV.pictureEntityParentType  (nullable)
+  - width : Edm.Int32  (nullable)
+  - height : Edm.Int32  (nullable)
+  - contentType : Edm.String  (nullable)
+  - pictureContent : Edm.Stream  (nullable)
+
+==================================================
+TABLE (EntityType): defaultDimension
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - parentType : Microsoft.NAV.defaultDimensionParentType  (nullable)
+  - parentId : Edm.Guid  (nullable)
+  - dimensionId : Edm.Guid  (nullable)
+  - dimensionCode : Edm.String  (NOT NULL)
+  - dimensionValueId : Edm.Guid  (nullable)
+  - dimensionValueCode : Edm.String  (nullable)
+  - postingValidation : Microsoft.NAV.defaultDimensionValuePostingType  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): itemVariant
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - itemId : Edm.Guid  (nullable)
+  - itemNumber : Edm.String  (nullable)
+  - code : Edm.String  (NOT NULL)
+  - description : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): documentAttachment
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - fileName : Edm.String  (nullable)
+  - byteSize : Edm.Int32  (nullable)
+  - attachmentContent : Edm.Stream  (nullable)
+  - parentType : Microsoft.NAV.attachmentEntityBufferDocumentType  (nullable)
+  - parentId : Edm.Guid  (NOT NULL)
+  - lineNumber : Edm.Int32  (nullable)
+  - documentFlowSales : Edm.Boolean  (nullable)
+  - documentFlowPurchase : Edm.Boolean  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): customer
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - displayName : Edm.String  (NOT NULL)
+  - type : Microsoft.NAV.contactType  (nullable)
+  - addressLine1 : Edm.String  (nullable)
+  - addressLine2 : Edm.String  (nullable)
+  - city : Edm.String  (nullable)
+  - state : Edm.String  (nullable)
+  - country : Edm.String  (nullable)
+  - postalCode : Edm.String  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+  - website : Edm.String  (nullable)
+  - salespersonCode : Edm.String  (nullable)
+  - balanceDue : Edm.Decimal  (nullable)
+  - creditLimit : Edm.Decimal  (nullable)
+  - taxLiable : Edm.Boolean  (nullable)
+  - taxAreaId : Edm.Guid  (nullable)
+  - taxAreaDisplayName : Edm.String  (nullable)
+  - taxRegistrationNumber : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - paymentTermsId : Edm.Guid  (nullable)
+  - shipmentMethodId : Edm.Guid  (nullable)
+  - paymentMethodId : Edm.Guid  (nullable)
+  - blocked : Microsoft.NAV.customerBlocked  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): customerFinancialDetail
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - balance : Edm.Decimal  (nullable)
+  - totalSalesExcludingTax : Edm.Decimal  (nullable)
+  - overdueAmount : Edm.Decimal  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): agedAccountsReceivable
+Columns:
+  - customerId : Edm.Guid  (NOT NULL)
+  - customerNumber : Edm.String  (nullable)
+  - name : Edm.String  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - balanceDue : Edm.Decimal  (nullable)
+  - currentAmount : Edm.Decimal  (nullable)
+  - period1Label : Edm.String  (nullable)
+  - period1Amount : Edm.Decimal  (nullable)
+  - period2Label : Edm.String  (nullable)
+  - period2Amount : Edm.Decimal  (nullable)
+  - period3Label : Edm.String  (nullable)
+  - period3Amount : Edm.Decimal  (nullable)
+  - agedAsOfDate : Edm.Date  (nullable)
+  - periodLengthFilter : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): contactInformation
+Columns:
+  - contactId : Edm.Guid  (NOT NULL)
+  - contactNumber : Edm.String  (NOT NULL)
+  - contactName : Edm.String  (nullable)
+  - contactType : Microsoft.NAV.contactType  (nullable)
+  - relatedId : Edm.Guid  (NOT NULL)
+  - relatedType : Microsoft.NAV.contactBusinessRelationLinkToTable  (NOT NULL)
+
+==================================================
+TABLE (EntityType): contact
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - type : Microsoft.NAV.contactType  (nullable)
+  - displayName : Edm.String  (NOT NULL)
+  - jobTitle : Edm.String  (NOT NULL)
+  - companyNumber : Edm.String  (nullable)
+  - companyName : Edm.String  (nullable)
+  - contactBusinessRelation : Microsoft.NAV.contactBusinessRelation  (nullable)
+  - addressLine1 : Edm.String  (nullable)
+  - addressLine2 : Edm.String  (nullable)
+  - city : Edm.String  (nullable)
+  - state : Edm.String  (nullable)
+  - country : Edm.String  (nullable)
+  - postalCode : Edm.String  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - mobilePhoneNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+  - website : Edm.String  (nullable)
+  - searchName : Edm.String  (nullable)
+  - privacyBlocked : Edm.Boolean  (nullable)
+  - taxRegistrationNumber : Edm.String  (nullable)
+  - lastInteractionDate : Edm.Date  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): vendor
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - displayName : Edm.String  (nullable)
+  - addressLine1 : Edm.String  (nullable)
+  - addressLine2 : Edm.String  (nullable)
+  - city : Edm.String  (nullable)
+  - state : Edm.String  (nullable)
+  - country : Edm.String  (nullable)
+  - postalCode : Edm.String  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+  - website : Edm.String  (nullable)
+  - taxRegistrationNumber : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - irs1099Code : Edm.String  (nullable)
+  - paymentTermsId : Edm.Guid  (nullable)
+  - paymentMethodId : Edm.Guid  (nullable)
+  - taxLiable : Edm.Boolean  (nullable)
+  - blocked : Microsoft.NAV.vendorBlocked  (nullable)
+  - balance : Edm.Decimal  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): agedAccountsPayable
+Columns:
+  - vendorId : Edm.Guid  (NOT NULL)
+  - vendorNumber : Edm.String  (nullable)
+  - name : Edm.String  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - balanceDue : Edm.Decimal  (nullable)
+  - currentAmount : Edm.Decimal  (nullable)
+  - period1Amount : Edm.Decimal  (nullable)
+  - period2Amount : Edm.Decimal  (nullable)
+  - period3Amount : Edm.Decimal  (nullable)
+  - agedAsOfDate : Edm.Date  (nullable)
+  - periodLengthFilter : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): companyInformation
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - addressLine1 : Edm.String  (nullable)
+  - addressLine2 : Edm.String  (nullable)
+  - city : Edm.String  (nullable)
+  - state : Edm.String  (nullable)
+  - country : Edm.String  (nullable)
+  - postalCode : Edm.String  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - faxNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+  - website : Edm.String  (nullable)
+  - taxRegistrationNumber : Edm.String  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - currentFiscalYearStartDate : Edm.Date  (nullable)
+  - industry : Edm.String  (nullable)
+  - picture : Edm.Stream  (nullable)
+  - experience : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): salesInvoice
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - externalDocumentNumber : Edm.String  (nullable)
+  - invoiceDate : Edm.Date  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - dueDate : Edm.Date  (nullable)
+  - promisedPayDate : Edm.Date  (nullable)
+  - customerPurchaseOrderReference : Edm.String  (nullable)
+  - customerId : Edm.Guid  (nullable)
+  - customerNumber : Edm.String  (NOT NULL)
+  - customerName : Edm.String  (nullable)
+  - billToName : Edm.String  (nullable)
+  - billToCustomerId : Edm.Guid  (nullable)
+  - billToCustomerNumber : Edm.String  (NOT NULL)
+  - shipToName : Edm.String  (nullable)
+  - shipToContact : Edm.String  (nullable)
+  - sellToAddressLine1 : Edm.String  (nullable)
+  - sellToAddressLine2 : Edm.String  (nullable)
+  - sellToCity : Edm.String  (nullable)
+  - sellToCountry : Edm.String  (nullable)
+  - sellToState : Edm.String  (nullable)
+  - sellToPostCode : Edm.String  (nullable)
+  - billToAddressLine1 : Edm.String  (nullable)
+  - billToAddressLine2 : Edm.String  (nullable)
+  - billToCity : Edm.String  (nullable)
+  - billToCountry : Edm.String  (nullable)
+  - billToState : Edm.String  (nullable)
+  - billToPostCode : Edm.String  (nullable)
+  - shipToAddressLine1 : Edm.String  (nullable)
+  - shipToAddressLine2 : Edm.String  (nullable)
+  - shipToCity : Edm.String  (nullable)
+  - shipToCountry : Edm.String  (nullable)
+  - shipToState : Edm.String  (nullable)
+  - shipToPostCode : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - shortcutDimension1Code : Edm.String  (nullable)
+  - shortcutDimension2Code : Edm.String  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - orderId : Edm.Guid  (nullable)
+  - orderNumber : Edm.String  (nullable)
+  - paymentTermsId : Edm.Guid  (nullable)
+  - shipmentMethodId : Edm.Guid  (nullable)
+  - salesperson : Edm.String  (nullable)
+  - disputeStatusId : Edm.Guid  (nullable)
+  - disputeStatus : Edm.String  (nullable)
+  - pricesIncludeTax : Edm.Boolean  (nullable)
+  - remainingAmount : Edm.Decimal  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - totalAmountExcludingTax : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - totalAmountIncludingTax : Edm.Decimal  (nullable)
+  - status : Microsoft.NAV.invoiceEntityAggregateStatus  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): dimensionSetLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - consolidationCode : Edm.String  (nullable)
+  - parentId : Edm.Guid  (nullable)
+  - parentType : Microsoft.NAV.dimensionSetEntryBufferParentType  (nullable)
+  - displayName : Edm.String  (nullable)
+  - valueId : Edm.Guid  (nullable)
+  - valueCode : Edm.String  (nullable)
+  - valueConsolidationCode : Edm.String  (nullable)
+  - valueDisplayName : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): salesInvoiceLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - documentId : Edm.Guid  (nullable)
+  - sequence : Edm.Int32  (nullable)
+  - itemId : Edm.Guid  (nullable)
+  - accountId : Edm.Guid  (nullable)
+  - lineType : Microsoft.NAV.invoiceLineAggLineType  (nullable)
+  - lineObjectNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - description2 : Edm.String  (nullable)
+  - unitOfMeasureId : Edm.Guid  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - unitPrice : Edm.Decimal  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - amountExcludingTax : Edm.Decimal  (nullable)
+  - taxCode : Edm.String  (nullable)
+  - taxPercent : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - amountIncludingTax : Edm.Decimal  (nullable)
+  - invoiceDiscountAllocation : Edm.Decimal  (nullable)
+  - netAmount : Edm.Decimal  (nullable)
+  - netTaxAmount : Edm.Decimal  (nullable)
+  - netAmountIncludingTax : Edm.Decimal  (nullable)
+  - shipmentDate : Edm.Date  (nullable)
+  - itemVariantId : Edm.Guid  (nullable)
+  - locationId : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): location
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - contact : Edm.String  (nullable)
+  - addressLine1 : Edm.String  (nullable)
+  - addressLine2 : Edm.String  (nullable)
+  - city : Edm.String  (nullable)
+  - state : Edm.String  (nullable)
+  - country : Edm.String  (nullable)
+  - postalCode : Edm.String  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+  - website : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): pdfDocument
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - parentId : Edm.Guid  (nullable)
+  - parentType : Microsoft.NAV.attachmentEntityBufferDocumentType  (nullable)
+  - pdfDocumentContent : Edm.Stream  (nullable)
+
+==================================================
+TABLE (EntityType): attachment
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - parentId : Edm.Guid  (nullable)
+  - fileName : Edm.String  (nullable)
+  - byteSize : Edm.Int32  (nullable)
+  - attachmentContent : Edm.Stream  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - parentType : Microsoft.NAV.attachmentEntityBufferDocumentType  (nullable)
+
+==================================================
+TABLE (EntityType): customerPaymentJournal
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - balancingAccountId : Edm.Guid  (nullable)
+  - balancingAccountNumber : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): customerPayment
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - journalId : Edm.Guid  (nullable)
+  - journalDisplayName : Edm.String  (nullable)
+  - lineNumber : Edm.Int32  (nullable)
+  - customerId : Edm.Guid  (nullable)
+  - customerNumber : Edm.String  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - documentNumber : Edm.String  (nullable)
+  - externalDocumentNumber : Edm.String  (nullable)
+  - amount : Edm.Decimal  (nullable)
+  - appliesToInvoiceId : Edm.Guid  (nullable)
+  - appliesToInvoiceNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - comment : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): account
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - category : Microsoft.NAV.glAccountCategory  (nullable)
+  - subCategory : Edm.String  (nullable)
+  - blocked : Edm.Boolean  (nullable)
+  - accountType : Microsoft.NAV.glAccountType  (nullable)
+  - directPosting : Edm.Boolean  (nullable)
+  - netChange : Edm.Decimal  (nullable)
+  - consolidationTranslationMethod : Edm.String  (nullable)
+  - consolidationDebitAccount : Edm.String  (nullable)
+  - consolidationCreditAccount : Edm.String  (nullable)
+  - excludeFromConsolidation : Edm.Boolean  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): taxGroup
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - taxType : Microsoft.NAV.taxBufferType  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): journal
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - templateDisplayName : Edm.String  (NOT NULL)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - balancingAccountId : Edm.Guid  (nullable)
+  - balancingAccountNumber : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): journalLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - journalId : Edm.Guid  (nullable)
+  - journalDisplayName : Edm.String  (nullable)
+  - lineNumber : Edm.Int32  (nullable)
+  - accountType : Microsoft.NAV.genJournalAccountType  (nullable)
+  - accountId : Edm.Guid  (nullable)
+  - accountNumber : Edm.String  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - documentNumber : Edm.String  (nullable)
+  - externalDocumentNumber : Edm.String  (nullable)
+  - amount : Edm.Decimal  (nullable)
+  - description : Edm.String  (nullable)
+  - comment : Edm.String  (nullable)
+  - taxCode : Edm.String  (nullable)
+  - balanceAccountType : Microsoft.NAV.genJournalAccountType  (nullable)
+  - balancingAccountId : Edm.Guid  (nullable)
+  - balancingAccountNumber : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): employee
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - displayName : Edm.String  (nullable)
+  - givenName : Edm.String  (nullable)
+  - middleName : Edm.String  (nullable)
+  - surname : Edm.String  (nullable)
+  - jobTitle : Edm.String  (nullable)
+  - addressLine1 : Edm.String  (nullable)
+  - addressLine2 : Edm.String  (nullable)
+  - city : Edm.String  (nullable)
+  - state : Edm.String  (nullable)
+  - country : Edm.String  (nullable)
+  - postalCode : Edm.String  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - mobilePhone : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+  - personalEmail : Edm.String  (nullable)
+  - employmentDate : Edm.Date  (nullable)
+  - terminationDate : Edm.Date  (nullable)
+  - status : Microsoft.NAV.employeeStatus  (nullable)
+  - birthDate : Edm.Date  (nullable)
+  - statisticsGroupCode : Edm.String  (nullable)
+  - bankBranchNumber : Edm.String  (nullable)
+  - bankAccountNumber : Edm.String  (nullable)
+  - iban : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): timeRegistrationEntry
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - employeeId : Edm.Guid  (NOT NULL)
+  - employeeNumber : Edm.String  (nullable)
+  - jobId : Edm.Guid  (nullable)
+  - jobNumber : Edm.String  (nullable)
+  - jobTaskNumber : Edm.String  (nullable)
+  - absence : Edm.String  (nullable)
+  - lineNumber : Edm.Int32  (nullable)
+  - date : Edm.Date  (NOT NULL)
+  - quantity : Edm.Decimal  (NOT NULL)
+  - status : Microsoft.NAV.employeeTimeRegStatus  (nullable)
+  - unitOfMeasureId : Edm.Guid  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - lastModfiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): generalLedgerEntry
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - entryNumber : Edm.Int32  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - documentNumber : Edm.String  (nullable)
+  - documentType : Microsoft.NAV.genJournalDocumentType  (nullable)
+  - accountId : Edm.Guid  (nullable)
+  - accountNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - debitAmount : Edm.Decimal  (nullable)
+  - creditAmount : Edm.Decimal  (nullable)
+  - additionalCurrencyDebitAmount : Edm.Decimal  (nullable)
+  - additionalCurrencyCreditAmount : Edm.Decimal  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): currency
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - symbol : Edm.String  (nullable)
+  - amountDecimalPlaces : Edm.String  (NOT NULL)
+  - amountRoundingPrecision : Edm.Decimal  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): paymentMethod
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): dimension
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - consolidationCode : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): dimensionValue
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - dimensionId : Edm.Guid  (nullable)
+  - displayName : Edm.String  (nullable)
+  - consolidationCode : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): paymentTerm
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - dueDateCalculation : Edm.String  (nullable)
+  - discountDateCalculation : Edm.String  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - calculateDiscountOnCreditMemos : Edm.Boolean  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): shipmentMethod
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): itemCategory
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): cashFlowStatement
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - lineNumber : Edm.Int32  (nullable)
+  - display : Edm.String  (nullable)
+  - netChange : Edm.Decimal  (nullable)
+  - lineType : Edm.String  (nullable)
+  - indentation : Edm.Int32  (nullable)
+  - dateFilter : Edm.Date  (nullable)
+
+==================================================
+TABLE (EntityType): countryRegion
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - addressFormat : Microsoft.NAV.countryRegionAddressFormat  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): salesOrder
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - externalDocumentNumber : Edm.String  (nullable)
+  - orderDate : Edm.Date  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - customerId : Edm.Guid  (nullable)
+  - customerNumber : Edm.String  (NOT NULL)
+  - customerName : Edm.String  (nullable)
+  - billToName : Edm.String  (nullable)
+  - billToCustomerId : Edm.Guid  (nullable)
+  - billToCustomerNumber : Edm.String  (NOT NULL)
+  - shipToName : Edm.String  (nullable)
+  - shipToContact : Edm.String  (nullable)
+  - sellToAddressLine1 : Edm.String  (nullable)
+  - sellToAddressLine2 : Edm.String  (nullable)
+  - sellToCity : Edm.String  (nullable)
+  - sellToCountry : Edm.String  (nullable)
+  - sellToState : Edm.String  (nullable)
+  - sellToPostCode : Edm.String  (nullable)
+  - billToAddressLine1 : Edm.String  (nullable)
+  - billToAddressLine2 : Edm.String  (nullable)
+  - billToCity : Edm.String  (nullable)
+  - billToCountry : Edm.String  (nullable)
+  - billToState : Edm.String  (nullable)
+  - billToPostCode : Edm.String  (nullable)
+  - shipToAddressLine1 : Edm.String  (nullable)
+  - shipToAddressLine2 : Edm.String  (nullable)
+  - shipToCity : Edm.String  (nullable)
+  - shipToCountry : Edm.String  (nullable)
+  - shipToState : Edm.String  (nullable)
+  - shipToPostCode : Edm.String  (nullable)
+  - shortcutDimension1Code : Edm.String  (nullable)
+  - shortcutDimension2Code : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - pricesIncludeTax : Edm.Boolean  (nullable)
+  - paymentTermsId : Edm.Guid  (nullable)
+  - shipmentMethodId : Edm.Guid  (nullable)
+  - salesperson : Edm.String  (nullable)
+  - partialShipping : Edm.Boolean  (nullable)
+  - requestedDeliveryDate : Edm.Date  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - totalAmountExcludingTax : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - totalAmountIncludingTax : Edm.Decimal  (nullable)
+  - fullyShipped : Edm.Boolean  (nullable)
+  - status : Microsoft.NAV.salesOrderEntityBufferStatus  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): salesOrderLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - documentId : Edm.Guid  (nullable)
+  - sequence : Edm.Int32  (nullable)
+  - itemId : Edm.Guid  (nullable)
+  - accountId : Edm.Guid  (nullable)
+  - lineType : Microsoft.NAV.invoiceLineAggLineType  (nullable)
+  - lineObjectNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - description2 : Edm.String  (nullable)
+  - unitOfMeasureId : Edm.Guid  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - unitPrice : Edm.Decimal  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - amountExcludingTax : Edm.Decimal  (nullable)
+  - taxCode : Edm.String  (nullable)
+  - taxPercent : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - amountIncludingTax : Edm.Decimal  (nullable)
+  - invoiceDiscountAllocation : Edm.Decimal  (nullable)
+  - netAmount : Edm.Decimal  (nullable)
+  - netTaxAmount : Edm.Decimal  (nullable)
+  - netAmountIncludingTax : Edm.Decimal  (nullable)
+  - shipmentDate : Edm.Date  (nullable)
+  - shippedQuantity : Edm.Decimal  (nullable)
+  - invoicedQuantity : Edm.Decimal  (nullable)
+  - invoiceQuantity : Edm.Decimal  (nullable)
+  - shipQuantity : Edm.Decimal  (nullable)
+  - itemVariantId : Edm.Guid  (nullable)
+  - locationId : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): retainedEarningsStatement
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - lineNumber : Edm.Int32  (nullable)
+  - display : Edm.String  (nullable)
+  - netChange : Edm.Decimal  (nullable)
+  - lineType : Edm.String  (nullable)
+  - indentation : Edm.Int32  (nullable)
+  - dateFilter : Edm.Date  (nullable)
+
+==================================================
+TABLE (EntityType): balanceSheet
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - lineNumber : Edm.Int32  (nullable)
+  - display : Edm.String  (nullable)
+  - balance : Edm.Decimal  (nullable)
+  - lineType : Edm.String  (nullable)
+  - indentation : Edm.Int32  (nullable)
+  - dateFilter : Edm.Date  (nullable)
+
+==================================================
+TABLE (EntityType): trialBalance
+Columns:
+  - accountId : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - accountType : Microsoft.NAV.glAccountType  (nullable)
+  - display : Edm.String  (nullable)
+  - totalDebit : Edm.String  (nullable)
+  - totalCredit : Edm.String  (nullable)
+  - balanceAtDateDebit : Edm.String  (nullable)
+  - balanceAtDateCredit : Edm.String  (nullable)
+  - dateFilter : Edm.Date  (nullable)
+
+==================================================
+TABLE (EntityType): incomeStatement
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - lineNumber : Edm.Int32  (nullable)
+  - display : Edm.String  (nullable)
+  - netChange : Edm.Decimal  (nullable)
+  - lineType : Edm.String  (nullable)
+  - indentation : Edm.Int32  (nullable)
+  - dateFilter : Edm.Date  (nullable)
+
+==================================================
+TABLE (EntityType): taxArea
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - taxType : Microsoft.NAV.taxBufferType  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): salesQuote
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - externalDocumentNumber : Edm.String  (nullable)
+  - documentDate : Edm.Date  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - dueDate : Edm.Date  (nullable)
+  - customerId : Edm.Guid  (nullable)
+  - customerNumber : Edm.String  (NOT NULL)
+  - customerName : Edm.String  (nullable)
+  - billToName : Edm.String  (nullable)
+  - billToCustomerId : Edm.Guid  (nullable)
+  - billToCustomerNumber : Edm.String  (NOT NULL)
+  - shipToName : Edm.String  (nullable)
+  - shipToContact : Edm.String  (nullable)
+  - sellToAddressLine1 : Edm.String  (nullable)
+  - sellToAddressLine2 : Edm.String  (nullable)
+  - sellToCity : Edm.String  (nullable)
+  - sellToCountry : Edm.String  (nullable)
+  - sellToState : Edm.String  (nullable)
+  - sellToPostCode : Edm.String  (nullable)
+  - billToAddressLine1 : Edm.String  (nullable)
+  - billToAddressLine2 : Edm.String  (nullable)
+  - billToCity : Edm.String  (nullable)
+  - billToCountry : Edm.String  (nullable)
+  - billToState : Edm.String  (nullable)
+  - billToPostCode : Edm.String  (nullable)
+  - shipToAddressLine1 : Edm.String  (nullable)
+  - shipToAddressLine2 : Edm.String  (nullable)
+  - shipToCity : Edm.String  (nullable)
+  - shipToCountry : Edm.String  (nullable)
+  - shipToState : Edm.String  (nullable)
+  - shipToPostCode : Edm.String  (nullable)
+  - shortcutDimension1Code : Edm.String  (nullable)
+  - shortcutDimension2Code : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - paymentTermsId : Edm.Guid  (nullable)
+  - shipmentMethodId : Edm.Guid  (nullable)
+  - salesperson : Edm.String  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - totalAmountExcludingTax : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - totalAmountIncludingTax : Edm.Decimal  (nullable)
+  - status : Microsoft.NAV.salesQuoteEntityBufferStatus  (nullable)
+  - sentDate : Edm.DateTimeOffset  (nullable)
+  - validUntilDate : Edm.Date  (nullable)
+  - acceptedDate : Edm.Date  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): salesQuoteLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - documentId : Edm.Guid  (nullable)
+  - sequence : Edm.Int32  (nullable)
+  - itemId : Edm.Guid  (nullable)
+  - accountId : Edm.Guid  (nullable)
+  - lineType : Microsoft.NAV.invoiceLineAggLineType  (nullable)
+  - lineObjectNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - description2 : Edm.String  (nullable)
+  - unitOfMeasureId : Edm.Guid  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - unitPrice : Edm.Decimal  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - amountExcludingTax : Edm.Decimal  (nullable)
+  - taxCode : Edm.String  (nullable)
+  - taxPercent : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - amountIncludingTax : Edm.Decimal  (nullable)
+  - netAmount : Edm.Decimal  (nullable)
+  - netTaxAmount : Edm.Decimal  (nullable)
+  - netAmountIncludingTax : Edm.Decimal  (nullable)
+  - itemVariantId : Edm.Guid  (nullable)
+  - locationId : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): salesCreditMemo
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - externalDocumentNumber : Edm.String  (nullable)
+  - creditMemoDate : Edm.Date  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - dueDate : Edm.Date  (nullable)
+  - customerId : Edm.Guid  (nullable)
+  - customerNumber : Edm.String  (NOT NULL)
+  - customerName : Edm.String  (nullable)
+  - billToName : Edm.String  (nullable)
+  - billToCustomerId : Edm.Guid  (nullable)
+  - billToCustomerNumber : Edm.String  (NOT NULL)
+  - sellToAddressLine1 : Edm.String  (nullable)
+  - sellToAddressLine2 : Edm.String  (nullable)
+  - sellToCity : Edm.String  (nullable)
+  - sellToCountry : Edm.String  (nullable)
+  - sellToState : Edm.String  (nullable)
+  - sellToPostCode : Edm.String  (nullable)
+  - billToAddressLine1 : Edm.String  (nullable)
+  - billToAddressLine2 : Edm.String  (nullable)
+  - billToCity : Edm.String  (nullable)
+  - billToCountry : Edm.String  (nullable)
+  - billToState : Edm.String  (nullable)
+  - billToPostCode : Edm.String  (nullable)
+  - shortcutDimension1Code : Edm.String  (nullable)
+  - shortcutDimension2Code : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - paymentTermsId : Edm.Guid  (nullable)
+  - shipmentMethodId : Edm.Guid  (nullable)
+  - salesperson : Edm.String  (nullable)
+  - pricesIncludeTax : Edm.Boolean  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - totalAmountExcludingTax : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - totalAmountIncludingTax : Edm.Decimal  (nullable)
+  - status : Microsoft.NAV.salesCrMemoEntityBufferStatus  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - invoiceId : Edm.Guid  (nullable)
+  - invoiceNumber : Edm.String  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+  - customerReturnReasonId : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): salesCreditMemoLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - documentId : Edm.Guid  (nullable)
+  - sequence : Edm.Int32  (nullable)
+  - itemId : Edm.Guid  (nullable)
+  - accountId : Edm.Guid  (nullable)
+  - lineType : Microsoft.NAV.invoiceLineAggLineType  (nullable)
+  - lineObjectNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - description2 : Edm.String  (nullable)
+  - unitOfMeasureId : Edm.Guid  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - unitPrice : Edm.Decimal  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - amountExcludingTax : Edm.Decimal  (nullable)
+  - taxCode : Edm.String  (nullable)
+  - taxPercent : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - amountIncludingTax : Edm.Decimal  (nullable)
+  - invoiceDiscountAllocation : Edm.Decimal  (nullable)
+  - netAmount : Edm.Decimal  (nullable)
+  - netTaxAmount : Edm.Decimal  (nullable)
+  - netAmountIncludingTax : Edm.Decimal  (nullable)
+  - shipmentDate : Edm.Date  (nullable)
+  - itemVariantId : Edm.Guid  (nullable)
+  - locationId : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): purchaseInvoice
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - invoiceDate : Edm.Date  (nullable)
+  - dueDate : Edm.Date  (nullable)
+  - vendorInvoiceNumber : Edm.String  (nullable)
+  - vendorId : Edm.Guid  (nullable)
+  - vendorNumber : Edm.String  (NOT NULL)
+  - vendorName : Edm.String  (nullable)
+  - payToName : Edm.String  (nullable)
+  - payToContact : Edm.String  (nullable)
+  - payToVendorId : Edm.Guid  (nullable)
+  - payToVendorNumber : Edm.String  (NOT NULL)
+  - shipToName : Edm.String  (nullable)
+  - shipToContact : Edm.String  (nullable)
+  - buyFromAddressLine1 : Edm.String  (nullable)
+  - buyFromAddressLine2 : Edm.String  (nullable)
+  - buyFromCity : Edm.String  (nullable)
+  - buyFromCountry : Edm.String  (nullable)
+  - buyFromState : Edm.String  (nullable)
+  - buyFromPostCode : Edm.String  (nullable)
+  - shipToAddressLine1 : Edm.String  (nullable)
+  - shipToAddressLine2 : Edm.String  (nullable)
+  - shipToCity : Edm.String  (nullable)
+  - shipToCountry : Edm.String  (nullable)
+  - shipToState : Edm.String  (nullable)
+  - shipToPostCode : Edm.String  (nullable)
+  - payToAddressLine1 : Edm.String  (nullable)
+  - payToAddressLine2 : Edm.String  (nullable)
+  - payToCity : Edm.String  (nullable)
+  - payToCountry : Edm.String  (nullable)
+  - payToState : Edm.String  (nullable)
+  - payToPostCode : Edm.String  (nullable)
+  - shortcutDimension1Code : Edm.String  (nullable)
+  - shortcutDimension2Code : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - orderId : Edm.Guid  (nullable)
+  - orderNumber : Edm.String  (nullable)
+  - purchaser : Edm.String  (nullable)
+  - pricesIncludeTax : Edm.Boolean  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - totalAmountExcludingTax : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - totalAmountIncludingTax : Edm.Decimal  (nullable)
+  - status : Microsoft.NAV.invoiceEntityAggregateStatus  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): purchaseInvoiceLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - documentId : Edm.Guid  (nullable)
+  - sequence : Edm.Int32  (nullable)
+  - itemId : Edm.Guid  (nullable)
+  - accountId : Edm.Guid  (nullable)
+  - lineType : Microsoft.NAV.invoiceLineAggLineType  (nullable)
+  - lineObjectNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - description2 : Edm.String  (nullable)
+  - unitOfMeasureId : Edm.Guid  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - unitCost : Edm.Decimal  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - amountExcludingTax : Edm.Decimal  (nullable)
+  - taxCode : Edm.String  (nullable)
+  - taxPercent : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - amountIncludingTax : Edm.Decimal  (nullable)
+  - invoiceDiscountAllocation : Edm.Decimal  (nullable)
+  - netAmount : Edm.Decimal  (nullable)
+  - netTaxAmount : Edm.Decimal  (nullable)
+  - netAmountIncludingTax : Edm.Decimal  (nullable)
+  - expectedReceiptDate : Edm.Date  (nullable)
+  - itemVariantId : Edm.Guid  (nullable)
+  - locationId : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): project
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - displayName : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): bankAccount
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - displayName : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - bankAccountNumber : Edm.String  (nullable)
+  - blocked : Edm.Boolean  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - iban : Edm.String  (nullable)
+  - intercompanyEnabled : Edm.Boolean  (nullable)
+
+==================================================
+TABLE (EntityType): vendorPayment
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - journalId : Edm.Guid  (nullable)
+  - journalDisplayName : Edm.String  (nullable)
+  - lineNumber : Edm.Int32  (nullable)
+  - vendorId : Edm.Guid  (nullable)
+  - vendorNumber : Edm.String  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - documentNumber : Edm.String  (nullable)
+  - externalDocumentNumber : Edm.String  (nullable)
+  - amount : Edm.Decimal  (nullable)
+  - appliesToInvoiceId : Edm.Guid  (nullable)
+  - appliesToInvoiceNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - comment : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): applyVendorEntry
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - applied : Edm.Boolean  (nullable)
+  - appliesToId : Edm.String  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - documentType : Microsoft.NAV.genJournalDocumentType  (nullable)
+  - documentNumber : Edm.String  (nullable)
+  - externalDocumentNumber : Edm.String  (nullable)
+  - vendorNumber : Edm.String  (nullable)
+  - vendorName : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - remainingAmount : Edm.Decimal  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): vendorPaymentJournal
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - balancingAccountId : Edm.Guid  (nullable)
+  - balancingAccountNumber : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): salesShipment
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - externalDocumentNumber : Edm.String  (nullable)
+  - invoiceDate : Edm.Date  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - dueDate : Edm.Date  (nullable)
+  - customerPurchaseOrderReference : Edm.String  (nullable)
+  - customerId : Edm.Guid  (nullable)
+  - customerNumber : Edm.String  (NOT NULL)
+  - customerName : Edm.String  (nullable)
+  - billToCustomerId : Edm.Guid  (nullable)
+  - billToName : Edm.String  (nullable)
+  - billToCustomerNumber : Edm.String  (NOT NULL)
+  - shipToName : Edm.String  (nullable)
+  - shipToContact : Edm.String  (nullable)
+  - sellToAddressLine1 : Edm.String  (nullable)
+  - sellToAddressLine2 : Edm.String  (nullable)
+  - sellToCity : Edm.String  (nullable)
+  - sellToCountry : Edm.String  (nullable)
+  - sellToState : Edm.String  (nullable)
+  - sellToPostCode : Edm.String  (nullable)
+  - billToAddressLine1 : Edm.String  (nullable)
+  - billToAddressLine2 : Edm.String  (nullable)
+  - billToCity : Edm.String  (nullable)
+  - billToCountry : Edm.String  (nullable)
+  - billToState : Edm.String  (nullable)
+  - billToPostCode : Edm.String  (nullable)
+  - shipToAddressLine1 : Edm.String  (nullable)
+  - shipToAddressLine2 : Edm.String  (nullable)
+  - shipToCity : Edm.String  (nullable)
+  - shipToCountry : Edm.String  (nullable)
+  - shipToState : Edm.String  (nullable)
+  - shipToPostCode : Edm.String  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - orderNumber : Edm.String  (nullable)
+  - paymentTermsCode : Edm.String  (nullable)
+  - shipmentMethodCode : Edm.String  (nullable)
+  - salesperson : Edm.String  (nullable)
+  - pricesIncludeTax : Edm.Boolean  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - phoneNumber : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): salesShipmentLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - documentId : Edm.Guid  (nullable)
+  - documentNo : Edm.String  (nullable)
+  - sequence : Edm.Int32  (nullable)
+  - lineType : Microsoft.NAV.salesLineType  (nullable)
+  - lineObjectNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - description2 : Edm.String  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - unitPrice : Edm.Decimal  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - taxPercent : Edm.Decimal  (nullable)
+  - shipmentDate : Edm.Date  (nullable)
+
+==================================================
+TABLE (EntityType): purchaseReceipt
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - invoiceDate : Edm.Date  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - dueDate : Edm.Date  (nullable)
+  - vendorNumber : Edm.String  (NOT NULL)
+  - vendorName : Edm.String  (nullable)
+  - payToName : Edm.String  (nullable)
+  - payToContact : Edm.String  (nullable)
+  - payToVendorNumber : Edm.String  (NOT NULL)
+  - shipToName : Edm.String  (nullable)
+  - shipToContact : Edm.String  (nullable)
+  - buyFromAddressLine1 : Edm.String  (nullable)
+  - buyFromAddressLine2 : Edm.String  (nullable)
+  - buyFromCity : Edm.String  (nullable)
+  - buyFromCountry : Edm.String  (nullable)
+  - buyFromState : Edm.String  (nullable)
+  - buyFromPostCode : Edm.String  (nullable)
+  - shipToAddressLine1 : Edm.String  (nullable)
+  - shipToAddressLine2 : Edm.String  (nullable)
+  - shipToCity : Edm.String  (nullable)
+  - shipToCountry : Edm.String  (nullable)
+  - shipToState : Edm.String  (nullable)
+  - shipToPostCode : Edm.String  (nullable)
+  - payToAddressLine1 : Edm.String  (nullable)
+  - payToAddressLine2 : Edm.String  (nullable)
+  - payToCity : Edm.String  (nullable)
+  - payToCountry : Edm.String  (nullable)
+  - payToState : Edm.String  (nullable)
+  - payToPostCode : Edm.String  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - orderNumber : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): purchaseReceiptLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - documentId : Edm.Guid  (nullable)
+  - sequence : Edm.Int32  (nullable)
+  - lineType : Microsoft.NAV.purchaseLineType  (nullable)
+  - lineObjectNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - description2 : Edm.String  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - unitCost : Edm.Decimal  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - taxPercent : Edm.Decimal  (nullable)
+  - expectedReceiptDate : Edm.Date  (nullable)
+
+==================================================
+TABLE (EntityType): purchaseOrder
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - orderDate : Edm.Date  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - vendorId : Edm.Guid  (nullable)
+  - vendorNumber : Edm.String  (NOT NULL)
+  - vendorName : Edm.String  (nullable)
+  - payToName : Edm.String  (nullable)
+  - payToVendorId : Edm.Guid  (nullable)
+  - payToVendorNumber : Edm.String  (NOT NULL)
+  - shipToName : Edm.String  (nullable)
+  - shipToContact : Edm.String  (nullable)
+  - buyFromAddressLine1 : Edm.String  (nullable)
+  - buyFromAddressLine2 : Edm.String  (nullable)
+  - buyFromCity : Edm.String  (nullable)
+  - buyFromCountry : Edm.String  (nullable)
+  - buyFromState : Edm.String  (nullable)
+  - buyFromPostCode : Edm.String  (nullable)
+  - payToAddressLine1 : Edm.String  (nullable)
+  - payToAddressLine2 : Edm.String  (nullable)
+  - payToCity : Edm.String  (nullable)
+  - payToCountry : Edm.String  (nullable)
+  - payToState : Edm.String  (nullable)
+  - payToPostCode : Edm.String  (nullable)
+  - shipToAddressLine1 : Edm.String  (nullable)
+  - shipToAddressLine2 : Edm.String  (nullable)
+  - shipToCity : Edm.String  (nullable)
+  - shipToCountry : Edm.String  (nullable)
+  - shipToState : Edm.String  (nullable)
+  - shipToPostCode : Edm.String  (nullable)
+  - shortcutDimension1Code : Edm.String  (nullable)
+  - shortcutDimension2Code : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - pricesIncludeTax : Edm.Boolean  (nullable)
+  - paymentTermsId : Edm.Guid  (nullable)
+  - shipmentMethodId : Edm.Guid  (nullable)
+  - purchaser : Edm.String  (nullable)
+  - requestedReceiptDate : Edm.Date  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - totalAmountExcludingTax : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - totalAmountIncludingTax : Edm.Decimal  (nullable)
+  - fullyReceived : Edm.Boolean  (nullable)
+  - status : Microsoft.NAV.purchaseOrderEntityBufferStatus  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): purchaseOrderLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - documentId : Edm.Guid  (nullable)
+  - sequence : Edm.Int32  (nullable)
+  - itemId : Edm.Guid  (nullable)
+  - accountId : Edm.Guid  (nullable)
+  - lineType : Microsoft.NAV.invoiceLineAggLineType  (nullable)
+  - lineObjectNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - description2 : Edm.String  (nullable)
+  - unitOfMeasureId : Edm.Guid  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - directUnitCost : Edm.Decimal  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - amountExcludingTax : Edm.Decimal  (nullable)
+  - taxCode : Edm.String  (nullable)
+  - taxPercent : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - amountIncludingTax : Edm.Decimal  (nullable)
+  - invoiceDiscountAllocation : Edm.Decimal  (nullable)
+  - netAmount : Edm.Decimal  (nullable)
+  - netTaxAmount : Edm.Decimal  (nullable)
+  - netAmountIncludingTax : Edm.Decimal  (nullable)
+  - expectedReceiptDate : Edm.Date  (nullable)
+  - receivedQuantity : Edm.Decimal  (nullable)
+  - invoicedQuantity : Edm.Decimal  (nullable)
+  - invoiceQuantity : Edm.Decimal  (nullable)
+  - receiveQuantity : Edm.Decimal  (nullable)
+  - itemVariantId : Edm.Guid  (nullable)
+  - locationId : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): itemLedgerEntry
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - entryNumber : Edm.Int32  (nullable)
+  - itemNumber : Edm.String  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - entryType : Microsoft.NAV.itemLedgerEntryType  (nullable)
+  - sourceNumber : Edm.String  (nullable)
+  - sourceType : Microsoft.NAV.analysisSourceType  (nullable)
+  - documentNumber : Edm.String  (nullable)
+  - documentType : Microsoft.NAV.itemLedgerDocumentType  (nullable)
+  - description : Edm.String  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - salesAmountActual : Edm.Decimal  (nullable)
+  - costAmountActual : Edm.Decimal  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): opportunity
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - contactNumber : Edm.String  (nullable)
+  - contactName : Edm.String  (nullable)
+  - contactCompanyName : Edm.String  (nullable)
+  - salespersonCode : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - status : Microsoft.NAV.opportunityStatus  (nullable)
+  - closed : Edm.Boolean  (nullable)
+  - creationDate : Edm.Date  (nullable)
+  - dateClosed : Edm.Date  (nullable)
+  - calculatedCurrentValue : Edm.Decimal  (nullable)
+  - chancesOfSuccessPrc : Edm.Decimal  (nullable)
+  - completedPrc : Edm.Decimal  (nullable)
+  - estimatedClosingDate : Edm.Date  (nullable)
+  - estimatedValue : Edm.Decimal  (nullable)
+  - systemCreatedAt : Edm.DateTimeOffset  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): salespersonPurchaser
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - email : Edm.String  (nullable)
+  - email2 : Edm.String  (nullable)
+  - phoneNo : Edm.String  (nullable)
+  - jobTitle : Edm.String  (nullable)
+  - commisionPercent : Edm.Decimal  (nullable)
+  - privacyBlocked : Edm.Boolean  (nullable)
+  - blocked : Edm.Boolean  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): customerReturnReason
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - description : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): purchaseCreditMemo
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - creditMemoDate : Edm.Date  (nullable)
+  - postingDate : Edm.Date  (nullable)
+  - dueDate : Edm.Date  (nullable)
+  - vendorId : Edm.Guid  (nullable)
+  - vendorNumber : Edm.String  (NOT NULL)
+  - vendorName : Edm.String  (nullable)
+  - vendorCreditMemoNumber : Edm.String  (nullable)
+  - payToVendorId : Edm.Guid  (nullable)
+  - payToVendorNumber : Edm.String  (NOT NULL)
+  - payToName : Edm.String  (nullable)
+  - buyFromAddressLine1 : Edm.String  (nullable)
+  - buyFromAddressLine2 : Edm.String  (nullable)
+  - buyFromCity : Edm.String  (nullable)
+  - buyFromCountry : Edm.String  (nullable)
+  - buyFromState : Edm.String  (nullable)
+  - buyFromPostCode : Edm.String  (nullable)
+  - payToAddressLine1 : Edm.String  (nullable)
+  - payToAddressLine2 : Edm.String  (nullable)
+  - payToCity : Edm.String  (nullable)
+  - payToCountry : Edm.String  (nullable)
+  - payToState : Edm.String  (nullable)
+  - payToPostCode : Edm.String  (nullable)
+  - shortcutDimension1Code : Edm.String  (nullable)
+  - shortcutDimension2Code : Edm.String  (nullable)
+  - currencyId : Edm.Guid  (nullable)
+  - currencyCode : Edm.String  (nullable)
+  - paymentTermsId : Edm.Guid  (nullable)
+  - shipmentMethodId : Edm.Guid  (nullable)
+  - purchaser : Edm.String  (nullable)
+  - pricesIncludeTax : Edm.Boolean  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - totalAmountExcludingTax : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - totalAmountIncludingTax : Edm.Decimal  (nullable)
+  - status : Microsoft.NAV.purchCrMemoEntityStatus  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - invoiceId : Edm.Guid  (nullable)
+  - invoiceNumber : Edm.String  (nullable)
+  - vendorReturnReasonId : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): purchaseCreditMemoLine
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - documentId : Edm.Guid  (nullable)
+  - sequence : Edm.Int32  (nullable)
+  - itemId : Edm.Guid  (nullable)
+  - accountId : Edm.Guid  (nullable)
+  - lineType : Microsoft.NAV.invoiceLineAggLineType  (nullable)
+  - lineObjectNumber : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - unitOfMeasureId : Edm.Guid  (nullable)
+  - unitOfMeasureCode : Edm.String  (nullable)
+  - unitCost : Edm.Decimal  (nullable)
+  - quantity : Edm.Decimal  (nullable)
+  - discountAmount : Edm.Decimal  (nullable)
+  - discountPercent : Edm.Decimal  (nullable)
+  - discountAppliedBeforeTax : Edm.Boolean  (nullable)
+  - amountExcludingTax : Edm.Decimal  (nullable)
+  - taxCode : Edm.String  (nullable)
+  - taxPercent : Edm.Decimal  (nullable)
+  - totalTaxAmount : Edm.Decimal  (nullable)
+  - amountIncludingTax : Edm.Decimal  (nullable)
+  - invoiceDiscountAllocation : Edm.Decimal  (nullable)
+  - netAmount : Edm.Decimal  (nullable)
+  - netTaxAmount : Edm.Decimal  (nullable)
+  - netAmountIncludingTax : Edm.Decimal  (nullable)
+  - itemVariantId : Edm.Guid  (nullable)
+  - locationId : Edm.Guid  (nullable)
+
+==================================================
+TABLE (EntityType): currencyExchangeRate
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - currencyCode : Edm.String  (NOT NULL)
+  - startingDate : Edm.Date  (NOT NULL)
+  - exchangeRateAmount : Edm.Decimal  (nullable)
+  - relationalCurrencyCode : Edm.String  (nullable)
+  - relationalExchangeRateAmount : Edm.Decimal  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): accountingPeriod
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - startingDate : Edm.Date  (NOT NULL)
+  - name : Edm.String  (nullable)
+  - newFiscalYear : Edm.Boolean  (nullable)
+  - closed : Edm.Boolean  (nullable)
+  - dateLocked : Edm.Boolean  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): generalLedgerSetup
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - allowPostingFrom : Edm.Date  (nullable)
+  - allowPostingTo : Edm.Date  (nullable)
+  - additionalReportingCurrency : Edm.String  (nullable)
+  - localCurrencyCode : Edm.String  (nullable)
+  - localCurrencySymbol : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+  - allowQueryFromConsolidation : Edm.Boolean  (nullable)
+  - shortcutDimension1Code : Edm.String  (nullable)
+  - shortcutDimension2Code : Edm.String  (nullable)
+  - shortcutDimension3Code : Edm.String  (nullable)
+  - shortcutDimension4Code : Edm.String  (nullable)
+  - shortcutDimension5Code : Edm.String  (nullable)
+  - shortcutDimension6Code : Edm.String  (nullable)
+  - shortcutDimension7Code : Edm.String  (nullable)
+  - shortcutDimension8Code : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): disputeStatus
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): customerContact
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - email : Edm.String  (nullable)
+  - firstName : Edm.String  (nullable)
+  - lastName : Edm.String  (nullable)
+  - professionalTitle : Edm.String  (nullable)
+  - customerId : Edm.Guid  (nullable)
+  - customerName : Edm.String  (nullable)
+  - primaryPhoneNumber : Edm.String  (nullable)
+
+==================================================
+TABLE (EntityType): jobQueueLogEntry
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - jobQueueEntryId : Edm.Guid  (nullable)
+  - userId : Edm.String  (nullable)
+  - startDateTime : Edm.DateTimeOffset  (nullable)
+  - endDateTime : Edm.DateTimeOffset  (nullable)
+  - objectIdToRun : Edm.Int32  (nullable)
+  - objectTypeToRun : Edm.String  (nullable)
+  - status : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - errorMessage : Edm.String  (nullable)
+  - jobQueueCategoryCode : Edm.String  (nullable)
+  - errorCallStack : Edm.Stream  (nullable)
+  - parameterString : Edm.String  (nullable)
+  - systemTaskId : Edm.Guid  (nullable)
+  - userSessionId : Edm.Int32  (nullable)
+  - userServiceInstanceId : Edm.Int32  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): jobQueueEntry
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - jobQueueEntryId : Edm.Guid  (nullable)
+  - userId : Edm.String  (nullable)
+  - lastReadyState : Edm.DateTimeOffset  (nullable)
+  - expirationDateTime : Edm.DateTimeOffset  (nullable)
+  - earliestStartDateTime : Edm.DateTimeOffset  (nullable)
+  - objectTypeToRun : Edm.String  (nullable)
+  - objectIdToRun : Edm.Int32  (nullable)
+  - objectCaptionToRun : Edm.String  (nullable)
+  - reportOutputType : Microsoft.NAV.jobQueueReportOutputType  (nullable)
+  - maxNumberAttemptsToRun : Edm.Int32  (nullable)
+  - numberOfAttemptsToRun : Edm.Int32  (nullable)
+  - status : Edm.String  (nullable)
+  - recordIdToProcess : Edm.String  (nullable)
+  - parameterString : Edm.String  (nullable)
+  - recurringJob : Edm.Boolean  (nullable)
+  - numberOfMinutesBetweenRuns : Edm.Int32  (nullable)
+  - runOnMonday : Edm.Boolean  (nullable)
+  - runOnTuesday : Edm.Boolean  (nullable)
+  - runOnWednesday : Edm.Boolean  (nullable)
+  - runOnThursday : Edm.Boolean  (nullable)
+  - runOnFridays : Edm.Boolean  (nullable)
+  - runOnSaturdays : Edm.Boolean  (nullable)
+  - runOnSundays : Edm.Boolean  (nullable)
+  - startingTime : Edm.String  (nullable)
+  - endingTime : Edm.String  (nullable)
+  - referenceStartingTime : Edm.DateTimeOffset  (nullable)
+  - nextRunDateFormula : Edm.String  (nullable)
+  - description : Edm.String  (nullable)
+  - runInUserSession : Edm.Boolean  (nullable)
+  - userSessionId : Edm.Int32  (nullable)
+  - jobQueueCategoryCode : Edm.String  (nullable)
+  - errorMessage : Edm.String  (nullable)
+  - userServiceInstanceId : Edm.Int32  (nullable)
+  - userSessionStarted : Edm.DateTimeOffset  (nullable)
+  - notifyOnSuccess : Edm.Boolean  (nullable)
+  - userLanguageId : Edm.Int32  (nullable)
+  - printerName : Edm.String  (nullable)
+  - reportRequestPageOptions : Edm.Boolean  (nullable)
+  - rerunDelay : Edm.Int32  (nullable)
+  - systemTaskId : Edm.Guid  (nullable)
+  - scheduled : Edm.Boolean  (nullable)
+  - manualRecurrence : Edm.Boolean  (nullable)
+  - jobTimeOut : Edm.String  (nullable)
+  - priorityWithinCategory : Microsoft.NAV.jobQueuePriority  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): fixedAssetLocation
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - code : Edm.String  (NOT NULL)
+  - displayName : Edm.String  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): fixedAsset
+Columns:
+  - id : Edm.Guid  (NOT NULL)
+  - number : Edm.String  (nullable)
+  - displayName : Edm.String  (nullable)
+  - fixedAssetLocationCode : Edm.String  (nullable)
+  - fixedAssetLocationId : Edm.Guid  (nullable)
+  - classCode : Edm.String  (nullable)
+  - subclassCode : Edm.String  (nullable)
+  - blocked : Edm.Boolean  (nullable)
+  - serialNumber : Edm.String  (nullable)
+  - employeeNumber : Edm.String  (nullable)
+  - employeeId : Edm.Guid  (nullable)
+  - underMaintenance : Edm.Boolean  (nullable)
+  - lastModifiedDateTime : Edm.DateTimeOffset  (nullable)
+
+==================================================
+TABLE (EntityType): customerSale
+Columns:
+  - customerId : Edm.Guid  (NOT NULL)
+  - customerNumber : Edm.String  (NOT NULL)
+  - name : Edm.String  (NOT NULL)
+  - totalSalesAmount : Edm.Decimal  (nullable)
+  - dateFilter_FilterOnly : Edm.Date  (nullable)
+
+==================================================
+TABLE (EntityType): vendorPurchase
+Columns:
+  - vendorId : Edm.Guid  (NOT NULL)
+  - vendorNumber : Edm.String  (NOT NULL)
+  - name : Edm.String  (NOT NULL)
+  - totalPurchaseAmount : Edm.Decimal  (nullable)
+  - dateFilter_FilterOnly : Edm.Date  (nullable)
+
+Total tables (entity types): 87

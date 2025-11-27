@@ -1,85 +1,163 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+// src/components/dashboard/VendorChart.tsx
+import { useMemo } from "react";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Cell,
+} from "recharts";
 import { TopVendor } from "@/types/dashboard";
 import { formatCurrency } from "@/utils/format";
-import { motion } from "framer-motion";
 
 interface VendorChartProps {
   vendors: TopVendor[];
   onVendorClick?: (vendor: TopVendor) => void;
 }
 
-export function VendorChart({ vendors, onVendorClick }: VendorChartProps) {
-  const chartData = vendors.slice(0, 8).map((vendor) => ({
-    name: vendor.vendorName.length > 25 
-      ? vendor.vendorName.substring(0, 25) + "..." 
-      : vendor.vendorName,
-    value: vendor.totalPurchases,
-    vendor,
-  }));
+const MAX_VENDORS = 10;
 
-  const colors = [
-    "hsl(var(--chart-1))",
-    "hsl(var(--chart-2))",
-    "hsl(var(--chart-3))",
-    "hsl(var(--chart-4))",
-    "hsl(var(--chart-5))",
-    "hsl(var(--primary))",
-    "hsl(var(--accent))",
-    "hsl(var(--info))",
-  ];
+const BAR_COLORS = [
+  "hsl(var(--primary))",
+  "hsl(var(--success))",
+  "hsl(var(--accent))",
+  "hsl(var(--info))",
+  "hsl(var(--warning))",
+];
+
+export const VendorChart: React.FC<VendorChartProps> = ({
+  vendors,
+  onVendorClick,
+}) => {
+  const data = useMemo(() => {
+    const sorted = [...vendors]
+      .sort((a, b) => b.totalPurchases - a.totalPurchases)
+      .slice(0, MAX_VENDORS);
+
+    return sorted.map((v) => ({
+      ...v,
+      purchasesCr: v.totalPurchases / 10_000_000, // ₹ Cr
+    }));
+  }, [vendors]);
+
+  const totalOfShown = useMemo(
+    () => data.reduce((sum, d) => sum + d.totalPurchases, 0),
+    [data]
+  );
+
+  const maxCr = data.length ? Math.max(...data.map((d) => d.purchasesCr)) : 0;
+
+  const domainMax = maxCr === 0 ? 1 : Math.ceil(maxCr * 1.1 * 10) / 10;
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="w-full h-[400px]"
-    >
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={chartData}
-          layout="horizontal"
-          margin={{ top: 20, right: 30, left: 120, bottom: 20 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-          <XAxis
-            type="number"
-            stroke="hsl(var(--muted-foreground))"
-            tick={{ fill: "hsl(var(--foreground))", fontSize: 12 }}
-            tickFormatter={(value) => formatCurrency(value)}
-          />
-          <YAxis
-            type="category"
-            dataKey="name"
-            stroke="hsl(var(--muted-foreground))"
-            tick={{ fill: "hsl(var(--foreground))", fontSize: 11 }}
-            width={110}
-          />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: "hsl(var(--card))",
-              border: "1px solid hsl(var(--border))",
-              borderRadius: "8px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-            }}
-            formatter={(value: number) => [formatCurrency(value), "Total Purchases"]}
-          />
-          <Bar
-            dataKey="value"
-            radius={[0, 4, 4, 0]}
-            cursor="pointer"
-            onClick={(data) => onVendorClick?.(data.vendor)}
+    <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-border shadow-sm p-4 h-[360px] flex flex-col">
+      <div className="flex items-baseline justify-between mb-2">
+        <div>
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+            Top Vendors (YTD)
+          </p>
+          <p className="text-[11px] text-muted-foreground">Values in ₹ Cr</p>
+        </div>
+        {data.length > 0 && (
+          <p className="text-xs text-muted-foreground">
+            Shown total:&nbsp;
+            <span className="font-medium">{formatCurrency(totalOfShown)}</span>
+          </p>
+        )}
+      </div>
+
+      <div className="flex-1">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            data={data}
+            layout="vertical"
+            margin={{ top: 8, right: 16, left: 0, bottom: 8 }}
           >
-            {chartData.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={colors[index % colors.length]}
-                className="hover:opacity-80 transition-opacity"
-              />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </motion.div>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              horizontal={false}
+              stroke="hsl(var(--border))"
+            />
+            <XAxis
+              type="number"
+              domain={[0, domainMax]}
+              tickFormatter={(v) => `${v.toFixed(1)} Cr`}
+              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+              axisLine={{ stroke: "hsl(var(--border))" }}
+              tickLine={false}
+            />
+            <YAxis
+              dataKey="vendorName"
+              type="category"
+              width={250}
+              tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }}
+              tickLine={false}
+              axisLine={false}
+            />
+            <Tooltip
+              cursor={{ fill: "hsl(var(--muted) / 0.25)" }}
+              content={({ active, payload }) => {
+                if (!active || !payload?.length) return null;
+                const item = payload[0].payload as any;
+
+                return (
+                  <div className="rounded-md border bg-popover px-3 py-2 text-xs shadow-md space-y-1">
+                    <div className="font-medium text-foreground">
+                      {item.vendorName}
+                    </div>
+                    <div className="flex justify-between gap-6">
+                      <span className="text-muted-foreground">
+                        Purchases (YTD)
+                      </span>
+                      <span className="font-semibold">
+                        {formatCurrency(item.totalPurchases)}
+                      </span>
+                    </div>
+                    {totalOfShown > 0 && (
+                      <div className="flex justify-between gap-6">
+                        <span className="text-muted-foreground">
+                          Share of top list
+                        </span>
+                        <span>
+                          {((item.totalPurchases / totalOfShown) * 100).toFixed(
+                            1
+                          )}
+                          %
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                );
+              }}
+            />
+            <Bar
+              dataKey="purchasesCr"
+              radius={[4, 4, 4, 4]}
+              onClick={
+                onVendorClick
+                  ? (entry) =>
+                      onVendorClick({
+                        vendorNumber: (entry as any).vendorNumber,
+                        vendorName: (entry as any).vendorName,
+                        totalPurchases: (entry as any).totalPurchases,
+                      })
+                  : undefined
+              }
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  key={entry.vendorNumber}
+                  fill={BAR_COLORS[index] ?? "hsl(var(--primary))"}
+                  className={onVendorClick ? "cursor-pointer" : undefined}
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
-}
+};

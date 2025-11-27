@@ -1,94 +1,158 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+// src/components/dashboard/TopCustomersChart.tsx
+import { useMemo } from "react";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Cell,
+} from "recharts";
 import { TopCustomer } from "@/types/dashboard";
 import { formatCurrency } from "@/utils/format";
-import { motion } from "framer-motion";
 
 interface TopCustomersChartProps {
   customers: TopCustomer[];
   onCustomerClick?: (customer: TopCustomer) => void;
 }
 
-export function TopCustomersChart({ customers, onCustomerClick }: TopCustomersChartProps) {
-  const chartData = customers.slice(0, 10).map((customer) => ({
-    name: customer.customerName.length > 20 
-      ? customer.customerName.substring(0, 20) + "..." 
-      : customer.customerName,
-    value: customer.totalSales,
-    customer,
-  }));
+const MAX_CUSTOMERS = 10;
 
-  const maxValue = Math.max(...chartData.map((d) => d.value));
+const BAR_COLORS = [
+  "hsl(var(--primary))",
+  "hsl(var(--success))",
+  "hsl(var(--accent))",
+  "hsl(var(--info))",
+  "hsl(var(--warning))",
+];
 
-  const colors = [
-    "hsl(180, 100%, 50%)",
-    "hsl(180, 100%, 60%)",
-    "hsl(200, 100%, 55%)",
-    "hsl(210, 100%, 60%)",
-    "hsl(220, 100%, 65%)",
-    "hsl(240, 100%, 65%)",
-    "hsl(260, 100%, 65%)",
-    "hsl(280, 100%, 60%)",
-    "hsl(300, 100%, 60%)",
-    "hsl(320, 100%, 60%)",
-  ];
+export const TopCustomersChart: React.FC<TopCustomersChartProps> = ({
+  customers,
+  onCustomerClick,
+}) => {
+  const data = useMemo(() => {
+    const sorted = [...customers]
+      .sort((a, b) => b.totalSales - a.totalSales)
+      .slice(0, MAX_CUSTOMERS);
+
+    return sorted.map((c) => ({
+      ...c,
+      salesCr: c.totalSales / 10_000_000, // convert to Cr
+    }));
+  }, [customers]);
+
+  const totalOfShown = useMemo(
+    () => data.reduce((sum, d) => sum + d.totalSales, 0),
+    [data]
+  );
+
+  const maxCr = data.length ? Math.max(...data.map((d) => d.salesCr)) : 0;
+
+  const domainMax = maxCr === 0 ? 1 : Math.ceil(maxCr * 1.1 * 10) / 10; // 10% headroom, 0.1 step
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="w-full h-[400px]"
-    >
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={chartData}
-          layout="horizontal"
-          margin={{ top: 20, right: 30, left: 100, bottom: 20 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
-          <XAxis
-            type="number"
-            stroke="hsl(var(--muted-foreground))"
-            tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
-            tickFormatter={(value) => formatCurrency(value)}
-          />
-          <YAxis
-            type="category"
-            dataKey="name"
-            stroke="hsl(var(--muted-foreground))"
-            tick={{ fill: "hsl(var(--foreground))", fontSize: 12 }}
-            width={90}
-          />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: "hsl(var(--card))",
-              border: "1px solid hsl(var(--border))",
-              borderRadius: "8px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-            }}
-            labelStyle={{ color: "hsl(var(--foreground))", fontWeight: "bold" }}
-            formatter={(value: number, name: string, props: any) => [
-              formatCurrency(value),
-              `Sales: ${((value / maxValue) * 100).toFixed(1)}% of top`
-            ]}
-          />
-          <Bar
-            dataKey="value"
-            radius={[0, 8, 8, 0]}
-            cursor="pointer"
-            onClick={(data) => onCustomerClick?.(data.customer)}
+    <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-border shadow-sm p-4 h-[360px] flex flex-col">
+      <div className="flex items-baseline justify-between mb-2">
+        <div>
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+            Top Customers (YTD)
+          </p>
+          <p className="text-[11px] text-muted-foreground">Values in ₹ Cr</p>
+        </div>
+        {data.length > 0 && (
+          <p className="text-xs text-muted-foreground">
+            Shown total:&nbsp;
+            <span className="font-medium">{formatCurrency(totalOfShown)}</span>
+          </p>
+        )}
+      </div>
+
+      <div className="flex-1">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            data={data}
+            layout="vertical"
+            margin={{ top: 8, right: 16, left: 0, bottom: 8 }}
           >
-            {chartData.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={colors[index % colors.length]}
-                opacity={0.9}
-                className="hover:opacity-100 transition-opacity"
-              />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </motion.div>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              horizontal={false}
+              stroke="hsl(var(--border))"
+            />
+            <XAxis
+              type="number"
+              domain={[0, domainMax]}
+              tickFormatter={(v) => `${v.toFixed(1)} Cr`}
+              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+              axisLine={{ stroke: "hsl(var(--border))" }}
+              tickLine={false}
+            />
+            <YAxis
+              dataKey="customerName"
+              type="category"
+              width={230}
+              tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }}
+              tickLine={false}
+              axisLine={false}
+            />
+            <Tooltip
+              cursor={{ fill: "hsl(var(--muted) / 0.25)" }}
+              content={({ active, payload }) => {
+                if (!active || !payload?.length) return null;
+                const item = payload[0].payload as any;
+
+                return (
+                  <div className="rounded-md border bg-popover px-3 py-2 text-xs shadow-md space-y-1">
+                    <div className="font-medium text-foreground">
+                      {item.customerName}
+                    </div>
+                    <div className="flex justify-between gap-6">
+                      <span className="text-muted-foreground">Sales (YTD)</span>
+                      <span className="font-semibold">
+                        {formatCurrency(item.totalSales)}
+                      </span>
+                    </div>
+                    {totalOfShown > 0 && (
+                      <div className="flex justify-between gap-6">
+                        <span className="text-muted-foreground">
+                          Share of top list
+                        </span>
+                        <span>
+                          {((item.totalSales / totalOfShown) * 100).toFixed(1)}%
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                );
+              }}
+            />
+            <Bar
+              dataKey="salesCr"
+              radius={[4, 4, 4, 4]}
+              onClick={
+                onCustomerClick
+                  ? (entry) =>
+                      onCustomerClick({
+                        customerNumber: (entry as any).customerNumber,
+                        customerName: (entry as any).customerName,
+                        totalSales: (entry as any).totalSales,
+                      })
+                  : undefined
+              }
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  key={entry.customerNumber}
+                  fill={BAR_COLORS[index] ?? "hsl(var(--primary))"}
+                  className={onCustomerClick ? "cursor-pointer" : undefined}
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
-}
+};
