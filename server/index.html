@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>3AK MD Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <style>
+      :root {
+        /* Light enterprise theme */
+        --bg: #f3f4f6;
+        --bg-card: #ffffff;
+        --border: #e5e7eb;
+        --accent: #0f766e;
+        --accent-soft: rgba(15, 118, 110, 0.06);
+        --text: #111827;
+        --muted: #6b7280;
+        --danger: #b91c1c;
+        --success: #15803d;
+        --warning: #b45309;
+        --shadow-soft: 0 14px 30px rgba(15, 23, 42, 0.1);
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-pill: 999px;
+        --gap: 1.2rem;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          sans-serif;
+        background: radial-gradient(circle at top, #e5f3ff 0, #f3f4f6 55%);
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      .dashboard-shell {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 1.5rem 1.25rem 3rem;
+      }
+
+      header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .title-block h1 {
+        margin: 0;
+        font-size: 1.6rem;
+        letter-spacing: 0.04em;
+      }
+
+      .title-block p {
+        margin: 0.25rem 0 0;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      .meta-pill {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.8rem;
+        background: #eef2ff;
+        border-radius: var(--radius-pill);
+        border: 1px solid #c7d2fe;
+        color: #4338ca;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .meta-pill span.dot {
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 999px;
+        background: #16a34a;
+        box-shadow: 0 0 6px rgba(22, 163, 74, 0.8);
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        margin: 2rem 0 0.75rem;
+      }
+
+      /* Filter bar */
+      .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        align-items: flex-end;
+      }
+
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .filter-group label {
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .filter-group select {
+        padding: 0.35rem 0.6rem;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        font-size: 0.8rem;
+        background: #ffffff;
+        color: var(--text);
+      }
+
+      .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--gap);
+      }
+
+      .kpi-card {
+        background: linear-gradient(135deg, #ffffff 0, #f9fafb 80%);
+        border-radius: var(--radius-lg);
+        border: 1px solid #e5e7eb;
+        padding: 0.9rem 1rem;
+        box-shadow: var(--shadow-soft);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .kpi-card::after {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: radial-gradient(
+          circle at top,
+          rgba(129, 140, 248, 0.12),
+          transparent 60%
+        );
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .kpi-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        margin-bottom: 0.2rem;
+      }
+
+      .kpi-value {
+        font-size: 1.35rem;
+        font-weight: 600;
+      }
+
+      .kpi-sub {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 0.3rem;
+      }
+
+      .charts-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--gap);
+      }
+
+      .charts-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: var(--gap);
+      }
+
+      .chart-card {
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+        padding: 0.9rem 1rem 1.1rem;
+        box-shadow: var(--shadow-soft);
+        position: relative;
+      }
+
+      .chart-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.15rem;
+      }
+
+      .chart-subtitle {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-bottom: 0.4rem;
+      }
+
+      .chart-axes-label {
+        font-size: 0.7rem;
+        color: var(--muted);
+        margin-bottom: 0.2rem;
+      }
+
+      .chart-wrapper {
+        height: 260px;
+      }
+
+      .chart-wrapper-tall {
+        height: 320px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .error-banner {
+        background: #fef2f2;
+        border-radius: var(--radius-md);
+        border: 1px solid #fecaca;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+        margin-top: 0.7rem;
+        color: #991b1b;
+      }
+
+      /* Drilldown card */
+      .drilldown-card {
+        margin-top: 0.75rem;
+        background: #f9fafb;
+        border-radius: var(--radius-lg);
+        border: 1px solid #e5e7eb;
+        padding: 0.9rem 1rem;
+        box-shadow: var(--shadow-soft);
+        font-size: 0.85rem;
+      }
+
+      .drilldown-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.4rem;
+      }
+
+      .drilldown-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .drilldown-chip {
+        font-size: 0.7rem;
+        padding: 0.1rem 0.55rem;
+        border-radius: 999px;
+        background: #eef2ff;
+        color: #4338ca;
+        border: 1px solid #c7d2fe;
+      }
+
+      .drilldown-body dt {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin-top: 0.35rem;
+      }
+
+      .drilldown-body dd {
+        margin: 0.05rem 0 0;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .chart-wrapper,
+        .chart-wrapper-tall {
+          height: 240px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-shell">
+      <header>
+        <div class="title-block">
+          <h1 id="company-name">MD Dashboard</h1>
+          <p>
+            Consolidated snapshot of sales, collections, purchases, inventory,
+            and financials.
+          </p>
+        </div>
+        <div>
+          <div class="meta-pill" id="meta-generated">
+            <span class="dot"></span>
+            <span>Loading…</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Global Filters -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label for="filter-topn">Top N Lists</label>
+          <select id="filter-topn">
+            <option value="5">Top 5</option>
+            <option value="10" selected>Top 10</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-ar-currency">AR Currency View</label>
+          <select id="filter-ar-currency">
+            <option value="all" selected>All Currencies</option>
+            <option value="exclude-inr">Exclude INR / Unknown</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="section-label">Key Performance Indicators</div>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-title">YTD Sales</div>
+          <div class="kpi-value" id="kpi-ytd-sales">–</div>
+          <div class="kpi-sub">
+            Last 30 days:
+            <span id="kpi-last30-sales" class="muted">–</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">YTD Purchases</div>
+          <div class="kpi-value" id="kpi-ytd-purchases">–</div>
+          <div class="kpi-sub">
+            Last 30 days:
+            <span id="kpi-last30-purchases" class="muted">–</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Accounts Receivable</div>
+          <div class="kpi-value" id="kpi-total-ar">–</div>
+          <div class="kpi-sub">
+            Overdue:
+            <span id="kpi-overdue-ar" class="muted">–</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Accounts Payable</div>
+          <div class="kpi-value" id="kpi-total-ap">–</div>
+          <div class="kpi-sub">
+            Overdue:
+            <span id="kpi-overdue-ap" class="muted">–</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Inventory Value</div>
+          <div class="kpi-value" id="kpi-inventory">–</div>
+          <div class="kpi-sub">
+            Total SKUs:
+            <span id="kpi-skus" class="muted">–</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Net Income (Period)</div>
+          <div class="kpi-value" id="kpi-net-income">–</div>
+          <div class="kpi-sub">
+            Operating cashflow:
+            <span id="kpi-net-cash-ops" class="muted">–</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sales & Pipeline -->
+      <div class="section-label">Sales & Pipeline</div>
+      <div class="charts-grid-2">
+        <div class="chart-card">
+          <div class="chart-title">YTD Sales vs Purchases</div>
+          <div class="chart-subtitle">
+            Comparing year-to-date sales and purchases to sense margin pressure.
+          </div>
+          <div class="chart-axes-label">
+            X: Period · Y: Amount (₹, Cr / absolute)
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-sales-vs-purchases"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Top Customers by YTD Sales</div>
+          <div class="chart-subtitle">
+            Concentration of sales among your largest customers.
+          </div>
+          <div class="chart-axes-label">X: Sales (₹) · Y: Customer</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-top-customers"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid-2" style="margin-top: 1.2rem">
+        <div class="chart-card">
+          <div class="chart-title">Quotes & Orders Pipeline</div>
+          <div class="chart-subtitle">
+            Open quotes and orders by count and value.
+          </div>
+          <div class="chart-axes-label">
+            X: Pipeline Stage · Y₁: Count · Y₂: Value (₹)
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-quotes-orders"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- AR & Collections -->
+      <div class="section-label">Receivables & Collections</div>
+      <div class="charts-grid-3">
+        <div class="chart-card">
+          <div class="chart-title">AR: Current vs Overdue</div>
+          <div class="chart-subtitle">
+            Split of receivables between current and overdue buckets.
+          </div>
+          <div class="chart-axes-label">Slice size: Amount outstanding (₹)</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-ar-donut"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Top Overdue Customers</div>
+          <div class="chart-subtitle">
+            Customers with the largest overdue amounts.
+          </div>
+          <div class="chart-axes-label">X: Overdue (₹) · Y: Customer</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-ar-top-overdue-customers"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Overdue AR by Currency</div>
+          <div class="chart-subtitle">
+            Export risk and FX exposure across currencies.
+          </div>
+          <div class="chart-axes-label">Slice size: Overdue amount (₹)</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-ar-currency"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- AP & Vendors -->
+      <div class="section-label">Payables & Vendors</div>
+      <div class="charts-grid-3">
+        <div class="chart-card">
+          <div class="chart-title">AP: Current vs Overdue</div>
+          <div class="chart-subtitle">
+            Split of payables between current and overdue balances.
+          </div>
+          <div class="chart-axes-label">Slice size: Amount outstanding (₹)</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-ap-donut"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Top Vendors by YTD Spend</div>
+          <div class="chart-subtitle">
+            Vendors with the highest purchase spend.
+          </div>
+          <div class="chart-axes-label">X: Spend (₹) · Y: Vendor</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-top-vendors"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Top Overdue Vendors</div>
+          <div class="chart-subtitle">Payables overdue by vendor.</div>
+          <div class="chart-axes-label">X: Overdue (₹) · Y: Vendor</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-ap-top-overdue-vendors"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory & Working Capital -->
+      <div class="section-label">Inventory & Working Capital</div>
+      <div class="charts-grid-3">
+        <div class="chart-card">
+          <div class="chart-title">Top Items by Inventory Value</div>
+          <div class="chart-subtitle">
+            Items tying up the most capital in stock.
+          </div>
+          <div class="chart-axes-label">X: Inventory Value (₹) · Y: Item</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-inv-top-items"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">
+            Slow-Moving Items (No Sales Last 90 Days)
+          </div>
+          <div class="chart-subtitle">
+            High-value items with no movement in the last 90 days.
+          </div>
+          <div class="chart-axes-label">X: Inventory Value (₹) · Y: Item</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-inv-slow-movers"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Working Capital Lock</div>
+          <div class="chart-subtitle">
+            Capital across inventory, receivables, and payables.
+          </div>
+          <div class="chart-axes-label">X: Component · Y: Amount (₹)</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-working-capital"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Balance Sheet & P&L -->
+      <div class="section-label">Balance Sheet & Profitability</div>
+      <div class="charts-grid-3">
+        <div class="chart-card">
+          <div class="chart-title">Assets Composition</div>
+          <div class="chart-subtitle">
+            Split between current and fixed assets.
+          </div>
+          <div class="chart-axes-label">Slice size: Amount (₹)</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-assets"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Liabilities & Equity Composition</div>
+          <div class="chart-subtitle">
+            Short-term debt, long-term debt, and equity mix.
+          </div>
+          <div class="chart-axes-label">X: Component · Y: Amount (₹)</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-liabilities"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Debt vs Equity</div>
+          <div class="chart-subtitle">
+            High-level leverage position of the business.
+          </div>
+          <div class="chart-axes-label">Slice size: Amount (₹)</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-debt-equity"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid-2" style="margin-top: 1.2rem">
+        <div class="chart-card">
+          <div class="chart-title">Operating Expense Breakdown</div>
+          <div class="chart-subtitle">
+            Major expense heads from the income statement.
+          </div>
+          <div class="chart-axes-label">Slice size: Expense amount (₹)</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-expenses"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Cash Flow Highlights</div>
+          <div class="chart-subtitle">
+            Net income to net cash from operations and ending cash.
+          </div>
+          <div class="chart-axes-label">X: Metric · Y: Amount (₹)</div>
+          <div class="chart-wrapper">
+            <canvas id="chart-cashflow"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drilldown -->
+      <div class="section-label">Drilldown Detail</div>
+      <div id="drilldown-card" class="drilldown-card">
+        <div class="drilldown-header">
+          <div class="drilldown-title">No selection</div>
+          <span class="drilldown-chip"
+            >Click any chart element to drill down</span
+          >
+        </div>
+        <div class="drilldown-body">
+          <p class="muted" style="margin: 0">
+            When you click a bar, slice, or point, detailed information will
+            appear here – including the name, value, and how to interpret the
+            metric.
+          </p>
+        </div>
+      </div>
+
+      <div id="error-container"></div>
+    </div>
+
+    <script>
+      // ---------- Theme for charts ----------
+      const chartTheme = {
+        axisColor: "#4b5563",
+        gridColor: "rgba(209, 213, 219, 0.7)",
+        legendColor: "#111827",
+      };
+
+      // ---------- Dashboard State ----------
+      const dashboardState = {
+        snapshot: null,
+        topN: 10,
+        arCurrencyMode: "all", // "all" | "exclude-inr"
+      };
+
+      const charts = {}; // canvasId -> Chart instance
+
+      // ---------- Helpers ----------
+      function formatCurrencyINR(value) {
+        if (value === null || value === undefined || isNaN(value)) return "–";
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        if (abs >= 1e7) {
+          return (
+            sign +
+            (abs / 1e7).toLocaleString("en-IN", {
+              maximumFractionDigits: 2,
+            }) +
+            " Cr"
+          );
+        }
+        return (
+          sign +
+          abs.toLocaleString("en-IN", {
+            maximumFractionDigits: 0,
+          })
+        );
+      }
+
+      function findLine(lines, label) {
+        return lines.find((l) => l.label === label) || { amount: 0 };
+      }
+
+      function showError(message) {
+        const container = document.getElementById("error-container");
+        container.innerHTML = `
+          <div class="error-banner">
+            <strong>Error:</strong> ${message}
+          </div>
+        `;
+      }
+
+      function buildArCurrencyData(topOverdueCustomers, mode) {
+        const map = {};
+        topOverdueCustomers.forEach((c) => {
+          const cc =
+            c.currencyCode && c.currencyCode.trim()
+              ? c.currencyCode.trim()
+              : "INR / Unknown";
+          if (mode === "exclude-inr" && cc === "INR / Unknown") return;
+          map[cc] = (map[cc] || 0) + Number(c.overdue || 0);
+        });
+        const labels = Object.keys(map);
+        const values = labels.map((k) => map[k]);
+        return { labels, values };
+      }
+
+      function buildExpenseRows(incomeStatementSummary) {
+        const iss = incomeStatementSummary || [];
+        const startIdx = iss.findIndex((r) => r.label === "Expense");
+        const endIdx = iss.findIndex((r) => r.label === "Total Expense");
+        if (startIdx === -1 || endIdx === -1 || endIdx <= startIdx) return [];
+        return iss
+          .slice(startIdx + 1, endIdx)
+          .filter((r) => r.amount && Number(r.amount) !== 0);
+      }
+
+      function buildAssetsComposition(balanceSheetSummary) {
+        const bss = balanceSheetSummary || [];
+        const totalCurrentAssets = Number(
+          findLine(bss, "Total Current Assets").amount || 0
+        );
+        const fixedAssets = Number(findLine(bss, "Fixed Assets").amount || 0);
+        const totalAssets = Number(findLine(bss, "Total Assets").amount || 0);
+        const otherAssets = Math.max(
+          0,
+          totalAssets - (totalCurrentAssets + fixedAssets)
+        );
+        return { totalCurrentAssets, fixedAssets, otherAssets };
+      }
+
+      function buildLiabilitiesAndEquity(balanceSheetSummary) {
+        const bss = balanceSheetSummary || [];
+        const tradePayables = Number(
+          findLine(bss, "Trade Payables").amount || 0
+        );
+        const securedLoans = Number(findLine(bss, "Secured Loans").amount || 0);
+        const shortTermProvisions = Number(
+          findLine(bss, "Short Term Provisions").amount || 0
+        );
+        const shortTermBorrowings = Number(
+          findLine(bss, "Short Term Borrowings").amount || 0
+        );
+        const unsecuredLoans = Number(
+          findLine(bss, "Unsecured Loans").amount || 0
+        );
+        const shareCapital = Number(findLine(bss, "Share Capital").amount || 0);
+        const deferredTaxLiability = Number(
+          findLine(bss, "Deferred Tax Liability").amount || 0
+        );
+        const reservesSurplus = Number(
+          findLine(bss, "Reserves & Surplus").amount || 0
+        );
+
+        const shortTermDebt =
+          tradePayables + shortTermBorrowings + shortTermProvisions;
+        const longTermDebt =
+          securedLoans + unsecuredLoans + deferredTaxLiability;
+        const equity = shareCapital + reservesSurplus;
+
+        return {
+          tradePayables,
+          shortTermDebt,
+          longTermDebt,
+          equity,
+        };
+      }
+
+      function buildCashFlowHighlights(cashFlowSummary) {
+        const cfs = cashFlowSummary || [];
+        const netIncome = Number(findLine(cfs, "Net Income").amount || 0);
+        const inventoryChange = Number(findLine(cfs, "Inventory").amount || 0);
+        const netCashOps = Number(
+          findLine(cfs, "Net Cash Provided by Operating Activities").amount || 0
+        );
+        const netCashIncrease = Number(
+          findLine(cfs, "Net Cash Increase for the Period").amount || 0
+        );
+        const endingCash = Number(
+          findLine(cfs, "Cash at End of the Period").amount || 0
+        );
+        return {
+          netIncome,
+          inventoryChange,
+          netCashOps,
+          netCashIncrease,
+          endingCash,
+        };
+      }
+
+      function createOrUpdateChart(canvasId, config) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (charts[canvasId]) {
+          charts[canvasId].destroy();
+        }
+        charts[canvasId] = new Chart(ctx, config);
+      }
+
+      // ---------- Drilldown ----------
+      function showDrilldown(info) {
+        const card = document.getElementById("drilldown-card");
+        const headerTitle = card.querySelector(".drilldown-title");
+        const chip = card.querySelector(".drilldown-chip");
+        const body = card.querySelector(".drilldown-body");
+
+        headerTitle.textContent = info.title || "Detail";
+        chip.textContent = info.chartLabel || "Drilldown";
+
+        body.innerHTML = `
+          <dl>
+            <dt>Entity</dt>
+            <dd>${info.entity || "—"}</dd>
+
+            <dt>Value</dt>
+            <dd>${info.valueFormatted || "—"}</dd>
+
+            ${info.extra ? `<dt>Context</dt><dd>${info.extra}</dd>` : ""}
+          </dl>
+        `;
+      }
+
+      // Generic onClick hook for bar/pie/doughnut charts
+      function makeOnClickHandler(chartName, valueFormatter, extraBuilder) {
+        return (event, elements, chart) => {
+          if (!elements || !elements.length) return;
+          const el = elements[0];
+          const index = el.index;
+          const datasetIndex = el.datasetIndex ?? 0;
+          const ds = chart.data.datasets[datasetIndex];
+          const label = chart.data.labels[index];
+          const rawValue = Array.isArray(ds.data) ? ds.data[index] : ds.data;
+          const valueFormatted = valueFormatter
+            ? valueFormatter(rawValue)
+            : rawValue;
+
+          const extra =
+            typeof extraBuilder === "function"
+              ? extraBuilder(label, rawValue, ds, chart)
+              : "";
+
+          showDrilldown({
+            title: chartName,
+            chartLabel: ds.label || "Value",
+            entity: label,
+            valueFormatted,
+            extra,
+          });
+        };
+      }
+
+      // ---------- Render basics (header + KPIs) ----------
+      function renderHeaderAndKpis(snapshot) {
+        const companyName = snapshot.company?.name || "MD Dashboard";
+        const generatedAt = snapshot.generatedAt;
+
+        document.getElementById("company-name").textContent = companyName;
+
+        const meta = document.getElementById("meta-generated");
+        if (generatedAt) {
+          const dt = new Date(generatedAt);
+          meta.innerHTML = `
+            <span class="dot"></span>
+            <span>As of ${dt.toLocaleString("en-IN", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            })}</span>
+          `;
+        }
+
+        const sales = snapshot.sales || {};
+        const purchases = snapshot.purchases || {};
+        const receivables = snapshot.receivables || {};
+        const payables = snapshot.payables || {};
+        const inventory = snapshot.inventory || {};
+        const finance = snapshot.finance || {};
+
+        document.getElementById("kpi-ytd-sales").textContent =
+          "₹ " + formatCurrencyINR(sales.ytdSales);
+        document.getElementById("kpi-last30-sales").textContent =
+          "₹ " + formatCurrencyINR(sales.last30DaysSales);
+
+        document.getElementById("kpi-ytd-purchases").textContent =
+          "₹ " + formatCurrencyINR(purchases.ytdPurchases);
+        document.getElementById("kpi-last30-purchases").textContent =
+          "₹ " + formatCurrencyINR(purchases.last30DaysPurchases);
+
+        document.getElementById("kpi-total-ar").textContent =
+          "₹ " + formatCurrencyINR(receivables.totalAR);
+        document.getElementById("kpi-overdue-ar").textContent =
+          "₹ " +
+          formatCurrencyINR(receivables.overdueAR) +
+          ` (${(receivables.overdueRatioPercent || 0).toFixed(1)}%)`;
+
+        document.getElementById("kpi-total-ap").textContent =
+          "₹ " + formatCurrencyINR(payables.totalAP);
+        document.getElementById("kpi-overdue-ap").textContent =
+          "₹ " +
+          formatCurrencyINR(payables.overdueAP) +
+          ` (${(payables.overdueAPRatioPercent || 0).toFixed(1)}%)`;
+
+        document.getElementById("kpi-inventory").textContent =
+          "₹ " + formatCurrencyINR(inventory.estInventoryValue);
+        document.getElementById("kpi-skus").textContent =
+          inventory.totalSkus ?? "–";
+
+        const incomeStatementSummary = finance.incomeStatementSummary || [];
+        const netIncomeRow = findLine(incomeStatementSummary, "Net Income");
+        const netIncomeAmount = Number(netIncomeRow.amount || 0);
+        document.getElementById("kpi-net-income").textContent =
+          "₹ " + formatCurrencyINR(netIncomeAmount);
+
+        const cfHighlights = buildCashFlowHighlights(
+          finance.cashFlowSummary || []
+        );
+        document.getElementById("kpi-net-cash-ops").textContent =
+          "₹ " + formatCurrencyINR(cfHighlights.netCashOps);
+      }
+
+      // ---------- Render all charts ----------
+      function renderAllCharts() {
+        const snapshot = dashboardState.snapshot;
+        if (!snapshot) return;
+
+        const sales = snapshot.sales || {};
+        const purchases = snapshot.purchases || {};
+        const receivables = snapshot.receivables || {};
+        const payables = snapshot.payables || {};
+        const inventory = snapshot.inventory || {};
+        const finance = snapshot.finance || {};
+        const topN = dashboardState.topN;
+        const cfHighlights = buildCashFlowHighlights(
+          finance.cashFlowSummary || []
+        );
+
+        // 1) Sales vs Purchases
+        createOrUpdateChart("chart-sales-vs-purchases", {
+          type: "bar",
+          data: {
+            labels: ["YTD", "Last 30 Days"],
+            datasets: [
+              {
+                label: "Sales",
+                data: [sales.ytdSales || 0, sales.last30DaysSales || 0],
+                borderWidth: 1.5,
+                backgroundColor: "rgba(14, 116, 144, 0.6)",
+                borderColor: "rgba(14, 116, 144, 1)",
+              },
+              {
+                label: "Purchases",
+                data: [
+                  purchases.ytdPurchases || 0,
+                  purchases.last30DaysPurchases || 0,
+                ],
+                borderWidth: 1.5,
+                backgroundColor: "rgba(217, 70, 239, 0.5)",
+                borderColor: "rgba(217, 70, 239, 1)",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                ticks: {
+                  color: chartTheme.axisColor,
+                  callback: (val) => formatCurrencyINR(Number(val)),
+                },
+                grid: {
+                  color: chartTheme.gridColor,
+                },
+              },
+              x: {
+                ticks: { color: chartTheme.axisColor },
+                grid: { display: false },
+              },
+            },
+            plugins: {
+              legend: {
+                labels: {
+                  color: chartTheme.legendColor,
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label: (ctx) => {
+                    const label = ctx.dataset.label || "";
+                    const value = ctx.raw || 0;
+                    return label + ": ₹ " + formatCurrencyINR(value);
+                  },
+                },
+              },
+            },
+            onClick: makeOnClickHandler(
+              "YTD Sales vs Purchases",
+              (v) => "₹ " + formatCurrencyINR(v),
+              (label) =>
+                label === "YTD"
+                  ? "Year-to-date numbers from Business Central."
+                  : "Aggregate of transactions in the last 30 days."
+            ),
+          },
+        });
+
+        // 2) Top Customers by Sales
+        (function () {
+          const arr = (sales.topCustomersBySales || []).slice(0, topN);
+          const labels = arr.map((c) => c.customerName);
+          const values = arr.map((c) => c.totalSales || 0);
+          createOrUpdateChart("chart-top-customers", {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Sales (₹)",
+                  data: values,
+                  borderWidth: 1.5,
+                  backgroundColor: "rgba(59, 130, 246, 0.7)",
+                  borderColor: "rgba(37, 99, 235, 1)",
+                },
+              ],
+            },
+            options: {
+              indexAxis: "y",
+              responsive: true,
+              scales: {
+                x: {
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { color: chartTheme.gridColor },
+                },
+                y: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const value = ctx.raw || 0;
+                      return "Sales: ₹ " + formatCurrencyINR(value);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Customer Sales",
+                (v) => "₹ " + formatCurrencyINR(v),
+                () => "Total sales derived from posted invoices."
+              ),
+            },
+          });
+        })();
+
+        // 3) Quotes & Orders pipeline
+        (function () {
+          const labels = ["Quotes", "Orders"];
+          const counts = [
+            sales.openQuotesCount || 0,
+            sales.openOrdersCount || 0,
+          ];
+          const values = [
+            sales.openQuotesValue || 0,
+            sales.openOrdersValue || 0,
+          ];
+          createOrUpdateChart("chart-quotes-orders", {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Count",
+                  data: counts,
+                  borderWidth: 1.5,
+                  backgroundColor: "rgba(16, 185, 129, 0.7)",
+                  borderColor: "rgba(5, 150, 105, 1)",
+                  yAxisID: "y",
+                },
+                {
+                  label: "Value (₹)",
+                  data: values,
+                  borderWidth: 1.5,
+                  backgroundColor: "rgba(251, 146, 60, 0.7)",
+                  borderColor: "rgba(234, 88, 12, 1)",
+                  yAxisID: "y1",
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  type: "linear",
+                  position: "left",
+                  ticks: { color: chartTheme.axisColor },
+                  grid: {
+                    color: chartTheme.gridColor,
+                  },
+                },
+                y1: {
+                  type: "linear",
+                  position: "right",
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { display: false },
+                },
+                x: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const label = ctx.dataset.label || "";
+                      const v = ctx.raw || 0;
+                      if (label.includes("Value"))
+                        return label + ": ₹ " + formatCurrencyINR(v);
+                      return label + ": " + v;
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Quotes & Orders Pipeline",
+                (v, ds) =>
+                  ds.label === "Value (₹)"
+                    ? "₹ " + formatCurrencyINR(v)
+                    : v + " documents",
+                (stage) =>
+                  stage === "Quotes"
+                    ? "Potential business not yet confirmed."
+                    : "Firm orders pending fulfillment."
+              ),
+            },
+          });
+        })();
+
+        // 4) AR: current vs overdue donut
+        (function () {
+          const totalAR = receivables.totalAR || 0;
+          const overdueAR = receivables.overdueAR || 0;
+          const currentAR = Math.max(0, totalAR - overdueAR);
+          createOrUpdateChart("chart-ar-donut", {
+            type: "doughnut",
+            data: {
+              labels: ["Current", "Overdue"],
+              datasets: [
+                {
+                  label: "AR (₹)",
+                  data: [currentAR, overdueAR],
+                  backgroundColor: [
+                    "rgba(34, 197, 94, 0.7)",
+                    "rgba(239, 68, 68, 0.8)",
+                  ],
+                  hoverOffset: 4,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const label = ctx.label || "";
+                      const v = ctx.raw || 0;
+                      return label + ": ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Accounts Receivable",
+                (v) => "₹ " + formatCurrencyINR(v),
+                (bucket) =>
+                  bucket === "Current"
+                    ? "Receivables not yet past due."
+                    : "Invoices beyond due date – higher collection risk."
+              ),
+            },
+          });
+        })();
+
+        // 5) Top overdue customers
+        (function () {
+          const arr = (receivables.topOverdueCustomers || []).slice(0, topN);
+          const labels = arr.map((c) => c.customerName);
+          const values = arr.map((c) => c.overdue || 0);
+          createOrUpdateChart("chart-ar-top-overdue-customers", {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Overdue (₹)",
+                  data: values,
+                  borderWidth: 1.5,
+                  backgroundColor: "rgba(239, 68, 68, 0.85)",
+                  borderColor: "rgba(185, 28, 28, 1)",
+                },
+              ],
+            },
+            options: {
+              indexAxis: "y",
+              responsive: true,
+              scales: {
+                x: {
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { color: chartTheme.gridColor },
+                },
+                y: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const v = ctx.raw || 0;
+                      return "Overdue: ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Customer Overdue AR",
+                (v) => "₹ " + formatCurrencyINR(v),
+                () => "Total overdue receivables from this customer."
+              ),
+            },
+          });
+        })();
+
+        // 6) AR currency exposure
+        (function () {
+          const aca = buildArCurrencyData(
+            receivables.topOverdueCustomers || [],
+            dashboardState.arCurrencyMode
+          );
+          createOrUpdateChart("chart-ar-currency", {
+            type: "pie",
+            data: {
+              labels: aca.labels,
+              datasets: [
+                {
+                  label: "Overdue (₹)",
+                  data: aca.values,
+                  backgroundColor: [
+                    "rgba(59, 130, 246, 0.8)",
+                    "rgba(16, 185, 129, 0.8)",
+                    "rgba(234, 179, 8, 0.8)",
+                    "rgba(244, 114, 182, 0.8)",
+                    "rgba(129, 140, 248, 0.8)",
+                    "rgba(248, 113, 113, 0.8)",
+                    "rgba(56, 189, 248, 0.8)",
+                  ],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const label = ctx.label || "";
+                      const v = ctx.raw || 0;
+                      return label + ": ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Overdue AR by Currency",
+                (v) => "₹ " + formatCurrencyINR(v),
+                (cc) =>
+                  cc === "INR / Unknown"
+                    ? "Domestic currency or unspecified currency exposure."
+                    : "Foreign currency exposure – watch FX + collection risk."
+              ),
+            },
+          });
+        })();
+
+        // 7) AP: current vs overdue donut
+        (function () {
+          const totalAP = payables.totalAP || 0;
+          const overdueAP = payables.overdueAP || 0;
+          const currentAP = Math.max(0, totalAP - overdueAP);
+          createOrUpdateChart("chart-ap-donut", {
+            type: "doughnut",
+            data: {
+              labels: ["Current", "Overdue"],
+              datasets: [
+                {
+                  label: "AP (₹)",
+                  data: [currentAP, overdueAP],
+                  backgroundColor: [
+                    "rgba(59, 130, 246, 0.7)",
+                    "rgba(245, 158, 11, 0.85)",
+                  ],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const label = ctx.label || "";
+                      const v = ctx.raw || 0;
+                      return label + ": ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Accounts Payable",
+                (v) => "₹ " + formatCurrencyINR(v),
+                (bucket) =>
+                  bucket === "Current"
+                    ? "Payables not yet due."
+                    : "Overdue supplier payments – may impact credit terms."
+              ),
+            },
+          });
+        })();
+
+        // 8) Top vendors by spend
+        (function () {
+          const arr = (purchases.topVendorsBySpend || []).slice(0, topN);
+          const labels = arr.map((v) => v.vendorName);
+          const values = arr.map((v) => v.totalPurchases || 0);
+          createOrUpdateChart("chart-top-vendors", {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Purchases (₹)",
+                  data: values,
+                  borderWidth: 1.5,
+                  backgroundColor: "rgba(16, 185, 129, 0.8)",
+                  borderColor: "rgba(5, 150, 105, 1)",
+                },
+              ],
+            },
+            options: {
+              indexAxis: "y",
+              responsive: true,
+              scales: {
+                x: {
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { color: chartTheme.gridColor },
+                },
+                y: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const v = ctx.raw || 0;
+                      return "Spend: ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Vendor Spend",
+                (v) => "₹ " + formatCurrencyINR(v),
+                () => "Total purchases made from this vendor over the period."
+              ),
+            },
+          });
+        })();
+
+        // 9) Top overdue vendors
+        (function () {
+          const arr = (payables.topOverdueVendors || []).slice(0, topN);
+          const labels = arr.map((v) => v.vendorName);
+          const values = arr.map((v) => v.overdue || 0);
+          createOrUpdateChart("chart-ap-top-overdue-vendors", {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Overdue (₹)",
+                  data: values,
+                  borderWidth: 1.5,
+                  backgroundColor: "rgba(245, 158, 11, 0.85)",
+                  borderColor: "rgba(180, 83, 9, 1)",
+                },
+              ],
+            },
+            options: {
+              indexAxis: "y",
+              responsive: true,
+              scales: {
+                x: {
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { color: chartTheme.gridColor },
+                },
+                y: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const v = ctx.raw || 0;
+                      return "Overdue: ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Vendor Overdue AP",
+                (v) => "₹ " + formatCurrencyINR(v),
+                () => "Outstanding overdue payments owed to this vendor."
+              ),
+            },
+          });
+        })();
+
+        // 10) Inventory – top items by value
+        (function () {
+          const arr = (inventory.topItemsByInventoryValue || []).slice(0, topN);
+          const labels = arr.map((i) => i.itemName);
+          const values = arr.map((i) => i.inventoryValue || 0);
+          createOrUpdateChart("chart-inv-top-items", {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Inventory Value (₹)",
+                  data: values,
+                  borderWidth: 1.5,
+                  backgroundColor: "rgba(59, 130, 246, 0.8)",
+                  borderColor: "rgba(37, 99, 235, 1)",
+                },
+              ],
+            },
+            options: {
+              indexAxis: "y",
+              responsive: true,
+              scales: {
+                x: {
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { color: chartTheme.gridColor },
+                },
+                y: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const v = ctx.raw || 0;
+                      return "Value: ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Inventory by Item",
+                (v) => "₹ " + formatCurrencyINR(v),
+                () =>
+                  "Estimated inventory value (qty × unit cost) for this item."
+              ),
+            },
+          });
+        })();
+
+        // 11) Inventory – slow movers
+        (function () {
+          const arr = (inventory.slowMovers || []).slice(0, topN);
+          const labels = arr.map((i) => i.itemName);
+          const values = arr.map((i) => i.inventoryValue || 0);
+          createOrUpdateChart("chart-inv-slow-movers", {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Inventory Value (₹)",
+                  data: values,
+                  borderWidth: 1.5,
+                  backgroundColor: "rgba(234, 179, 8, 0.8)",
+                  borderColor: "rgba(161, 98, 7, 1)",
+                },
+              ],
+            },
+            options: {
+              indexAxis: "y",
+              responsive: true,
+              scales: {
+                x: {
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { color: chartTheme.gridColor },
+                },
+                y: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const v = ctx.raw || 0;
+                      return "Value: ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Slow-Moving Inventory",
+                (v) => "₹ " + formatCurrencyINR(v),
+                () =>
+                  "High-value items with no recorded sales in the last 90 days."
+              ),
+            },
+          });
+        })();
+
+        // 12) Working capital (Inventory + AR + AP)
+        (function () {
+          const invVal = inventory.estInventoryValue || 0;
+          const arVal = receivables.totalAR || 0;
+          const apVal = payables.totalAP || 0;
+          createOrUpdateChart("chart-working-capital", {
+            type: "bar",
+            data: {
+              labels: ["Inventory", "Accounts Receivable", "Accounts Payable"],
+              datasets: [
+                {
+                  label: "₹ value",
+                  data: [invVal, arVal, apVal],
+                  borderWidth: 1.5,
+                  backgroundColor: [
+                    "rgba(59, 130, 246, 0.8)",
+                    "rgba(16, 185, 129, 0.8)",
+                    "rgba(239, 68, 68, 0.8)",
+                  ],
+                  borderColor: [
+                    "rgba(37, 99, 235, 1)",
+                    "rgba(5, 150, 105, 1)",
+                    "rgba(185, 28, 28, 1)",
+                  ],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { color: chartTheme.gridColor },
+                },
+                x: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const v = ctx.raw || 0;
+                      return "₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Working Capital Components",
+                (v) => "₹ " + formatCurrencyINR(v),
+                (label) =>
+                  label === "Accounts Payable"
+                    ? "Liabilities to suppliers – reduce net working capital."
+                    : "Assets that consume working capital."
+              ),
+            },
+          });
+        })();
+
+        // 13) Assets composition
+        (function () {
+          const comp = buildAssetsComposition(
+            finance.balanceSheetSummary || []
+          );
+          const labels = ["Current Assets", "Fixed Assets", "Other Assets"];
+          const values = [
+            comp.totalCurrentAssets,
+            comp.fixedAssets,
+            comp.otherAssets,
+          ];
+          createOrUpdateChart("chart-assets", {
+            type: "doughnut",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Assets (₹)",
+                  data: values,
+                  backgroundColor: [
+                    "rgba(59, 130, 246, 0.8)",
+                    "rgba(16, 185, 129, 0.8)",
+                    "rgba(156, 163, 175, 0.8)",
+                  ],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const label = ctx.label || "";
+                      const v = ctx.raw || 0;
+                      return label + ": ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Assets Composition",
+                (v) => "₹ " + formatCurrencyINR(v),
+                () => "High-level breakdown of assets from the balance sheet."
+              ),
+            },
+          });
+        })();
+
+        // 14) Liabilities & Equity composition
+        (function () {
+          const le = buildLiabilitiesAndEquity(
+            finance.balanceSheetSummary || []
+          );
+          const labels = [
+            "Short-term Debt & Payables",
+            "Long-term Debt",
+            "Equity",
+          ];
+          const values = [le.shortTermDebt, le.longTermDebt, le.equity];
+          createOrUpdateChart("chart-liabilities", {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "₹ value",
+                  data: values,
+                  borderWidth: 1.5,
+                  backgroundColor: [
+                    "rgba(239, 68, 68, 0.8)",
+                    "rgba(251, 146, 60, 0.8)",
+                    "rgba(16, 185, 129, 0.8)",
+                  ],
+                  borderColor: [
+                    "rgba(185, 28, 28, 1)",
+                    "rgba(180, 83, 9, 1)",
+                    "rgba(5, 150, 105, 1)",
+                  ],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { color: chartTheme.gridColor },
+                },
+                x: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const v = ctx.raw || 0;
+                      return "₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Liabilities & Equity",
+                (v) => "₹ " + formatCurrencyINR(v),
+                (label) =>
+                  label === "Equity"
+                    ? "Funds provided by shareholders and retained earnings."
+                    : "Debt obligations on the balance sheet."
+              ),
+            },
+          });
+        })();
+
+        // 15) Debt vs Equity pie
+        (function () {
+          const le = buildLiabilitiesAndEquity(
+            finance.balanceSheetSummary || []
+          );
+          const totalDebt = le.shortTermDebt + le.longTermDebt;
+          const equity = le.equity;
+          createOrUpdateChart("chart-debt-equity", {
+            type: "pie",
+            data: {
+              labels: ["Debt", "Equity"],
+              datasets: [
+                {
+                  label: "Capital (₹)",
+                  data: [totalDebt, equity],
+                  backgroundColor: [
+                    "rgba(239, 68, 68, 0.85)",
+                    "rgba(16, 185, 129, 0.85)",
+                  ],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const label = ctx.label || "";
+                      const v = ctx.raw || 0;
+                      return label + ": ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Debt vs Equity",
+                (v) => "₹ " + formatCurrencyINR(v),
+                (label) =>
+                  label === "Debt"
+                    ? "Total interest-bearing and trade debt."
+                    : "Shareholder capital and retained profits."
+              ),
+            },
+          });
+        })();
+
+        // 16) Expense breakdown
+        (function () {
+          const rows = buildExpenseRows(finance.incomeStatementSummary || []);
+          const labels = rows.map((r) => r.label);
+          const values = rows.map((r) => Number(r.amount || 0));
+          createOrUpdateChart("chart-expenses", {
+            type: "pie",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Expenses (₹)",
+                  data: values,
+                  backgroundColor: [
+                    "rgba(59, 130, 246, 0.8)",
+                    "rgba(16, 185, 129, 0.8)",
+                    "rgba(251, 146, 60, 0.8)",
+                    "rgba(244, 114, 182, 0.8)",
+                    "rgba(129, 140, 248, 0.8)",
+                    "rgba(248, 113, 113, 0.8)",
+                  ],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const label = ctx.label || "";
+                      const v = ctx.raw || 0;
+                      return label + ": ₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Operating Expenses",
+                (v) => "₹ " + formatCurrencyINR(v),
+                () => "Expense categories contributing to operating costs."
+              ),
+            },
+          });
+        })();
+
+        // 17) Cashflow highlights
+        (function () {
+          const cf = cfHighlights;
+          const labels = [
+            "Net Income",
+            "Inventory Change",
+            "Net Cash from Ops",
+            "Net Cash Increase",
+            "Ending Cash",
+          ];
+          const values = [
+            cf.netIncome,
+            cf.inventoryChange,
+            cf.netCashOps,
+            cf.netCashIncrease,
+            cf.endingCash,
+          ];
+          createOrUpdateChart("chart-cashflow", {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "₹ value",
+                  data: values,
+                  borderWidth: 1.5,
+                  backgroundColor: values.map((v) =>
+                    v >= 0
+                      ? "rgba(16, 185, 129, 0.8)"
+                      : "rgba(239, 68, 68, 0.8)"
+                  ),
+                  borderColor: values.map((v) =>
+                    v >= 0 ? "rgba(5, 150, 105, 1)" : "rgba(185, 28, 28, 1)"
+                  ),
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  ticks: {
+                    color: chartTheme.axisColor,
+                    callback: (val) => formatCurrencyINR(Number(val)),
+                  },
+                  grid: { color: chartTheme.gridColor },
+                },
+                x: {
+                  ticks: { color: chartTheme.axisColor },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: { color: chartTheme.legendColor },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const v = ctx.raw || 0;
+                      return "₹ " + formatCurrencyINR(v);
+                    },
+                  },
+                },
+              },
+              onClick: makeOnClickHandler(
+                "Cash Flow Highlights",
+                (v) => "₹ " + formatCurrencyINR(v),
+                (label) =>
+                  label === "Inventory Change"
+                    ? "Positive number indicates inventory build-up (cash outflow)."
+                    : "High-level cash movement on the cash flow statement."
+              ),
+            },
+          });
+        })();
+      }
+
+      // ---------- Main ----------
+      window.addEventListener("DOMContentLoaded", () => {
+        fetch("./md-dashboard-snapshot.json")
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(
+                "Failed to load md-dashboard-snapshot.json (" + res.status + ")"
+              );
+            }
+            return res.json();
+          })
+          .then((snapshot) => {
+            dashboardState.snapshot = snapshot;
+            try {
+              renderHeaderAndKpis(snapshot);
+              renderAllCharts();
+              initFilters();
+            } catch (err) {
+              console.error(err);
+              showError("Failed to render dashboard: " + err.message);
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            showError(err.message || "Unknown error");
+          });
+      });
+
+      function initFilters() {
+        const topNSelect = document.getElementById("filter-topn");
+        const arCurrencySelect = document.getElementById("filter-ar-currency");
+
+        topNSelect.addEventListener("change", () => {
+          dashboardState.topN = Number(topNSelect.value) || 10;
+          renderAllCharts();
+        });
+
+        arCurrencySelect.addEventListener("change", () => {
+          dashboardState.arCurrencyMode = arCurrencySelect.value;
+          renderAllCharts();
+        });
+      }
+    </script>
+  </body>
+</html>

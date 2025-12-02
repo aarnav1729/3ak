@@ -1,74 +1,74 @@
 {
-  "generatedAt": "2025-11-26T11:53:32.702Z",
+  "generatedAt": "2025-12-01T08:01:25.049Z",
   "company": {
     "name": "3AK Chemie Pvt. Ltd."
   },
   "sales": {
     "todaySales": 0,
     "mtdSales": 0,
-    "ytdSales": 90729354.88999994,
-    "last30DaysSales": 0,
+    "ytdSales": 144467357.26000005,
+    "last30DaysSales": 24035598.23000002,
     "topCustomersBySales": [
       {
         "customerNumber": "CUST-0086",
         "customerName": "RUDRA ENTERPRISES",
-        "totalSales": 42604731.38
+        "totalSales": 48331616.72
       },
       {
         "customerNumber": "CUST-0113",
         "customerName": "UB CHEMI TECHNOLOGIES",
-        "totalSales": 42108194.94999998
+        "totalSales": 46038689.40999998
       },
       {
         "customerNumber": "CUST-0098",
         "customerName": "TATVA MARKETING AND SERVICES PVT LTD",
-        "totalSales": 37966450.87999999
+        "totalSales": 42865836.37999999
       },
       {
         "customerNumber": "CUST-0091",
         "customerName": "SHREE BALAJI CORPORATION",
-        "totalSales": 29208970.96000001
+        "totalSales": 31448700.53000001
       },
       {
         "customerNumber": "CUST-0087",
         "customerName": "S S K ENTERPRISES",
-        "totalSales": 24862486.210000005
-      },
-      {
-        "customerNumber": "CUST-0025",
-        "customerName": "CHENNAI NDT",
-        "totalSales": 19161104.62000001
+        "totalSales": 27582517.629999995
       },
       {
         "customerNumber": "CUST-0033",
         "customerName": "D METALLON CORPORATION - RAJKOT",
-        "totalSales": 19126073.689999994
+        "totalSales": 21253543.089999996
+      },
+      {
+        "customerNumber": "CUST-0025",
+        "customerName": "CHENNAI NDT",
+        "totalSales": 19978320.920000006
       },
       {
         "customerNumber": "CUST-0178",
         "customerName": "HEVA ENTERPRISE",
-        "totalSales": 17029374.190000005
+        "totalSales": 19113203.790000007
       },
       {
         "customerNumber": "CUST-0032",
         "customerName": "DI ENGINEERING",
-        "totalSales": 14615936.88
+        "totalSales": 16050408.280000001
       },
       {
         "customerNumber": "CUST-0059",
         "customerName": "K GULAMALLY & CO",
-        "totalSales": 14022033.179999998
+        "totalSales": 15094905.219999999
       }
     ],
     "openQuotesCount": 8,
     "openQuotesValue": 409990,
-    "openOrdersCount": 95,
-    "openOrdersValue": 6024978.89
+    "openOrdersCount": 96,
+    "openOrdersValue": 6163734.15
   },
   "receivables": {
-    "totalAR": 127125584.68000002,
-    "overdueAR": 63306343.89,
-    "overdueRatioPercent": 49.798271566934744,
+    "totalAR": 142173147.95999998,
+    "overdueAR": 81956988.86,
+    "overdueRatioPercent": 57.64589870589232,
     "topOverdueCustomers": [
       {
         "customerNumber": "CUST-0279",
@@ -85,6 +85,13 @@
         "currencyCode": "EUR"
       },
       {
+        "customerNumber": "CUST-0158",
+        "customerName": "SHAH NAGARDAS MANJI & CO. L.L.C",
+        "balanceDue": 11030386.84,
+        "overdue": 11030386.84,
+        "currencyCode": "USD"
+      },
+      {
         "customerNumber": "CUST-0320",
         "customerName": "3AK CHEMIE (THAILAND) CO., LTD.",
         "balanceDue": 19749129.6,
@@ -94,15 +101,22 @@
       {
         "customerNumber": "CUST-0280",
         "customerName": "3AK CHEMIE AUSTRALIA PTY LTD",
-        "balanceDue": 10954971.54,
-        "overdue": 10728809.94,
+        "balanceDue": 9664990.29,
+        "overdue": 9438828.69,
         "currencyCode": "AUD"
+      },
+      {
+        "customerNumber": "CUST-0316",
+        "customerName": "3AK CHEMIE JAPAN KK",
+        "balanceDue": 6641638.85,
+        "overdue": 6641638.85,
+        "currencyCode": "JPY"
       },
       {
         "customerNumber": "CUST-0289",
         "customerName": "3AK CHEMIE SINGAPORE PTE. LTD.",
         "balanceDue": 6521031.84,
-        "overdue": 6221509.09,
+        "overdue": 6521031.84,
         "currencyCode": "SGD"
       },
       {
@@ -125,27 +139,13 @@
         "balanceDue": 5800216.8,
         "overdue": 3241807.8,
         "currencyCode": "USD"
-      },
-      {
-        "customerNumber": "CUST-0395",
-        "customerName": "3AK CHEMIE MALAYSIA SDN. BHD.",
-        "balanceDue": 12446539.89,
-        "overdue": 3152906.68,
-        "currencyCode": "USD"
-      },
-      {
-        "customerNumber": "CUST-0158",
-        "customerName": "SHAH NAGARDAS MANJI & CO. L.L.C",
-        "balanceDue": 3067074.34,
-        "overdue": 3067074.340000001,
-        "currencyCode": "USD"
       }
     ]
   },
   "purchases": {
-    "mtdPurchases": 891097.3999999999,
-    "ytdPurchases": 72658140.32999998,
-    "last30DaysPurchases": 891097.3999999999,
+    "mtdPurchases": 0,
+    "ytdPurchases": 156359725.22999954,
+    "last30DaysPurchases": 20596345.950000003,
     "topVendorsBySpend": [
       {
         "vendorNumber": "VEND-1039",
@@ -155,54 +155,54 @@
       {
         "vendorNumber": "VEND-0524",
         "vendorName": "BHARAT PETROLEUM CORPORATION LTD - MH",
-        "totalPurchases": 65418587.05999999
+        "totalPurchases": 77203075.08999999
       },
       {
         "vendorNumber": "VEND-0266",
         "vendorName": "SSR CHEM",
-        "totalPurchases": 31549419.29999999
-      },
-      {
-        "vendorNumber": "VEND-0391",
-        "vendorName": "VESTRO SOLVENTS PRIVATE LIMITED",
-        "totalPurchases": 18570195.959999997
+        "totalPurchases": 32926599.899999987
       },
       {
         "vendorNumber": "VEND-0405",
         "vendorName": "D P DISTRIBUTORS",
-        "totalPurchases": 15485751.950000005
+        "totalPurchases": 19228661.210000016
+      },
+      {
+        "vendorNumber": "VEND-0391",
+        "vendorName": "VESTRO SOLVENTS PRIVATE LIMITED",
+        "totalPurchases": 18860835.759999998
       },
       {
         "vendorNumber": "VEND-0273",
         "vendorName": "TOTAL ENERGIES MARKETING INDIA PVT LTD-TS",
-        "totalPurchases": 14898647.569999995
+        "totalPurchases": 15688013.589999996
       },
       {
         "vendorNumber": "VEND-0245",
         "vendorName": "PON PURE CHEMICAL INDIA PVT LTD",
-        "totalPurchases": 12370420.020000003
-      },
-      {
-        "vendorNumber": "VEND-0161",
-        "vendorName": "APU PACKAGING INDIA PVT LTD",
-        "totalPurchases": 10128415.3
+        "totalPurchases": 15524024.820000004
       },
       {
         "vendorNumber": "VEND-0200",
         "vendorName": "BADAMIKAR & CO",
-        "totalPurchases": 9849350
+        "totalPurchases": 12032850
       },
       {
-        "vendorNumber": "VEND-1138",
-        "vendorName": "MERCEDES-BENZ INDIA PRIVATE LIMITED",
-        "totalPurchases": 7928500
+        "vendorNumber": "VEND-0161",
+        "vendorName": "APU PACKAGING INDIA PVT LTD",
+        "totalPurchases": 10728415.3
+      },
+      {
+        "vendorNumber": "VEND-0177",
+        "vendorName": "PD FLUTED CARTONS",
+        "totalPurchases": 8141269.550000001
       }
     ]
   },
   "payables": {
-    "totalAP": 19036323.830000002,
-    "overdueAP": 7787482.830000002,
-    "overdueAPRatioPercent": 40.90854357986618,
+    "totalAP": 16823147.460000005,
+    "overdueAP": 6664302.46,
+    "overdueAPRatioPercent": 39.613886021302214,
     "topOverdueVendors": [
       {
         "vendorNumber": "VEND-0524",
@@ -215,7 +215,14 @@
         "vendorNumber": "VEND-1097",
         "vendorName": "SVK ELECTRONICS",
         "balanceDue": 2873361.48,
-        "overdue": 2873361.4799999995,
+        "overdue": 2873361.48,
+        "currencyCode": ""
+      },
+      {
+        "vendorNumber": "VEND-0266",
+        "vendorName": "SSR CHEM",
+        "balanceDue": 2785560.8,
+        "overdue": 2785560.8,
         "currencyCode": ""
       },
       {
@@ -226,24 +233,10 @@
         "currencyCode": "GBP"
       },
       {
-        "vendorNumber": "VEND-0266",
-        "vendorName": "SSR CHEM",
-        "balanceDue": 2785560.8,
-        "overdue": 2561880.8,
-        "currencyCode": ""
-      },
-      {
         "vendorNumber": "VEND-0441",
         "vendorName": "PACIFIC BEARINGS PVT LTD.",
         "balanceDue": 2012590.25,
         "overdue": 2012590.25,
-        "currencyCode": ""
-      },
-      {
-        "vendorNumber": "VEND-0980",
-        "vendorName": "APU PACKAGING INDIA PRIVATE LIMITED - GJ",
-        "balanceDue": 1556150,
-        "overdue": 1556150,
         "currencyCode": ""
       },
       {
@@ -254,6 +247,20 @@
         "currencyCode": ""
       },
       {
+        "vendorNumber": "VEND-0405",
+        "vendorName": "D P DISTRIBUTORS",
+        "balanceDue": 1374478.86,
+        "overdue": 1374478.8599999999,
+        "currencyCode": ""
+      },
+      {
+        "vendorNumber": "VEND-0980",
+        "vendorName": "APU PACKAGING INDIA PRIVATE LIMITED - GJ",
+        "balanceDue": 1212180,
+        "overdue": 1212180,
+        "currencyCode": ""
+      },
+      {
         "vendorNumber": "VEND-0434",
         "vendorName": "Graichen Produktions-Und Vertriebs-GmbH",
         "balanceDue": 1198463.9,
@@ -261,25 +268,18 @@
         "currencyCode": "EUR"
       },
       {
-        "vendorNumber": "VEND-0405",
-        "vendorName": "D P DISTRIBUTORS",
-        "balanceDue": 1374478.86,
-        "overdue": 1166750.8599999999,
-        "currencyCode": ""
-      },
-      {
-        "vendorNumber": "VEND-0045",
-        "vendorName": "VIGNESH TECHNOLOGIES (HYD)",
-        "balanceDue": 519604,
-        "overdue": 519604,
+        "vendorNumber": "VEND-0396",
+        "vendorName": "CALCUTTA PLASTIC INDUSTRIES LLP",
+        "balanceDue": 703141,
+        "overdue": 589242,
         "currencyCode": ""
       }
     ]
   },
   "inventory": {
-    "totalSkus": 1374,
-    "totalInventoryQty": 3387356.2998800003,
-    "estInventoryValue": 87340828.20490971,
+    "totalSkus": 1375,
+    "totalInventoryQty": 3448677.076419998,
+    "estInventoryValue": 90047443.7552969,
     "topItemsByInventoryValue": [
       {
         "itemNumber": "2511-0273",
@@ -290,11 +290,27 @@
         "soldQtyLast90": 0
       },
       {
+        "itemNumber": "RM-0029",
+        "itemName": "Mak Ndt Fluid / Exxsol D100 / Stansol 100",
+        "inventoryQty": 25947.27368,
+        "unitCost": 84,
+        "inventoryValue": 2179570.98912,
+        "soldQtyLast90": 0
+      },
+      {
         "itemNumber": "RM-0256",
         "itemName": "Photomer Aqua 6902",
-        "inventoryQty": 4840.02,
-        "unitCost": 439.82412,
-        "inventoryValue": 2128757.5372824003,
+        "inventoryQty": 4683.02,
+        "unitCost": 439.208,
+        "inventoryValue": 2056819.8481600003,
+        "soldQtyLast90": 0
+      },
+      {
+        "itemNumber": "RM-0104",
+        "itemName": "Ethyl Acetate",
+        "inventoryQty": 22535.49714,
+        "unitCost": 79.60048,
+        "inventoryValue": 1793836.3893826273,
         "soldQtyLast90": 0
       },
       {
@@ -314,27 +330,19 @@
         "soldQtyLast90": 0
       },
       {
-        "itemNumber": "RM-0104",
-        "itemName": "Ethyl Acetate",
-        "inventoryQty": 20445.49714,
-        "unitCost": 79.76408,
-        "inventoryValue": 1630816.2695147314,
+        "itemNumber": "RM-0100",
+        "itemName": "Acetone",
+        "inventoryQty": 21203.8307,
+        "unitCost": 70.51157,
+        "inventoryValue": 1495115.392671199,
         "soldQtyLast90": 0
       },
       {
         "itemNumber": "RM-0166",
         "itemName": "LPG 33 Kgs LOT Cylinder",
-        "inventoryQty": 549.59255,
-        "unitCost": 2406.54334,
-        "inventoryValue": 1322618.290916117,
-        "soldQtyLast90": 0
-      },
-      {
-        "itemNumber": "RM-0100",
-        "itemName": "Acetone",
-        "inventoryQty": 17670.0512,
-        "unitCost": 71.14399,
-        "inventoryValue": 1257117.9458722882,
+        "inventoryQty": 571.91889,
+        "unitCost": 2406.24713,
+        "inventoryValue": 1376178.187655286,
         "soldQtyLast90": 0
       },
       {
@@ -346,19 +354,11 @@
         "soldQtyLast90": 0
       },
       {
-        "itemNumber": "RM-0303",
-        "itemName": "Consolidated Old Balance RM",
-        "inventoryQty": 1,
-        "unitCost": 1024967,
-        "inventoryValue": 1024967,
-        "soldQtyLast90": 0
-      },
-      {
-        "itemNumber": "RM-0013",
-        "itemName": "Synative AC 3499",
-        "inventoryQty": 1137.87,
-        "unitCost": 810.18977,
-        "inventoryValue": 921890.6335898999,
+        "itemNumber": "RM-0403",
+        "itemName": "TRIPROPYLENE GLYCOL DIACRYLATE (TPGDA)",
+        "inventoryQty": 5046,
+        "unitCost": 212.18034,
+        "inventoryValue": 1070661.99564,
         "soldQtyLast90": 0
       }
     ],
@@ -372,11 +372,27 @@
         "soldQtyLast90": 0
       },
       {
+        "itemNumber": "RM-0029",
+        "itemName": "Mak Ndt Fluid / Exxsol D100 / Stansol 100",
+        "inventoryQty": 25947.27368,
+        "unitCost": 84,
+        "inventoryValue": 2179570.98912,
+        "soldQtyLast90": 0
+      },
+      {
         "itemNumber": "RM-0256",
         "itemName": "Photomer Aqua 6902",
-        "inventoryQty": 4840.02,
-        "unitCost": 439.82412,
-        "inventoryValue": 2128757.5372824003,
+        "inventoryQty": 4683.02,
+        "unitCost": 439.208,
+        "inventoryValue": 2056819.8481600003,
+        "soldQtyLast90": 0
+      },
+      {
+        "itemNumber": "RM-0104",
+        "itemName": "Ethyl Acetate",
+        "inventoryQty": 22535.49714,
+        "unitCost": 79.60048,
+        "inventoryValue": 1793836.3893826273,
         "soldQtyLast90": 0
       },
       {
@@ -396,27 +412,19 @@
         "soldQtyLast90": 0
       },
       {
-        "itemNumber": "RM-0104",
-        "itemName": "Ethyl Acetate",
-        "inventoryQty": 20445.49714,
-        "unitCost": 79.76408,
-        "inventoryValue": 1630816.2695147314,
+        "itemNumber": "RM-0100",
+        "itemName": "Acetone",
+        "inventoryQty": 21203.8307,
+        "unitCost": 70.51157,
+        "inventoryValue": 1495115.392671199,
         "soldQtyLast90": 0
       },
       {
         "itemNumber": "RM-0166",
         "itemName": "LPG 33 Kgs LOT Cylinder",
-        "inventoryQty": 549.59255,
-        "unitCost": 2406.54334,
-        "inventoryValue": 1322618.290916117,
-        "soldQtyLast90": 0
-      },
-      {
-        "itemNumber": "RM-0100",
-        "itemName": "Acetone",
-        "inventoryQty": 17670.0512,
-        "unitCost": 71.14399,
-        "inventoryValue": 1257117.9458722882,
+        "inventoryQty": 571.91889,
+        "unitCost": 2406.24713,
+        "inventoryValue": 1376178.187655286,
         "soldQtyLast90": 0
       },
       {
@@ -428,19 +436,11 @@
         "soldQtyLast90": 0
       },
       {
-        "itemNumber": "RM-0303",
-        "itemName": "Consolidated Old Balance RM",
-        "inventoryQty": 1,
-        "unitCost": 1024967,
-        "inventoryValue": 1024967,
-        "soldQtyLast90": 0
-      },
-      {
-        "itemNumber": "RM-0013",
-        "itemName": "Synative AC 3499",
-        "inventoryQty": 1137.87,
-        "unitCost": 810.18977,
-        "inventoryValue": 921890.6335898999,
+        "itemNumber": "RM-0403",
+        "itemName": "TRIPROPYLENE GLYCOL DIACRYLATE (TPGDA)",
+        "inventoryQty": 5046,
+        "unitCost": 212.18034,
+        "inventoryValue": 1070661.99564,
         "soldQtyLast90": 0
       }
     ]
@@ -732,7 +732,7 @@
       {
         "lineNumber": 100000,
         "label": "Total Current Assets",
-        "amount": 228065087.84,
+        "amount": 238309864.19,
         "lineType": "total",
         "indentation": 1
       },
@@ -753,7 +753,7 @@
       {
         "lineNumber": 130000,
         "label": "Total Assets",
-        "amount": 325871401.17,
+        "amount": 336116177.52,
         "lineType": "total",
         "indentation": 0
       },
@@ -788,35 +788,35 @@
       {
         "lineNumber": 180000,
         "label": "Trade Payables",
-        "amount": 19597791.19,
+        "amount": 17435614.82,
         "lineType": "detail",
         "indentation": 1
       },
       {
         "lineNumber": 190000,
         "label": "Secured Loans",
-        "amount": 7368115.21,
+        "amount": 6826564.88,
         "lineType": "detail",
         "indentation": 1
       },
       {
         "lineNumber": 200000,
         "label": "Short Term Provisions",
-        "amount": 234418.48,
+        "amount": 243039.48,
         "lineType": "detail",
         "indentation": 1
       },
       {
         "lineNumber": 210000,
         "label": "Short Term Borrowings",
-        "amount": 83139060.53,
+        "amount": 81371112.46,
         "lineType": "detail",
         "indentation": 1
       },
       {
         "lineNumber": 220000,
         "label": "Unsecured Loans",
-        "amount": 49040000.35,
+        "amount": 48936000.35,
         "lineType": "detail",
         "indentation": 1
       },
@@ -858,7 +858,7 @@
       {
         "lineNumber": 280000,
         "label": "Total Liabilities",
-        "amount": 221009460.76,
+        "amount": 216442406.99,
         "lineType": "total",
         "indentation": 0
       },
@@ -886,7 +886,7 @@
       {
         "lineNumber": 320000,
         "label": "Retained Earnings",
-        "amount": 183122839.73,
+        "amount": 198180880.05,
         "lineType": "detail",
         "indentation": 1
       },
@@ -900,7 +900,7 @@
       {
         "lineNumber": 340000,
         "label": "Total Equity",
-        "amount": 183122839.73,
+        "amount": 198180880.05,
         "lineType": "total",
         "indentation": 0
       },
@@ -914,7 +914,7 @@
       {
         "lineNumber": 360000,
         "label": "Total Liabilities & Equity",
-        "amount": 404132300.49,
+        "amount": 414623287.04,
         "lineType": "total",
         "indentation": 0
       }
@@ -930,7 +930,7 @@
       {
         "lineNumber": 20000,
         "label": "Net Income",
-        "amount": 183122839.73,
+        "amount": 198180880.05,
         "lineType": "detail",
         "indentation": 0
       },
@@ -951,7 +951,7 @@
       {
         "lineNumber": 50000,
         "label": "Inventory",
-        "amount": 82942629.31,
+        "amount": 78626574.51,
         "lineType": "detail",
         "indentation": 1
       },
@@ -972,7 +972,7 @@
       {
         "lineNumber": 80000,
         "label": "Net Cash Provided by Operating Activities",
-        "amount": -100180210.42,
+        "amount": -119554305.54,
         "lineType": "total",
         "indentation": 0
       },
@@ -1035,7 +1035,7 @@
       {
         "lineNumber": 170000,
         "label": "Net Cash Increase for the Period",
-        "amount": 100180210.42,
+        "amount": 119554305.54,
         "lineType": "total",
         "indentation": 0
       },
@@ -1049,7 +1049,7 @@
       {
         "lineNumber": 190000,
         "label": "Cash at End of the Period",
-        "amount": 100180210.42,
+        "amount": 119554305.54,
         "lineType": "total",
         "indentation": 0
       }
