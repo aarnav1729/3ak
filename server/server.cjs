@@ -36,18 +36,32 @@ process.on("unhandledRejection", (reason, p) => {
 
 /* -------------------------------------------------------------------------- */
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow all origins, but NOT as "*"
-      // For non-browser clients / same-origin requests, origin may be undefined
-      callback(null, true);
-    },
-    credentials: true,
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// ---- Global CORS (allow all origins, support credentials) ----
+app.use((req, res, next) => {
+  const origin = req.headers.origin || "*";
+
+  // Echo the origin back so it works with credentials: "include"
+  res.header("Access-Control-Allow-Origin", origin);
+  res.header("Vary", "Origin");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
+app.use(express.json());
+
 
 app.use(express.json());
 
