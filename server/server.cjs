@@ -38,7 +38,12 @@ process.on("unhandledRejection", (reason, p) => {
 
 app.use(
   cors({
-    origin: "*", // allow ALL origins, including 3ak.vercel.app
+    origin: (origin, callback) => {
+      // Allow all origins, but NOT as "*"
+      // For non-browser clients / same-origin requests, origin may be undefined
+      callback(null, true);
+    },
+    credentials: true,
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
