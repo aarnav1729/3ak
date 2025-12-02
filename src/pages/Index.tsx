@@ -29,11 +29,15 @@ import {
 } from "recharts";
 import { formatCurrency, formatNumber } from "@/utils/format";
 
-const API_BASE_URL =
-import.meta.env.VITE_API_BASE_URL || "https://threeak.onrender.com";
+import staticSnapshot from "@/../server/md-dashboard-snapshot.json";
+
+const STATIC_SNAPSHOT = staticSnapshot as MdSnapshot;
+
+// Treat backend as optional: NO default URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.trim() || undefined;
 
 //const API_BASE_URL =
-  //import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
+//import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                     */
@@ -289,12 +293,19 @@ function buildYearLineSeries(raw: YearMonthPoint[]) {
 /* -------------------------------------------------------------------------- */
 
 const Index = () => {
-  const [sales, setSales] = useState<SalesAnalytics | null>(null);
-  const [inventory, setInventory] = useState<InventoryAnalytics | null>(null);
-  const [vendorAging, setVendorAging] = useState<VendorAgingAnalytics | null>(
-    null
+  const [sales, setSales] = useState<SalesAnalytics | null>(
+    STATIC_SNAPSHOT?.salesAnalytics ?? null
   );
-  const [loading, setLoading] = useState(true);
+  const [inventory, setInventory] = useState<InventoryAnalytics | null>(
+    STATIC_SNAPSHOT?.inventoryAnalytics ?? null
+  );
+  const [vendorAging, setVendorAging] = useState<VendorAgingAnalytics | null>(
+    STATIC_SNAPSHOT?.vendorAgingAnalytics ?? null
+  );
+
+  // We’re *not* blocking on the network anymore – we already have snapshot
+  const [loading, setLoading] = useState(false);
+
   const [refreshing, setRefreshing] = useState(false);
 
   // Global filters for range + granularity
@@ -373,6 +384,13 @@ const Index = () => {
       : [];
 
   const loadAll = async (showToast = false) => {
+    if (!API_BASE_URL) {
+      console.info(
+        "[MD] No VITE_API_BASE_URL configured – running in snapshot-only mode."
+      );
+      return;
+    }
+
     try {
       setRefreshing(true);
 
@@ -421,76 +439,23 @@ const Index = () => {
       toast({
         title: "Analytics error",
         description:
-          "Could not load analytics from the MD API. Please verify the server/BC connection.",
+          "Could not load analytics from the MD API. Showing last bundled snapshot instead.",
         variant: "destructive",
       });
     } finally {
-      // ⚠️ DO NOT setLoading(true/false) here – we only use `refreshing`
       setRefreshing(false);
     }
   };
 
   useEffect(() => {
-    let cancelled = false;
+    // We already have STATIC_SNAPSHOT rendered.
+    // If a backend URL exists, fire a background refresh once.
+    if (!API_BASE_URL) {
+      console.info("[MD] Snapshot-only mode, skipping live bootstrap.");
+      return;
+    }
 
-    const bootstrap = async () => {
-      try {
-        // 1) Try to load the precomputed snapshot (fast)
-        const snapshotRes = await fetch(`${API_BASE_URL}/api/md/snapshot`, {
-          credentials: "include",
-        });
-
-        if (!snapshotRes.ok) {
-          console.warn(
-            "MD snapshot not available or failed, status:",
-            snapshotRes.status
-          );
-          // Fallback: hit live APIs once so the screen still works
-          const [salesJson, invJson, vendorJson] = await Promise.all([
-            fetch(
-              `${API_BASE_URL}/api/md/sales-analytics?from=${fromDate}&to=${toDate}&granularity=${granularity}`,
-              { credentials: "include" }
-            ).then((r) => r.json()),
-            fetch(
-              `${API_BASE_URL}/api/md/inventory-analytics?from=${fromDate}&to=${toDate}&groupBy=${granularity}`,
-              { credentials: "include" }
-            ).then((r) => r.json()),
-            fetch(`${API_BASE_URL}/api/md/vendor-aging`, {
-              credentials: "include",
-            }).then((r) => r.json()),
-          ]);
-
-          if (!cancelled) {
-            setSales(salesJson as SalesAnalytics);
-            setInventory(invJson as InventoryAnalytics);
-            setVendorAging(vendorJson as VendorAgingAnalytics);
-            setLoading(false);
-          }
-          return;
-        }
-
-        // 2) Snapshot OK -> use it and DONE
-        const snapshot = (await snapshotRes.json()) as MdSnapshot;
-
-        if (!cancelled) {
-          setSales(snapshot.salesAnalytics);
-          setInventory(snapshot.inventoryAnalytics);
-          setVendorAging(snapshot.vendorAgingAnalytics);
-          setLoading(false);
-        }
-      } catch (err) {
-        console.error("Bootstrap error", err);
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    };
-
-    bootstrap();
-
-    return () => {
-      cancelled = true;
-    };
+    loadAll(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
