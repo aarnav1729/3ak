@@ -34,12 +34,17 @@ process.on("unhandledRejection", (reason, p) => {
 
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+
 app.use(
   cors({
-    origin: true,
-    credentials: true,
+    origin: "*", // allow ALL origins, including 3ak.vercel.app
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+app.use(express.json());
 
 app.use(express.json());
 
