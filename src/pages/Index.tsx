@@ -29,7 +29,11 @@ import {
 } from "recharts";
 import { formatCurrency, formatNumber } from "@/utils/format";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://threeak.onrender.com";
+const API_BASE_URL =
+import.meta.env.VITE_API_BASE_URL || "https://threeak.onrender.com";
+
+//const API_BASE_URL =
+  //import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                     */
@@ -200,6 +204,19 @@ type VendorAgingAnalytics = {
   };
   totals: VendorAgingTotals;
   vendors: VendorAgingRow[];
+};
+
+type MdSnapshot = {
+  salesAnalytics: SalesAnalytics;
+  inventoryAnalytics: InventoryAnalytics;
+  vendorAgingAnalytics: VendorAgingAnalytics;
+  meta?: {
+    builtAt?: string;
+    source?: string;
+    defaultFrom?: string;
+    defaultTo?: string;
+    granularity?: string;
+  };
 };
 
 type Granularity = "day" | "month" | "quarter" | "year";
@@ -408,13 +425,72 @@ const Index = () => {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      // ⚠️ DO NOT setLoading(true/false) here – we only use `refreshing`
       setRefreshing(false);
     }
   };
 
   useEffect(() => {
-    loadAll();
+    let cancelled = false;
+
+    const bootstrap = async () => {
+      try {
+        // 1) Try to load the precomputed snapshot (fast)
+        const snapshotRes = await fetch(`${API_BASE_URL}/api/md/snapshot`, {
+          credentials: "include",
+        });
+
+        if (!snapshotRes.ok) {
+          console.warn(
+            "MD snapshot not available or failed, status:",
+            snapshotRes.status
+          );
+          // Fallback: hit live APIs once so the screen still works
+          const [salesJson, invJson, vendorJson] = await Promise.all([
+            fetch(
+              `${API_BASE_URL}/api/md/sales-analytics?from=${fromDate}&to=${toDate}&granularity=${granularity}`,
+              { credentials: "include" }
+            ).then((r) => r.json()),
+            fetch(
+              `${API_BASE_URL}/api/md/inventory-analytics?from=${fromDate}&to=${toDate}&groupBy=${granularity}`,
+              { credentials: "include" }
+            ).then((r) => r.json()),
+            fetch(`${API_BASE_URL}/api/md/vendor-aging`, {
+              credentials: "include",
+            }).then((r) => r.json()),
+          ]);
+
+          if (!cancelled) {
+            setSales(salesJson as SalesAnalytics);
+            setInventory(invJson as InventoryAnalytics);
+            setVendorAging(vendorJson as VendorAgingAnalytics);
+            setLoading(false);
+          }
+          return;
+        }
+
+        // 2) Snapshot OK -> use it and DONE
+        const snapshot = (await snapshotRes.json()) as MdSnapshot;
+
+        if (!cancelled) {
+          setSales(snapshot.salesAnalytics);
+          setInventory(snapshot.inventoryAnalytics);
+          setVendorAging(snapshot.vendorAgingAnalytics);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Bootstrap error", err);
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    bootstrap();
+
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -11,6 +11,11 @@ const CUSTOMER_MAPPING_PATH =
   process.env.CUSTOMER_MAPPING_PATH ||
   path.join(__dirname, "Customers (17).xlsx");
 
+// JSON snapshot of the above, checked in / reused
+const CUSTOMER_JSON_PATH =
+  process.env.CUSTOMER_JSON_PATH ||
+  path.join(__dirname, "customer-classification.json");
+
 // Map: customerNumber -> {
 //  customerNumber,
 //  customerName,
@@ -25,10 +30,66 @@ let customerMapLoadAttempted = false;
  * Load "Customers (17).xlsx" using ExcelJS into memory.
  * Safe to call multiple times (only first call actually loads).
  */
+/**
+ * Load customer classification into memory.
+ *
+ * Priority:
+ *  1) If JSON snapshot exists, load from JSON.
+ *  2) Else, read "Customers (17).xlsx", build map, and write JSON snapshot.
+ *
+ * Safe to call multiple times (only first call actually loads).
+ */
 async function ensureCustomerClassificationLoaded() {
   if (customerMapLoadAttempted) return;
   customerMapLoadAttempted = true;
 
+  // 1) Try JSON snapshot first
+  try {
+    if (fs.existsSync(CUSTOMER_JSON_PATH)) {
+      console.log(
+        "[MD] Loading customer classification JSON from",
+        CUSTOMER_JSON_PATH
+      );
+
+      const raw = fs.readFileSync(CUSTOMER_JSON_PATH, "utf8");
+      const arr = JSON.parse(raw);
+
+      if (Array.isArray(arr)) {
+        const map = new Map();
+
+        for (const row of arr) {
+          if (!row) continue;
+          const customerNumber = String(row.customerNumber || "").trim();
+          if (!customerNumber) continue;
+
+          map.set(customerNumber, {
+            customerNumber,
+            customerName: String(row.customerName || "").trim(),
+            postingGroup: String(row.postingGroup || "").trim(),
+            genBusPostingGroup: String(row.genBusPostingGroup || "").trim(),
+            customerType: String(row.customerType || "").trim(),
+          });
+        }
+
+        customerClassificationMap = map;
+        console.log(
+          `[MD] Loaded ${customerClassificationMap.size} customer classification rows from JSON`
+        );
+        return; // ✅ Done – no need to touch Excel
+      }
+
+      console.warn(
+        "[MD] Customer classification JSON did not contain an array; falling back to XLSX"
+      );
+    }
+  } catch (err) {
+    console.warn(
+      "[MD] Failed to load customer classification JSON, falling back to XLSX:",
+      err.message || err
+    );
+  }
+
+  // 2) Fallback: read from XLSX and also write JSON snapshot
   try {
     if (!fs.existsSync(CUSTOMER_MAPPING_PATH)) {
       console.warn(
@@ -41,7 +102,7 @@ async function ensureCustomerClassificationLoaded() {
     }
 
     console.log(
-      "[MD] Loading customer classification from",
+      "[MD] Loading customer classification from XLSX",
       CUSTOMER_MAPPING_PATH
     );
 
@@ -86,6 +147,8 @@ async function ensureCustomerClassificationLoaded() {
     }
 
     const map = new Map();
+    const jsonArray = [];
+
     sheet.eachRow((row, rowNumber) => {
       if (rowNumber === 1) return; // header
 
@@ -108,19 +171,39 @@ async function ensureCustomerClassificationLoaded() {
         ? String(row.getCell(customerTypeCol).value || "").trim()
         : "";
 
-      map.set(customerNumber, {
+      const obj = {
         customerNumber,
         customerName,
         postingGroup,
         genBusPostingGroup,
         customerType,
-      });
+      };
+
+      map.set(customerNumber, obj);
+      jsonArray.push(obj);
     });
 
     customerClassificationMap = map;
     console.log(
-      `[MD] Loaded ${customerClassificationMap.size} customer classification rows`
+      `[MD] Loaded ${customerClassificationMap.size} customer classification rows from XLSX`
     );
+
+    // Write JSON snapshot so next run can skip XLSX completely
+    try {
+      fs.writeFileSync(
+        CUSTOMER_JSON_PATH,
+        JSON.stringify(jsonArray, null, 2),
+        "utf8"
+      );
+      console.log(
+        `[MD] Wrote customer classification JSON snapshot to ${CUSTOMER_JSON_PATH} (${jsonArray.length} rows)`
+      );
+    } catch (err) {
+      console.warn(
+        "[MD] Failed to write customer classification JSON snapshot:",
+        err.message || err
+      );
+    }
   } catch (err) {
     console.error(
       "[MD] Failed to load customer classification mapping:",
@@ -2095,26 +2178,105 @@ router.get("/sales-invoices-raw", async (req, res) => {
   }
 });
 
-// === 7. CLI snapshot mode ====================================================
+/// === 7. CLI snapshot mode (new) =============================================
+//
+// When md.cjs is run directly (node md.cjs), build a snapshot JSON file
+// in the EXACT shape expected by the frontend:
+//
+// {
+//   salesAnalytics: { ...same as GET /api/md/sales-analytics },
+//   inventoryAnalytics: { ...same as GET /api/md/inventory-analytics },
+//   vendorAgingAnalytics: { ...same as GET /api/md/vendor-aging },
+//   meta: { builtAt, source, defaultFrom, defaultTo, granularity }
+// }
+//
+// It does this by calling the local MD API instead of duplicating logic.
+//
 
 if (require.main === module) {
   (async () => {
     try {
-      console.log("Getting access token...");
-      const token = await getAccessToken();
-      console.log("Token acquired.");
+      // Where is the MD API server? Default is your BE:
+      //   http://localhost:4000
+      // You can override this with SNAPSHOT_API_BASE_URL if needed
+      const baseUrl =
+        process.env.SNAPSHOT_API_BASE_URL || "http://localhost:4000";
 
-      console.log("Building MD dashboard snapshot...");
-      const snapshot = await buildMdSnapshot(token);
+      // Use same broad default range as FE (all time → today)
+      const now = new Date();
+      const defaultFrom = new Date(2000, 0, 1); // 2000-01-01
+      const fromStr = defaultFrom.toISOString().slice(0, 10);
+      const toStr = now.toISOString().slice(0, 10);
+      const granularity = "month";
 
-      console.dir(snapshot, { depth: null });
+      console.log(
+        "[MD CLI] Building analytics snapshot via local MD API at",
+        baseUrl
+      );
+      console.log(
+        "[MD CLI] Range:",
+        fromStr,
+        "→",
+        toStr,
+        "| granularity:",
+        granularity
+      );
+
+      const salesUrl = `${baseUrl}/api/md/sales-analytics?from=${fromStr}&to=${toStr}&granularity=${granularity}`;
+      const invUrl = `${baseUrl}/api/md/inventory-analytics?from=${fromStr}&to=${toStr}&groupBy=${granularity}`;
+      const vendorUrl = `${baseUrl}/api/md/vendor-aging`;
+
+      const [salesRes, invRes, vendorRes] = await Promise.all([
+        fetch(salesUrl),
+        fetch(invUrl),
+        fetch(vendorUrl),
+      ]);
+
+      if (!salesRes.ok) {
+        const text = await salesRes.text();
+        throw new Error(
+          `sales-analytics HTTP ${salesRes.status}: ${text.slice(0, 500)}`
+        );
+      }
+      if (!invRes.ok) {
+        const text = await invRes.text();
+        throw new Error(
+          `inventory-analytics HTTP ${invRes.status}: ${text.slice(0, 500)}`
+        );
+      }
+      if (!vendorRes.ok) {
+        const text = await vendorRes.text();
+        throw new Error(
+          `vendor-aging HTTP ${vendorRes.status}: ${text.slice(0, 500)}`
+        );
+      }
+
+      const [salesAnalytics, inventoryAnalytics, vendorAgingAnalytics] =
+        await Promise.all([salesRes.json(), invRes.json(), vendorRes.json()]);
+
+      const snapshot = {
+        salesAnalytics,
+        inventoryAnalytics,
+        vendorAgingAnalytics,
+        meta: {
+          builtAt: new Date().toISOString(),
+          source: "md.cjs CLI via /api/md/* endpoints",
+          defaultFrom: fromStr,
+          defaultTo: toStr,
+          granularity,
+        },
+      };
 
       const outputPath = path.join(__dirname, "md-dashboard-snapshot.json");
       fs.writeFileSync(outputPath, JSON.stringify(snapshot, null, 2), "utf8");
 
-      console.log(`Snapshot written to: ${outputPath}`);
+      console.log(`[MD CLI] Snapshot written to: ${outputPath}`);
     } catch (err) {
-      console.error("Error building MD dashboard:", err.message);
+      console.error(
+        "[MD CLI] Error building MD dashboard snapshot:",
+        err.message || err
+      );
+      process.exitCode = 1;
     }
   })();
 } else {

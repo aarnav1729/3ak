@@ -1,0 +1,3705 @@
+[
+  {
+    "customerNumber": "CUST-0001",
+    "customerName": "A & M POWER TECH",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0002",
+    "customerName": "T SAIFUDDIN & CO",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0003",
+    "customerName": "A2MAC1 INDIA PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0004",
+    "customerName": "A2Z NDT SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0005",
+    "customerName": "AADITYA ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0006",
+    "customerName": "AIR OFFICER COMMANDING AIR FORCE STATION",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0007",
+    "customerName": "ALHAK QUALITY INSPECTION SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0008",
+    "customerName": "AMAZON PAY INDIA PVT LLD",
+    "postingGroup": "D E-COMMERCE",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0009",
+    "customerName": "AOC AIR FORCE STATION BIDAR",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0010",
+    "customerName": "APEX ENGINEERING",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0011",
+    "customerName": "AR CONSULTING AND INSPECTION LLP",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0012",
+    "customerName": "ARHAM TECHNOVISION",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0013",
+    "customerName": "ARIHANT NDT INSPECTION SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0014",
+    "customerName": "ASK INDUSTRIAL INCORPORATION",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0015",
+    "customerName": "B V ENGINEERS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0016",
+    "customerName": "BEML LTD",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0017",
+    "customerName": "BHARAT FORGE LTD",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0018",
+    "customerName": "BHARAT HEAVY ELECTRICAL LTD - PIPLANI",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0019",
+    "customerName": "BHARAT HEAVY ELECTRICALS LTD - VISAKHAPATNAM",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0020",
+    "customerName": "BHARAT HEAVY ELECTRICALS LTD (HARIDWAR)",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0021",
+    "customerName": "BHARAT HEAVY ELECTRICALS LTD (TAMILNADU)",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0022",
+    "customerName": "BHARAT HEAVY ELECTRICALS LTD (TELANGANA)",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0023",
+    "customerName": "BHAVANI ERECTORS PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0024",
+    "customerName": "BHUSHAN POWER & STEEL LTD",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0025",
+    "customerName": "CHENNAI NDT",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0026",
+    "customerName": "CHHATTISHGARH ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0027",
+    "customerName": "COMMERCIAL ENGINEERING ASSOCIATES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0028",
+    "customerName": "COMPAC TECHNOLOGIES INDIA LTD",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0029",
+    "customerName": "CU - BUILT ENGINEERS PVT. LTD-MAHARASHTRA",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0030",
+    "customerName": "CU - BUILT RENEWABLE ENERGY PVT LTD - GJ",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0031",
+    "customerName": "DHIRAJ ENGINEERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0032",
+    "customerName": "DI ENGINEERING",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0033",
+    "customerName": "D METALLON CORPORATION - RAJKOT (24)",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0034",
+    "customerName": "DYNAMO ENTERPRISE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0035",
+    "customerName": "EMPIRICAL TECHNOCRATS",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0036",
+    "customerName": "FLIPKART",
+    "postingGroup": "D E-COMMERCE",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0037",
+    "customerName": "FLOWSERVE INDIA CONTROLS PVT LTD",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0038",
+    "customerName": "GARGATE AGENCIES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0039",
+    "customerName": "GE POWER SYSTEMS INDIA PVT LTD",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0040",
+    "customerName": "GIRIRAJ ENTERPRISE",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0041",
+    "customerName": "GLAND PHARMA LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0042",
+    "customerName": "GNA AXLES LTD",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0043",
+    "customerName": "GNA AXLES LTD UNIT - II",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0044",
+    "customerName": "GNA GEARS LIMITED",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0045",
+    "customerName": "GODREJ AND BOYCE MANUFACTURING CO LTD",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0046",
+    "customerName": "GODREJ AND BOYCE MANUFACTURING CO LTD - GUJARAT",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0047",
+    "customerName": "HANUMANJI TRADERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0048",
+    "customerName": "HEALTH & GLOW PVT LTD - BANGALORE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0049",
+    "customerName": "HEALTH & GLOW PVT LTD - CHENNAI",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0050",
+    "customerName": "HEALTH & GLOW PVT LTD - HYD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0051",
+    "customerName": "HONEST ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0052",
+    "customerName": "HYDERABAD ENGINEERING LABS",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0053",
+    "customerName": "HYUNDAI CONSTRUCTION EQUIPMENT INDIA PVT LTD",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0054",
+    "customerName": "ICL SERVICES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0055",
+    "customerName": "INDIAN FARMERS FERTILISER COOPERATIVE LTD - PARADEEP UNIT",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0056",
+    "customerName": "INDUSTRIAL INSPECTION SERVICES",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0057",
+    "customerName": "INSPEC NDT",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0058",
+    "customerName": "INTEGRAL COACH FACTORY",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0059",
+    "customerName": "K GULAMALLY & CO",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0060",
+    "customerName": "KRISHAN BROTHERS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0061",
+    "customerName": "KRISHNA ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0062",
+    "customerName": "KUB QUALITY SERVICES PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0063",
+    "customerName": "L&T - MHI POWER BOILERS PVT LTD - GJ",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0064",
+    "customerName": "INDIAN FARMERS FERTILISER COOPERATIVE LTD - MH",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0065",
+    "customerName": "LARSEN & TOUBRO LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0066",
+    "customerName": "Siemens Energy K.K.",
+    "postingGroup": "E CUSTOMER - OEM",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0067",
+    "customerName": "LG INSPECTION SERVICES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0068",
+    "customerName": "M S INDUSTRIES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0069",
+    "customerName": "DIVINE ENTERPRISES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0070",
+    "customerName": "MAYURESH ENGINEERS & FABRICATORS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0071",
+    "customerName": "MEDHASRI AND CO",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0072",
+    "customerName": "MONOTECH SYSTEMS LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0073",
+    "customerName": "MOR CHEMISTS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0074",
+    "customerName": "MTAR TECHOLOGIES LTD",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0075",
+    "customerName": "NP - NDT INSPECTION SERVICES",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0076",
+    "customerName": "NUCLEAR FUEL COMPLEX",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0077",
+    "customerName": "NUCLEAR POWER CORPORATION OF INDIA LTD - RAJASTHAN",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0078",
+    "customerName": "OMEGA PIPE INSPECTION & SERVICES PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0079",
+    "customerName": "ORDNANCE FACTORY MURADNAGAR",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0080",
+    "customerName": "ORDNANCE FACTORY - AMBAJHARI",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0081",
+    "customerName": "PRINCEY AGENCIES & SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0082",
+    "customerName": "PRS PERMACEL PVT LTD",
+    "postingGroup": "D PROJECTS-WHIT LABL",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0083",
+    "customerName": "QUTBI INDUSTRIAL SUPPLIERS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0084",
+    "customerName": "RADIANT QUALITY SERVICES",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0085",
+    "customerName": "RING FORGINGS PVT LTD",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0086",
+    "customerName": "RUDRA ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0087",
+    "customerName": "SSK ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0088",
+    "customerName": "SCIENTECH SERVICES",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0089",
+    "customerName": "SHARDLOW INDIA LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0090",
+    "customerName": "SHIV WELDING CO",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0091",
+    "customerName": "SHREE BALAJI CORPORATION - MH",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0092",
+    "customerName": "SHRI MAHALAXMI ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0093",
+    "customerName": "SRI SAI OILFIELD EQUIPMENTS & MARINE SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0094",
+    "customerName": "STRIDE ENTERPRISES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0095",
+    "customerName": "SUPERMAG NDT SYSTEMS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0096",
+    "customerName": "SUPERWELD SOURCES PVT LTD",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0097",
+    "customerName": "THYSSENKRUPP INDUSTRIES INDIA PVT LTD",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0098",
+    "customerName": "TATVA MARKETING AND SERVICES PVT LTD",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0099",
+    "customerName": "TECHNO ENGINEERING SOLUTIONS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0100",
+    "customerName": "TECHNO INDUSTRIAL ENGINEERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0101",
+    "customerName": "TECHNO SOLUTIONS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0102",
+    "customerName": "TECHNORR ENGINEERING PRODUCTS PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0103",
+    "customerName": "THE ESWAR TRADING CO",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0104",
+    "customerName": "THE MAHALAKSHMI UDYOG",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0105",
+    "customerName": "THERMAX BABCOCK & WILCOX ENERGY SOLUTIONS PVT LTD - GUJARAT",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0106",
+    "customerName": "THERMAX BABCOCK & WILCOX ENERGY SOLUTIONS PVT LTD - PUNE",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0107",
+    "customerName": "TITANIUM EQUIPMENT& ANODE MANUFACTURING COMP PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0108",
+    "customerName": "TUBESTAR OIL & GAS SERVICES PVT LTD - GUJARAT",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0109",
+    "customerName": "TUBESTAR OIL & GAS SERVICES PVT LTD - MUMBAI",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0110",
+    "customerName": "TUBESTAR OIL & GAS SERVICES PVT LTD - RAJASTHAN",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0111",
+    "customerName": "TUBESTAR OIL & GAS SERVICES PVT LTD - KAKINADA",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0112",
+    "customerName": "TURBO NDT & METALLURGICAL SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0113",
+    "customerName": "UB CHEMI TECHNOLOGIES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0114",
+    "customerName": "UNI DERITEND LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0115",
+    "customerName": "UNITED GLOBAL ENGINEERING SOLUTIONS PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0116",
+    "customerName": "VIBRANT NDT SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0117",
+    "customerName": "VIKRAM ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0118",
+    "customerName": "VULKAN TECHNOLOGIES PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0119",
+    "customerName": "WESTERN INDIA FORGINGS PVT LTD",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0120",
+    "customerName": "ZA INDUSTRIAL PRODUCTS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0121",
+    "customerName": "BAPPA MOTORS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0122",
+    "customerName": "BHUPENDRA INDUSTRIAL SALES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0123",
+    "customerName": "CRYOSTAR TANKS AND VESSELS PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0125",
+    "customerName": "JKM NDT SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0126",
+    "customerName": "DEEPWELD AGENCIES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0127",
+    "customerName": "DEPARTMENT OF ATOMIC ENERGY",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0128",
+    "customerName": "DUWELL INTERTRADE LTD",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0129",
+    "customerName": "EASTLAND SWITCHGEARS PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0130",
+    "customerName": "FOURES NDT SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0131",
+    "customerName": "GANPATI ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0132",
+    "customerName": "GLOBAL ENGINEERING",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0133",
+    "customerName": "GRAICHEN PRODUKTIONS-UND VERTRIEBS-GMBH",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0134",
+    "customerName": "HERRENKNECHT INDIA PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0135",
+    "customerName": "KSB LIMITED - PUNE CHINCHWAD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0136",
+    "customerName": "KVS METALLURGICAL LABS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0137",
+    "customerName": "L&T - MHI POWER BOILERS PVT LTD - Dup",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0138",
+    "customerName": "LAMBROS GLOBAL ENGG PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0139",
+    "customerName": "LOKESH ENTERPRISES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0140",
+    "customerName": "MAHALAKSHMI ENTERPRISES",
+    "postingGroup": "D CUSTOMER - SCRAP",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0141",
+    "customerName": "MR CHEMIE GMBH",
+    "postingGroup": "E CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0142",
+    "customerName": "MSK ENTERPRISES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0143",
+    "customerName": "NEXTRO SALES CORPORATION",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0144",
+    "customerName": "VALVE WORKS INDIA PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0145",
+    "customerName": "PACIFIC DISTRIBUTION FZE",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0146",
+    "customerName": "PRAVEEN TRADERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0147",
+    "customerName": "RAHUL UDYOG",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0148",
+    "customerName": "RSS SALES & SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0149",
+    "customerName": "RUJUL TRADERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0150",
+    "customerName": "SAFE INDUSTRIAL AND MARINE STORES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0151",
+    "customerName": "SASTHA SCIENTIFIC AGENCIES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0152",
+    "customerName": "RAMSON PAINTS",
+    "postingGroup": "D CUSTOMER - SCRAP",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0153",
+    "customerName": "SHIKHA TRADING COMPANY",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0154",
+    "customerName": "SRI HARI TRADERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0155",
+    "customerName": "THE AUTOMOTIVE RESEARCH ASSOCIATION OF INDIA",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0156",
+    "customerName": "TITAN COMPANY LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0157",
+    "customerName": "ZENITH INDUSTRIAL SUPPLIES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0158",
+    "customerName": "SHAH NAGARDAS MANJI & CO. L.L.C",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0159",
+    "customerName": "SUYASH ENTERPRISES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0160",
+    "customerName": "ARYA SALES CORPORATION",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0161",
+    "customerName": "DEPARTMENT OF ATOMIC ENERGY-Mumbai",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0162",
+    "customerName": "HITECH ENTRADE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0164",
+    "customerName": "IFM Electronic Asia Pte. Ltd.",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0165",
+    "customerName": "PT HOME SYSTEM INDONESIA",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0166",
+    "customerName": "DR LANCING AND MINERAL",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0167",
+    "customerName": "SAMVIDHA ENTERPRISES (DRUMS)",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0168",
+    "customerName": "AMIT & ASSOCIATES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0169",
+    "customerName": "BHARAT PAINTS & RESINS (WASTE SOLVENT)",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0170",
+    "customerName": "GENERAL MERCANTILE INDUSTRIES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0171",
+    "customerName": "JSN ENGINEERING AND SERVICES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0173",
+    "customerName": "ASHRAF & CO.LTD",
+    "postingGroup": "E CUSTOMER - OEM",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0175",
+    "customerName": "SRI SHIVA SAI TRADERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0176",
+    "customerName": "FREIGHT ASSIST AUSTRALIA PTY LTD",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0177",
+    "customerName": "UNITED SALES AGENCY",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0178",
+    "customerName": "HEVA ENTERPRISE",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0179",
+    "customerName": "COGEME PRECISION PARTS INDIA PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0180",
+    "customerName": "GUPTA TOOL & CHEMICALS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0181",
+    "customerName": "S.M.INDUSTRIAL CORPORATION",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0182",
+    "customerName": "PARAM SUKH ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0183",
+    "customerName": "SF Marine Offshore & Industrial Supply Co",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0184",
+    "customerName": "Precise 3D Metrology & Design Solutions Pvt Ltd",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0185",
+    "customerName": "MOTO DRIVE",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0186",
+    "customerName": "ELVI BARDAHL INDIA PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0187",
+    "customerName": "NDT TRAINING CONSULTANCY & INSPECTION SERVICES PVT LTD (21)",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0189",
+    "customerName": "VISION ENTECH PVT LTD.",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0190",
+    "customerName": "PADMAVATI ENTERPRISES - PUNE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0191",
+    "customerName": "METRILLO GUN CORPORATION",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0192",
+    "customerName": "SF Marine Offshore & Industrial Supply Co",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0193",
+    "customerName": "NHDC LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0194",
+    "customerName": "INDAIDS INTERNATIONAL",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0195",
+    "customerName": "R B ENTERPRISES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0196",
+    "customerName": "AARNA TOOLING SOLUTIONS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0197",
+    "customerName": "SHRI SALASAR TRADING CO",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0198",
+    "customerName": "MAYELI MATHA TRADING",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0199",
+    "customerName": "GLOBAL RISER S.L",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0200",
+    "customerName": "AMRIT STEEL CENTRE",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0201",
+    "customerName": "BAGLA MACHINERY MART",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0202",
+    "customerName": "4S SOLUTIONS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0203",
+    "customerName": "INDO ROBOTICS & TOOLING COMPONENTS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0204",
+    "customerName": "HEERA TOOLS TECH",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0205",
+    "customerName": "SADHU FORGING LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0206",
+    "customerName": "Santosh Kumar Co - Dup",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0207",
+    "customerName": "PERFACT ADVANCED WATER SOLUTIONS PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0208",
+    "customerName": "MACHSCAN TECHNICAL SERVICES INC",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0209",
+    "customerName": "VASTEK GROUP",
+    "postingGroup": "E CUSTOMER - OEM",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0210",
+    "customerName": "TUBESTAR INTERNATIONAL FZE",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0211",
+    "customerName": "4 CLOSURE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0212",
+    "customerName": "ABDULLA FOUAD COMPANY",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0213",
+    "customerName": "A.L.ENGINEERING SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0214",
+    "customerName": "AMAZON SELLER SERVICES PVT. LTD.",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0215",
+    "customerName": "D.J.UDYOG",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0216",
+    "customerName": "D METALLON CORPORATION",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0217",
+    "customerName": "GITCO INTERNATIONAL GENERAL TRADING AND CONTRACTING",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0218",
+    "customerName": "GTECH NDT PTY LTD",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0219",
+    "customerName": "INVOLUTE TECHNOLOGIES PVT.LTD.",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0220",
+    "customerName": "J&B GLOBAL LIFTING LIMITED",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0221",
+    "customerName": "M/S LMATS PTY LTD",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0222",
+    "customerName": "PT. CLADTEK BI-METAL MANUFACTURING",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0223",
+    "customerName": "PT.FINUSOLPRIMA FARMA INTERNASIONAL",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0224",
+    "customerName": "RATNADEEP RETAIL PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0225",
+    "customerName": "SRI RIDHI JEWELS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0226",
+    "customerName": "STRONICS INTEGRATED SERVICES LTD",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0227",
+    "customerName": "SYMPHONY ENGINEERING",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0228",
+    "customerName": "TATA STEEL LIMITED",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0229",
+    "customerName": "THE GIFTS GENIE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0230",
+    "customerName": "TSK CORPORATION",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0231",
+    "customerName": "DEEPAK KULKARNI",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0232",
+    "customerName": "DEETYA HI-TECH PRIVATE LIMITED",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0233",
+    "customerName": "RS TRADERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0234",
+    "customerName": "A2MAC1 INDIA PVT LTD -Varanavasi",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0235",
+    "customerName": "KSB LIMITED - SHIRWAL",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0236",
+    "customerName": "NVJ PROJECTS & MARKETING",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0237",
+    "customerName": "SIMPSON AND COMPANY LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0238",
+    "customerName": "ROYAL INDUSTRIAL CORPORATION",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0239",
+    "customerName": "PITRUKRUPA KANCHGHAR INDUSTRIES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0240",
+    "customerName": "AGGARWAL BEARING HOUSE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0241",
+    "customerName": "AGGARWAL INDUSTRIAL SOLUTIONS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0242",
+    "customerName": "OGNIBENE INDIA PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0244",
+    "customerName": "EQUIPCORP SOLUTIONS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0245",
+    "customerName": "CASCADE STAR INDIA PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0246",
+    "customerName": "S V TRADERS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0247",
+    "customerName": "DANFOSS TECHNOLOGIES PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0248",
+    "customerName": "ICHISA ENGINEERING (S) PTE LTD",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0249",
+    "customerName": "CAPCP BENCHMARKING SERVICEPVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0250",
+    "customerName": "CREATIVE TOOLS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0251",
+    "customerName": "SRI DURGA SCRAP TRADERS",
+    "postingGroup": "D CUSTOMER - SCRAP",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0252",
+    "customerName": "RAW MATNFAB",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0253",
+    "customerName": "INDO CHEM",
+    "postingGroup": "D CUSTOMER - SCRAP",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0254",
+    "customerName": "CIE AUTOMATIVE INDIA LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0255",
+    "customerName": "PROAID",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0256",
+    "customerName": "RAJ KUMAR & CO.",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0257",
+    "customerName": "AMBIKA  INDUSTRIAL INSTRUMENTS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0258",
+    "customerName": "SARL AJOUAD SG & IMPORTATION",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0259",
+    "customerName": "WESTERN HEAT & FORGE PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0260",
+    "customerName": "GRINDWELL NORTON LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0261",
+    "customerName": "SAHA ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0262",
+    "customerName": "Border Security Force (BSF)",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0263",
+    "customerName": "BHARAT FORGE LIMITED (PUNE)",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0264",
+    "customerName": "M.P TRADING",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0265",
+    "customerName": "KARUPAKULA ENTERPRISES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0266",
+    "customerName": "INDIAN RAILWAY",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0267",
+    "customerName": "SLD BEARINGS AND TOOLS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0268",
+    "customerName": "POWERSTATIC SOLUTIONS INDIA PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0269",
+    "customerName": "JANKIDAS & SONS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0270",
+    "customerName": "CAPCP ENGINEERING SERVICES PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0271",
+    "customerName": "PACIFIC BEARINGS PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0272",
+    "customerName": "YFX STUDIOS PVT LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0273",
+    "customerName": "Bhutan Hydropower Services Ltd",
+    "postingGroup": "E RETAIL SALES",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0274",
+    "customerName": "QLT INTERNATIONAL COMPANY LIMITED",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0275",
+    "customerName": "Exceptional Service and Supply - ESS",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0276",
+    "customerName": "KAETEX SERVICES LIMITED",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0277",
+    "customerName": "CU - BUILT RENEWABLE ENERGY PVT LTD - KA",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0278",
+    "customerName": "PROHELI INTERNATIONAL SERVICES LTD",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0279",
+    "customerName": "3AK CHEMIE SOUTH AFRICA PTY LTD",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0280",
+    "customerName": "3AK CHEMIE AUSTRALIA PTY LTD",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0281",
+    "customerName": "GUPTA HARDWARE STORE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0282",
+    "customerName": "QUALITY INSPECTION SERVICES - S KALADHAR",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0283",
+    "customerName": "PACIFIC DISTRIBUTION (THAILAND) CO., LTD",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0284",
+    "customerName": "STAR ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0285",
+    "customerName": "SRI DEVI TRADERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0286",
+    "customerName": "PIONEER ENGINEERING WORKS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0287",
+    "customerName": "MODERN METAL SERVICES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0288",
+    "customerName": "NORTH WESTERN RAILWAY",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0289",
+    "customerName": "3AK CHEMIE SINGAPORE PTE. LTD.",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0290",
+    "customerName": "APT INSPECTION TECHNOLOGIES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0291",
+    "customerName": "NORTH EAST FRONTIER RAILWAY",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0292",
+    "customerName": "S A S 3D SPARK PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0293",
+    "customerName": "CREATIVE ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0294",
+    "customerName": "BORDER SECURITY FORCE (BSF) NEW DELHI",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0295",
+    "customerName": "NDT TRAINING CONSULTANCY & INSPECTION SERVICES PVT. LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0296",
+    "customerName": "MAGNAFIELD ELECTRONICS & ENGINEERING PRIVATE LIMITED",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0297",
+    "customerName": "SCIENTEX ENGINEERING & TRADING SDN BHD",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0298",
+    "customerName": "DANFOSS INDUSTRIES PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0299",
+    "customerName": "UNITED SALES AGENCY (RANCHI)",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0300",
+    "customerName": "JAI HANUMAN TRADERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0301",
+    "customerName": "TKIL INDUSTRIES PRIVATE LIMITED (HYD)",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0302",
+    "customerName": "BHARAT HEAVY ELECTRICALS LTD (CFFP)",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0303",
+    "customerName": "Swedish Trading Company (Pvt) Ltd",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0304",
+    "customerName": "NUCLEAR FUEL COMPLEX",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0305",
+    "customerName": "JCB INDIA LIMITED",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0306",
+    "customerName": "QUALITY MACHINE TOOLS CORPORATION",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0307",
+    "customerName": "WORTH INSTRUMENTS CO.,LTD.",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0308",
+    "customerName": "INDUSTRIAL SUPPLIERS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0309",
+    "customerName": "GLOBAL WELL DEEP ENERGY SERVICES LTD",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0310",
+    "customerName": "AL AIN TECHNICAL SERVICES COMPANY",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0311",
+    "customerName": "LPSIS PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0312",
+    "customerName": "ANANTH TRADERS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0313",
+    "customerName": "BEML LIMITED - ENGINE DIVISION",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0314",
+    "customerName": "Ojo Majica Industrial Inspection Corporation",
+    "postingGroup": "E CUSTOMER - OEM",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0315",
+    "customerName": "Ojo Majica Industrial Inspection Corporation",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0316",
+    "customerName": "3AK CHEMIE JAPAN KK",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0317",
+    "customerName": "APM TECHNOLOGIES 3D PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0318",
+    "customerName": "PT. PACIFIC DISTRIBUTION INDONESIA",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0319",
+    "customerName": "Ethiopian Airlines Group",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0320",
+    "customerName": "3AK CHEMIE (THAILAND) CO., LTD.",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0321",
+    "customerName": "d",
+    "postingGroup": "",
+    "genBusPostingGroup": "",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0322",
+    "customerName": "EMERGING POWERGROUP CORPORATION",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0323",
+    "customerName": "PT. Melchers Melindo Indonesia",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0325",
+    "customerName": "TRIPLE INFOTECH",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0326",
+    "customerName": "ProbeSpection FZE",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0327",
+    "customerName": "Jiaxing CHiNDT Systems and Services Co., Ltd.",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0328",
+    "customerName": "SABERTOOTH POWER CORPORATION",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0329",
+    "customerName": "COUNCIL OF SCIENTIFIC AND INDUSTRIAL RESEARCH",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0330",
+    "customerName": "",
+    "postingGroup": "",
+    "genBusPostingGroup": "",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0331",
+    "customerName": "COROMANDEL INTERNATIONAL LTD",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0332",
+    "customerName": "NEXUS ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0333",
+    "customerName": "ICHISA PHLP INDUSTRIAL TOOLS SUPPLIES",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0334",
+    "customerName": "GLAND PHARMA LIMITED (Patencheru)",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0335",
+    "customerName": "CIMECH ENGINEERING",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0336",
+    "customerName": "AZAD TRADING CORPORATION",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0337",
+    "customerName": "GVD TOWERS",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0338",
+    "customerName": "ARORA TECHNOLOGIES PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0339",
+    "customerName": "AFRICA IMPROVED FOODS",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0342",
+    "customerName": "Free Samples Intrastate",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0343",
+    "customerName": "Free Samples - Interstate",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0344",
+    "customerName": "ADVANCED FOOD EQUIPMENT, LLC",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0345",
+    "customerName": "HM INTERNATIONAL PROCUREMENT",
+    "postingGroup": "E CUSTOMER - OTHERS",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0346",
+    "customerName": "Simplifi NII Pty Ltd",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0347",
+    "customerName": "JING ZUNG LIEN CO,.LTD",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0348",
+    "customerName": "ANDRITZ HYDRO PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0349",
+    "customerName": "GREEN INDUSTRIAL PRODUCTS & SERVICES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0350",
+    "customerName": "3AK Unit-1 R&D dept",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0351",
+    "customerName": "ROOSTER PRODUCTS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0352",
+    "customerName": "AGARWAL INDUSTRIES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0353",
+    "customerName": "GUJARAT TECHNOCASTINGS PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0354",
+    "customerName": "VIKRAM SARABHAI SPACE CENTRE",
+    "postingGroup": "D CUSTOMER - OEM",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0355",
+    "customerName": "THE CITY STORES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0356",
+    "customerName": "NITINCHANDRA & CO",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0357",
+    "customerName": "JSL LUBETECH",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0358",
+    "customerName": "NIPUN MARKETING",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0359",
+    "customerName": "UNIQUE ENTERPRISE",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0360",
+    "customerName": "Servottam Industrial Solutions",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0361",
+    "customerName": "BLASTCORR INDIA PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0362",
+    "customerName": "PETROFAB ENGINEERING (OPC) PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0363",
+    "customerName": "Online Sales - Interstate",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0364",
+    "customerName": "Online Sales - Intrastate",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0365",
+    "customerName": "PT. Spanset Indonesia",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0366",
+    "customerName": "Modern Surveying Calibration & Testing Labs.",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0367",
+    "customerName": "SHIKHA ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0368",
+    "customerName": "TATA ADVANCED SYSTEMS LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0369",
+    "customerName": "DANTECH DIGITAL DENTAL SOLUTIONS PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0370",
+    "customerName": "DENTCRAFT DENTAL LAB",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0372",
+    "customerName": "MURUGAN IMPEX",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0373",
+    "customerName": "M R ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0375",
+    "customerName": "NV SOLUTIONS INC",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0376",
+    "customerName": "ASHUOM ENTERPRISE PRIVATE LIMITED",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0377",
+    "customerName": "Grooves Dental Design Pvt. Ltd.",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0378",
+    "customerName": "Arabelle Solutions",
+    "postingGroup": "E CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0379",
+    "customerName": "THE POONA DENTAL LAB",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0380",
+    "customerName": "DENTAIRE SOLUTIONS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0381",
+    "customerName": "YANTRA INDIA LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0383",
+    "customerName": "TRS GLOBAL BUSINESS SOLUTIONS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0384",
+    "customerName": "UZKIMYOIMPEKS LLC",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0385",
+    "customerName": "NRL LIMITED",
+    "postingGroup": "E CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0386",
+    "customerName": "SHREE BALAJI CORPORATION - BELGAUM",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0387",
+    "customerName": "ESSAR MARKETING",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0388",
+    "customerName": "DIYA ENTERPRISE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0389",
+    "customerName": "ABS SALES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0390",
+    "customerName": "URJA MECHATRONICS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0391",
+    "customerName": "R R DENTAL LABS PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0392",
+    "customerName": "ANKHOR DENTAL LAB",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0393",
+    "customerName": "AASTHA ENTERPRISES",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0394",
+    "customerName": "AL KEHALF TOOLS CENTRE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0395",
+    "customerName": "3AK CHEMIE MALAYSIA SDN. BHD.",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0396",
+    "customerName": "SN MEDICAL SERVICES LLP",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0397",
+    "customerName": "MAHALAKSHMI DENTAL LAB",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0399",
+    "customerName": "3AK CHEMIE VIETNAM COMPANY LIMITED",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0400",
+    "customerName": "MODERN MARKETING",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0401",
+    "customerName": "3AK CHEMIE HONG KONG LIMITED",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0402",
+    "customerName": "RADENT ENGINEERING",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0404",
+    "customerName": "BHARAT HEAVY ELECTRICAL LTD (UP)",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0405",
+    "customerName": "Shriwins Enterprises",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0406",
+    "customerName": "LAXMAN YADAV",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0407",
+    "customerName": "NDT SOLUTIONS LIMITED",
+    "postingGroup": "E CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0408",
+    "customerName": "R B ENTERPRISES - UN",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0409",
+    "customerName": "TAS TRADING CORPORATION",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0410",
+    "customerName": "ELLIPS-TECHNOLOGY",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0411",
+    "customerName": "NARMADA EQUIPMENTS PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0412",
+    "customerName": "SVNDT PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0413",
+    "customerName": "BAETTR INDIA PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0414",
+    "customerName": "ZAHN DENTAL DEPOT",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0415",
+    "customerName": "SHIV SHAKTI ENTERPRISES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0416",
+    "customerName": "DENTOCRAFTS SERVICES PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0417",
+    "customerName": "DENTAL ARTS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0418",
+    "customerName": "SHANTI SINHA SOCIETY FOR EDUCATION & EXCELLENCE",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0419",
+    "customerName": "3D DENTAL STUDIO",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0420",
+    "customerName": "Dr. Akshay Rathi",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0421",
+    "customerName": "RL Dental Lab",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0422",
+    "customerName": "3AK CHEMIE TUNISIA",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0423",
+    "customerName": "ARJUN ENTERPRISE",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0424",
+    "customerName": "C K DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0425",
+    "customerName": "Toshiba Inspection Solutions Co., Ltd.",
+    "postingGroup": "E CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0426",
+    "customerName": "INNOVATIVE ENGINEERING PRODUCTS PRIVATE LIMITED",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0427",
+    "customerName": "TEJAS ENTERPRISES",
+    "postingGroup": "D CUSTOMER - SCRAP",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0428",
+    "customerName": "CERX DENTAL PRIVATE LIMITED",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0429",
+    "customerName": "3AK CHEMIE PHILIPPINES PTE. LTD., INC.",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0430",
+    "customerName": "SVK ELECTRONICS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0431",
+    "customerName": "ELECTRONIC & ENGINEERING CO (I) P. LTD",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0432",
+    "customerName": "DENTECH CAD CAM PRIVATE LIMITED",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0433",
+    "customerName": "RAMS DENTAL LAB PRIVATE LIMITED",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0434",
+    "customerName": "PT. Garda Solusi Multi Teknika",
+    "postingGroup": "E CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0435",
+    "customerName": "LLC New Geo Tek",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0436",
+    "customerName": "MICROLINE AGENCIES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0437",
+    "customerName": "3D MASTER",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0438",
+    "customerName": "VAINAN 3D CARE PRIVATE LIMITED",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0439",
+    "customerName": "MMC DEN TECH",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0440",
+    "customerName": "INNOVATIVE DENTAL CO.",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0441",
+    "customerName": "Trident Dental Art",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0442",
+    "customerName": "MORFODENT DENTAL LABORATORY",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0443",
+    "customerName": "BANYAN DENTAL LABORATORY",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0444",
+    "customerName": "BLOSSOM DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0445",
+    "customerName": "PATEL NDT & TECHNICAL SERVICES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0446",
+    "customerName": "Kondaveeti Bharath",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0447",
+    "customerName": "Syed Faheem Quadri",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0448",
+    "customerName": "Chaitanya",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0449",
+    "customerName": "Kawasaki Trading CO., LTD",
+    "postingGroup": "E CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0450",
+    "customerName": "VINAYAGA DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0451",
+    "customerName": "TWIN CITY DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0452",
+    "customerName": "Akhilesh Vankayalapati",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0453",
+    "customerName": "Bhakti Dental Lab",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0454",
+    "customerName": "Online Customers",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0455",
+    "customerName": "NUCLEAR POWER CORPORATION OF INDIA LIMIT - Guj",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0456",
+    "customerName": "ORTHODONTIC ALIGNER COMPANY",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0457",
+    "customerName": "SQUAREMAG SYSTEMS",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0458",
+    "customerName": "3AK CHEMIE NIGERIA LIMITED",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "IMPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0459",
+    "customerName": "VARDHMAN BEARINGS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0460",
+    "customerName": "A.P TECHNOCARE",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0461",
+    "customerName": "SMILEXCEL CLEAR ALIGNERS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0462",
+    "customerName": "SOUTHMAN DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0463",
+    "customerName": "DENTASCAN",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0464",
+    "customerName": "DIGITAL SMILES DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0465",
+    "customerName": "Luxury Dental lab",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0466",
+    "customerName": "M.M",
+    "postingGroup": "",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0467",
+    "customerName": "IZEE MEDICAL LABORATORIES PRIVATE LIMITED",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0468",
+    "customerName": "M M LABS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0469",
+    "customerName": "Indur Dental lab",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0470",
+    "customerName": "PT THREEAK CHEMIE INDONESIA",
+    "postingGroup": "E DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0471",
+    "customerName": "Matrix Dental Laboratory",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0472",
+    "customerName": "Bharath Dental Lab",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0473",
+    "customerName": "SAWARIA PIPES PRIVATE LIMITED",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0474",
+    "customerName": "ROUTE TO SMILE HEALTHCARE PRIVATE LIMITED",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0475",
+    "customerName": "SHRIMAHA",
+    "postingGroup": "",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0476",
+    "customerName": "JAY CORPORATION",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0477",
+    "customerName": "N B H AGENCIES",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0478",
+    "customerName": "OJSC ‘TajikSGEM’",
+    "postingGroup": "E DISTRIBUTOR",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0480",
+    "customerName": "MENKA TRADERS",
+    "postingGroup": "D CUSTOMER - OTHERS",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0481",
+    "customerName": "KURIKKALS DENTCRAFT",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0482",
+    "customerName": "DIAMOND NDT INSPECTION SERVICES PRIVATE LIMITED",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0483",
+    "customerName": "VIRTUPRINT LABS PRIVATE LIMITED",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0484",
+    "customerName": "JONE DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0485",
+    "customerName": "UNIVERSAL DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0486",
+    "customerName": "THE AGARWAL DENTAL CONCEPTS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0487",
+    "customerName": "SHREE UMIYA TRADERS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0488",
+    "customerName": "SAWARIA PIPES PRIVATE LIMITED - Patancheru",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0489",
+    "customerName": "SIVA DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0490",
+    "customerName": "RIYA ENTERPRISE",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0491",
+    "customerName": "Oral 3D Healthcare Pvt Ltd",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0492",
+    "customerName": "NEXUS MEDODENT",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0493",
+    "customerName": "SKILL MAX DENTAL ARTS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0494",
+    "customerName": "GALAXY MULTI TECH DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0495",
+    "customerName": "PRECISE DENTAL ARTS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0497",
+    "customerName": "CONFIDENT DENTAL LABORATORY PVT LTD",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0498",
+    "customerName": "DENTAL ART LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0499",
+    "customerName": "SHREE DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0500",
+    "customerName": "VIP DENTAL LAB PRIVATE LIMITED",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0501",
+    "customerName": "M R Dental (India) Private Limited - GJ",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0502",
+    "customerName": "M R Dental (India) Private Limited - Delhi",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0503",
+    "customerName": "Dr Anshul Mel",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0504",
+    "customerName": "SUDANT DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0505",
+    "customerName": "Nagarjuna Reddy",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0506",
+    "customerName": "PRECISION DENTAL LABS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0507",
+    "customerName": "Dr.Adersh G. A",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0508",
+    "customerName": "GVM EXPORTS",
+    "postingGroup": "D DISTRIBUTOR",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "DISTRIBUTOR"
+  },
+  {
+    "customerNumber": "CUST-0509",
+    "customerName": "Eishin Kagaku Co., Ltd.",
+    "postingGroup": "E CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0510",
+    "customerName": "DENT DESIGNERS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0511",
+    "customerName": "CERAMET DENTAL FACTORY",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0512",
+    "customerName": "Muskaan Dental Clinic",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0513",
+    "customerName": "Sameer Khan",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0514",
+    "customerName": "PROSTHOCARE DENTAL SOLUTIONS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0515",
+    "customerName": "prashanth dental lad",
+    "postingGroup": "",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0516",
+    "customerName": "PRASHANTH DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0517",
+    "customerName": "TECHNO DENTAL ARTS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0518",
+    "customerName": "INFILLCUBE",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0519",
+    "customerName": "FAITH DENTAL STUDIO",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0520",
+    "customerName": "JAY CORPORATION",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0521",
+    "customerName": "ORAL ARTS DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0522",
+    "customerName": "BRIGHT TRADERS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0523",
+    "customerName": "EMJAY ENTERPRISES",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0524",
+    "customerName": "Ziadent Care Dental Lab Pvt Ltd",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0525",
+    "customerName": "THE POONA DENTAL LAB - NIBM",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0526",
+    "customerName": "DENTRANCE",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0527",
+    "customerName": "Apple Dental",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0528",
+    "customerName": "Best Ceram Dental Lab",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0529",
+    "customerName": "Dr P Mohan Raju",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0530",
+    "customerName": "Navya Dental",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0531",
+    "customerName": "Balaram Dental Lab",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0532",
+    "customerName": "D-MAX DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0533",
+    "customerName": "ALPHA DENTAL",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0534",
+    "customerName": "Aishwarya Dental Clinic",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0535",
+    "customerName": "SHR DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0536",
+    "customerName": "3AK CHEMIE USA LLC",
+    "postingGroup": "D DISTRIBUTOR-CMP OW",
+    "genBusPostingGroup": "EXPORT",
+    "customerType": "Group Company"
+  },
+  {
+    "customerNumber": "CUST-0537",
+    "customerName": "SHREE BALQ",
+    "postingGroup": "",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct customer"
+  },
+  {
+    "customerNumber": "CUST-0538",
+    "customerName": "KNACK DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0539",
+    "customerName": "SKY ENTERPRISES",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0540",
+    "customerName": "NUCLEAR POWER CORPORATION OF INDIA LTD - TAMILNADU",
+    "postingGroup": "D CUSTOMER-INSTUTN",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0541",
+    "customerName": "MAJEETH DENTAL LABORATORY",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0542",
+    "customerName": "AYCON",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0543",
+    "customerName": "SPARSHA DENTAL ARTS",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0544",
+    "customerName": "SRI SAI RAM DENTAL LAB",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  },
+  {
+    "customerNumber": "CUST-0545",
+    "customerName": "3M3D ROBOTICS INDIA PRIVATE LIMITED",
+    "postingGroup": "D RETAIL SALES",
+    "genBusPostingGroup": "DOMESTIC",
+    "customerType": "Direct Customer"
+  }
+]

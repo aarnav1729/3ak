@@ -61,12 +61,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-
-
-app.use(express.json());
-
-app.use(express.json());
-
 /* -------------------------------------------------------------------------- */
 /*  LIVE MD ENDPOINTS (BC DIRECT)                                             */
 /* -------------------------------------------------------------------------- */
@@ -124,13 +118,33 @@ app.get("/health", (_req, res) => {
 });
 
 // MD snapshot API (JSON) – cached file, separate from live /api/md/* endpoints
+// MD snapshot API (JSON) – cached file, separate from live /api/md/* endpoints
 app.get("/api/md/snapshot", async (_req, res) => {
   try {
-    if (!isSnapshotFresh()) {
+    const hasSnapshot = fs.existsSync(SNAPSHOT_PATH);
+    const fresh = hasSnapshot ? isSnapshotFresh() : false;
+
+    // Case 1: No snapshot yet -> generate synchronously once
+    if (!hasSnapshot) {
+      console.log("[MD] No snapshot file found, generating initial...");
       await generateSnapshot();
+      const snapshot = loadSnapshot();
+      return res.json(snapshot);
     }
+
+    // Case 2: snapshot exists -> serve immediately
     const snapshot = loadSnapshot();
     res.json(snapshot);
+
+    // If stale, regenerate in background
+    if (!fresh) {
+      console.log(
+        "[MD] Snapshot is stale; kicking off background regenerateSnapshot()"
+      );
+      generateSnapshot().catch((err) => {
+        console.error("[MD] Background snapshot regeneration failed:", err);
+      });
+    }
   } catch (err) {
     console.error("Failed to serve MD snapshot:", err);
     res.status(500).json({ error: "Failed to load MD snapshot" });
