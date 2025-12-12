@@ -13,8 +13,8 @@ type LayoutProps = {
 };
 
 const NAV = [
-  { to: "/", label: "Dashboard" },
-  { to: "/fy", label: "FY Table" },
+  { to: "/", label: "FY Table" },
+  { to: "/fy", label: "Dashboard" },
 ];
 
 export default function Layout({
