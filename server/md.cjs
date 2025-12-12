@@ -1,10 +1,16 @@
 "use strict";
 
-const { Parser } = require("xml2js");
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const ExcelJS = require("exceljs");
+
+// Shared BC auth + fetch wrapper (token cache + retry + pagination)
+const bcAuth = require("./bcAuth.cjs");
+
+// Create router ONCE (your pasted file had router declared twice → runtime crash)
+const router = express.Router();
+
 // === Customer classification mapping (from Customers (17).xlsx) ============
 
 const CUSTOMER_MAPPING_PATH =
@@ -26,10 +32,6 @@ const CUSTOMER_JSON_PATH =
 let customerClassificationMap = new Map();
 let customerMapLoadAttempted = false;
 
-/**
- * Load "Customers (17).xlsx" using ExcelJS into memory.
- * Safe to call multiple times (only first call actually loads).
- */
 /**
  * Load customer classification into memory.
  *
@@ -56,18 +58,36 @@ async function ensureCustomerClassificationLoaded() {
 
       if (Array.isArray(arr)) {
         const map = new Map();
-
         for (const row of arr) {
           if (!row) continue;
-          const customerNumber = String(row.customerNumber || "").trim();
+
+          const customerNumber = String(
+            row.customerNumber ||
+              row.no ||
+              row["No."] ||
+              row["Customer No."] ||
+              ""
+          ).trim();
           if (!customerNumber) continue;
 
           map.set(customerNumber, {
             customerNumber,
-            customerName: String(row.customerName || "").trim(),
-            postingGroup: String(row.postingGroup || "").trim(),
-            genBusPostingGroup: String(row.genBusPostingGroup || "").trim(),
-            customerType: String(row.customerType || "").trim(),
+            customerName: String(row.customerName || row.name || "").trim(),
+            postingGroup: String(
+              row.postingGroup ||
+                row.customerPostingGroup ||
+                row["Customer Posting Group"] ||
+                ""
+            ).trim(),
+            genBusPostingGroup: String(
+              row.genBusPostingGroup ||
+                row["Gen. Bus. Posting Group"] ||
+                row["Gen Bus Posting Group"] ||
+                ""
+            ).trim(),
+            customerType: String(
+              row.customerType || row["Customer Type"] || ""
+            ).trim(),
           });
         }
 
@@ -75,7 +95,7 @@ async function ensureCustomerClassificationLoaded() {
         console.log(
           `[MD] Loaded ${customerClassificationMap.size} customer classification rows from JSON`
         );
-        return; // ✅ Done – no need to touch Excel
+        return;
       }
 
       console.warn(
@@ -95,7 +115,7 @@ async function ensureCustomerClassificationLoaded() {
       console.warn(
         "[MD] Customer mapping XLSX not found at",
         CUSTOMER_MAPPING_PATH,
-        "- sales classification will fall back to BC fields only."
+        "- customer classification will be empty."
       );
       customerClassificationMap = new Map();
       return;
@@ -108,6 +128,8 @@ async function ensureCustomerClassificationLoaded() {
 
     const wb = new ExcelJS.Workbook();
     await wb.xlsx.readFile(CUSTOMER_MAPPING_PATH);
+
+    // Use first sheet by default (or adjust if you have a specific sheet name)
     const sheet = wb.worksheets[0];
     if (!sheet) {
       console.warn("[MD] Customer mapping workbook has no sheets");
@@ -132,15 +154,23 @@ async function ensureCustomerClassificationLoaded() {
       return null;
     }
 
-    const noCol = colIdx(["No.", "Customer No.", "No"]);
+    const custNoCol = colIdx(["Customer No.", "No.", "Customer Number"]);
     const nameCol = colIdx(["Name", "Customer Name"]);
-    const postingGroupCol = colIdx(["Customer Posting Group"]);
-    const genBusGroupCol = colIdx(["Gen. Bus. Posting Group"]);
-    const customerTypeCol = colIdx(["Column1", "Customer Type"]);
+    const postingGroupCol = colIdx([
+      "Customer Posting Group",
+      "Posting Group",
+      "Cust Posting Group",
+    ]);
+    const genBusPostingGroupCol = colIdx([
+      "Gen. Bus. Posting Group",
+      "Gen Bus Posting Group",
+      "Gen. Bus Posting Group",
+    ]);
+    const customerTypeCol = colIdx(["Customer Type", "Type"]);
 
-    if (!noCol) {
+    if (!custNoCol) {
       console.warn(
-        "[MD] Could not find 'No.' column in customer mapping; map will be empty."
+        "[MD] Could not find 'Customer No.' column in customer mapping; map will be empty."
       );
       customerClassificationMap = new Map();
       return;
@@ -152,21 +182,23 @@ async function ensureCustomerClassificationLoaded() {
     sheet.eachRow((row, rowNumber) => {
       if (rowNumber === 1) return; // header
 
-      const numRaw = row.getCell(noCol).value;
-      if (!numRaw) return;
-
-      const customerNumber = String(numRaw).trim();
+      const custNoRaw = row.getCell(custNoCol).value;
+      if (!custNoRaw) return;
+      const customerNumber = String(custNoRaw).trim();
       if (!customerNumber) return;
 
       const customerName = nameCol
         ? String(row.getCell(nameCol).value || "").trim()
         : "";
+
       const postingGroup = postingGroupCol
         ? String(row.getCell(postingGroupCol).value || "").trim()
         : "";
-      const genBusPostingGroup = genBusGroupCol
-        ? String(row.getCell(genBusGroupCol).value || "").trim()
+
+      const genBusPostingGroup = genBusPostingGroupCol
+        ? String(row.getCell(genBusPostingGroupCol).value || "").trim()
         : "";
+
       const customerType = customerTypeCol
         ? String(row.getCell(customerTypeCol).value || "").trim()
         : "";
@@ -188,7 +220,7 @@ async function ensureCustomerClassificationLoaded() {
       `[MD] Loaded ${customerClassificationMap.size} customer classification rows from XLSX`
     );
 
-    // Write JSON snapshot so next run can skip XLSX completely
+    // Write JSON snapshot for faster next run
     try {
       fs.writeFileSync(
         CUSTOMER_JSON_PATH,
@@ -211,6 +243,264 @@ async function ensureCustomerClassificationLoaded() {
     );
     customerClassificationMap = new Map();
   }
+}
+
+// === SKU classification mapping (from 3AK Power BI - Base Tables.xlsx) =====
+
+const SKU_MAPPING_XLSX_PATH =
+  process.env.SKU_MAPPING_XLSX_PATH ||
+  path.join(__dirname, "3AK Power BI - Base Tables.xlsx");
+
+const SKU_MAPPING_JSON_PATH =
+  process.env.SKU_MAPPING_JSON_PATH ||
+  path.join(__dirname, "sku-classification.json");
+
+// Default sheet that has SKU categorisation
+const SKU_MAPPING_SHEET_NAME =
+  process.env.SKU_MAPPING_SHEET_NAME || "Product Categories for FG";
+
+// Map: itemNumber (SKU) -> {
+//   sku,
+//   name,
+//   masterCategory,
+//   category,
+//   subCategory,
+//   productBaseName,
+//   packageType,
+//   boxType,
+//   packSize,
+//   caseQty
+// }
+let skuClassificationMap = new Map();
+let skuMapLoadAttempted = false;
+
+/**
+ * Load SKU classification from "3AK Power BI - Base Tables.xlsx".
+ *
+ * Priority:
+ *  1) If JSON snapshot exists, load from JSON.
+ *  2) Else, read "Product Categories for FG" sheet, build map, and write JSON.
+ *
+ * Safe to call multiple times (only first call actually loads).
+ */
+async function ensureSkuClassificationLoaded() {
+  if (skuMapLoadAttempted) return;
+  skuMapLoadAttempted = true;
+
+  // 1) Try JSON snapshot first
+  try {
+    if (fs.existsSync(SKU_MAPPING_JSON_PATH)) {
+      console.log(
+        "[MD] Loading SKU classification JSON from",
+        SKU_MAPPING_JSON_PATH
+      );
+
+      const raw = fs.readFileSync(SKU_MAPPING_JSON_PATH, "utf8");
+      const arr = JSON.parse(raw);
+
+      if (Array.isArray(arr)) {
+        const map = new Map();
+        for (const row of arr) {
+          if (!row) continue;
+          const sku = String(row.sku || row.itemNumber || "").trim();
+          if (!sku) continue;
+
+          map.set(sku, {
+            sku,
+            name: String(row.name || "").trim(),
+            masterCategory: String(row.masterCategory || "").trim(),
+            category: String(row.category || "").trim(),
+            subCategory: String(row.subCategory || "").trim(),
+            productBaseName: String(row.productBaseName || "").trim(),
+            packageType: String(row.packageType || "").trim(),
+            boxType: String(row.boxType || "").trim(),
+            packSize: String(row.packSize || "").trim(),
+            caseQty: row.caseQty,
+          });
+        }
+
+        skuClassificationMap = map;
+        console.log(
+          `[MD] Loaded ${skuClassificationMap.size} SKU classification rows from JSON`
+        );
+        return;
+      }
+
+      console.warn(
+        "[MD] SKU classification JSON did not contain an array; falling back to XLSX"
+      );
+    }
+  } catch (err) {
+    console.warn(
+      "[MD] Failed to load SKU classification JSON, falling back to XLSX:",
+      err.message || err
+    );
+  }
+
+  // 2) Fallback: read from XLSX and also write JSON snapshot
+  try {
+    if (!fs.existsSync(SKU_MAPPING_XLSX_PATH)) {
+      console.warn(
+        "[MD] SKU mapping XLSX not found at",
+        SKU_MAPPING_XLSX_PATH,
+        "- SKU classification will be empty."
+      );
+      skuClassificationMap = new Map();
+      return;
+    }
+
+    console.log(
+      "[MD] Loading SKU classification from XLSX",
+      SKU_MAPPING_XLSX_PATH
+    );
+
+    const wb = new ExcelJS.Workbook();
+    await wb.xlsx.readFile(SKU_MAPPING_XLSX_PATH);
+
+    const sheet = wb.getWorksheet(SKU_MAPPING_SHEET_NAME) || wb.worksheets[0];
+
+    if (!sheet) {
+      console.warn("[MD] SKU mapping workbook has no sheets");
+      skuClassificationMap = new Map();
+      return;
+    }
+
+    // Build header index map
+    const headerRow = sheet.getRow(1);
+    const colIndexByName = {};
+    headerRow.eachCell((cell, colNumber) => {
+      const name = String(cell.value || "").trim();
+      if (!name) return;
+      colIndexByName[name.toLowerCase()] = colNumber;
+    });
+
+    function colIdx(labelVariants) {
+      for (const lv of labelVariants) {
+        const idx = colIndexByName[lv.toLowerCase()];
+        if (idx) return idx;
+      }
+      return null;
+    }
+
+    const skuCol = colIdx(["SKU", "Item No.", "Item"]);
+    const nameCol = colIdx(["Name", "Description"]);
+    const masterCatCol = colIdx(["Master Category"]);
+    const catCol = colIdx(["Category"]);
+    const subCatCol = colIdx(["Sub Category", "Subcategory"]);
+    const baseNameCol = colIdx(["Product Base Name"]);
+    const pkgTypeCol = colIdx(["Package Type"]);
+    const boxTypeCol = colIdx(["Box Type"]);
+    const packSizeCol = colIdx(["Pack Size"]);
+    const caseQtyCol = colIdx(["Case Qty", "Case Quantity"]);
+
+    if (!skuCol) {
+      console.warn(
+        "[MD] Could not find 'SKU' column in SKU mapping; map will be empty."
+      );
+      skuClassificationMap = new Map();
+      return;
+    }
+
+    const map = new Map();
+    const jsonArray = [];
+
+    sheet.eachRow((row, rowNumber) => {
+      if (rowNumber === 1) return; // header
+
+      const skuRaw = row.getCell(skuCol).value;
+      if (!skuRaw) return;
+
+      const sku = String(skuRaw).trim();
+      if (!sku) return;
+
+      const name = nameCol
+        ? String(row.getCell(nameCol).value || "").trim()
+        : "";
+
+      const masterCategory = masterCatCol
+        ? String(row.getCell(masterCatCol).value || "").trim()
+        : "";
+
+      const category = catCol
+        ? String(row.getCell(catCol).value || "").trim()
+        : "";
+
+      const subCategory = subCatCol
+        ? String(row.getCell(subCatCol).value || "").trim()
+        : "";
+
+      const productBaseName = baseNameCol
+        ? String(row.getCell(baseNameCol).value || "").trim()
+        : "";
+
+      const packageType = pkgTypeCol
+        ? String(row.getCell(pkgTypeCol).value || "").trim()
+        : "";
+
+      const boxType = boxTypeCol
+        ? String(row.getCell(boxTypeCol).value || "").trim()
+        : "";
+
+      const packSize = packSizeCol
+        ? String(row.getCell(packSizeCol).value || "").trim()
+        : "";
+
+      const caseQty = caseQtyCol ? row.getCell(caseQtyCol).value : null;
+
+      const obj = {
+        sku,
+        name,
+        masterCategory,
+        category,
+        subCategory,
+        productBaseName,
+        packageType,
+        boxType,
+        packSize,
+        caseQty,
+      };
+
+      map.set(sku, obj);
+      jsonArray.push(obj);
+    });
+
+    skuClassificationMap = map;
+    console.log(
+      `[MD] Loaded ${skuClassificationMap.size} SKU classification rows from XLSX`
+    );
+
+    // Write JSON snapshot for faster next run
+    try {
+      fs.writeFileSync(
+        SKU_MAPPING_JSON_PATH,
+        JSON.stringify(jsonArray, null, 2),
+        "utf8"
+      );
+      console.log(
+        `[MD] Wrote SKU classification JSON snapshot to ${SKU_MAPPING_JSON_PATH} (${jsonArray.length} rows)`
+      );
+    } catch (err) {
+      console.warn(
+        "[MD] Failed to write SKU classification JSON snapshot:",
+        err.message || err
+      );
+    }
+  } catch (err) {
+    console.error(
+      "[MD] Failed to load SKU classification mapping:",
+      err.message || err
+    );
+    skuClassificationMap = new Map();
+  }
+}
+
+/**
+ * Helper to look up SKU classification by itemNumber.
+ */
+function getSkuClassification(itemNumber) {
+  if (!itemNumber) return null;
+  const sku = String(itemNumber).trim();
+  return skuClassificationMap.get(sku) || null;
 }
 
 /**
@@ -360,6 +650,8 @@ function invoicePassesCategoryFilters(meta, filters) {
 }
 
 // === BC config ==============================================================
+// NOTE: Keeping your hard-coded creds as-is (minimal change).
+// Recommended later: move to .env and read from process.env.*
 
 const tenantId = "985f0700-1d9d-4e2a-9267-27736d2c7ab5";
 const clientId = "091bce49-dd2f-4707-9cb1-9df616bb36c3";
@@ -368,9 +660,6 @@ const bcEnvironment = "Production";
 const companyName = "3AK Chemie Pvt. Ltd.";
 
 const bcBaseUrl = `https://api.businesscentral.dynamics.com/v2.0/${tenantId}/${bcEnvironment}/api/v2.0`;
-
-// If Node < 18, uncomment and install node-fetch:
-// const fetch = require("node-fetch");
 
 // === Date helpers ===========================================================
 
@@ -397,13 +686,6 @@ function endOfMonth(d) {
   const dt = new Date(d);
   dt.setMonth(dt.getMonth() + 1, 0); // last day of month
   dt.setHours(23, 59, 59, 999);
-  return dt;
-}
-
-function startOfYear(d) {
-  const dt = new Date(d);
-  dt.setMonth(0, 1);
-  dt.setHours(0, 0, 0, 0);
   return dt;
 }
 
@@ -512,75 +794,32 @@ function getQuarterBucket(date) {
   return { id, label, year: y, quarter: q };
 }
 
-function getYearBucket(date) {
-  const y = date.getFullYear();
-  return { id: String(y), label: String(y), year: y };
+// Fiscal year meta (Apr–Mar) from calendar year + month (1–12)
+function getFiscalYearMetaForYearMonth(year, month) {
+  const fyStartYear = month <= 3 ? year - 1 : year; // Jan–Mar belong to previous FY
+  const fyEndYear = fyStartYear + 1;
+  const fyId = `${fyStartYear}-${fyEndYear}`;
+  const fyLabel = `FY ${fyStartYear}-${fyEndYear}`;
+  return { fyId, fyLabel };
 }
 
-// === 1. Get access token =====================================================
+// === 1. Token (cached) ======================================================
 
 async function getAccessToken() {
-  const tokenUrl = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`;
-
-  const body = new URLSearchParams({
-    client_id: clientId,
-    client_secret: clientSecret,
+  return bcAuth.getAccessTokenCached({
+    tenantId,
+    clientId,
+    clientSecret,
     scope: "https://api.businesscentral.dynamics.com/.default",
-    grant_type: "client_credentials",
   });
-
-  const res = await fetch(tokenUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body,
-  });
-
-  const text = await res.text();
-  if (!res.ok) {
-    throw new Error(`Failed to get token: ${res.status} ${text}`);
-  }
-
-  const data = JSON.parse(text);
-  return data.access_token;
 }
 
 // === 2. Generic BC fetch with pagination ====================================
 
 // pathWithQuery: e.g. "salesInvoices?company=XYZ&$top=1000"
 async function bcFetchAll(pathWithQuery, accessToken) {
-  let url = `${bcBaseUrl}/${pathWithQuery}`;
-  let all = [];
-
-  while (url) {
-    const res = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json",
-      },
-    });
-
-    const text = await res.text();
-    if (!res.ok) {
-      throw new Error(
-        `BC fetch failed (${pathWithQuery}): ${res.status} ${text}`
-      );
-    }
-
-    const json = JSON.parse(text);
-    const batch = json.value || json;
-    if (Array.isArray(batch)) {
-      all = all.concat(batch);
-    }
-
-    const next = json["@odata.nextLink"];
-    if (next) {
-      url = next; // already full URL
-    } else {
-      url = null;
-    }
-  }
-
-  return all;
+  const firstUrl = `${bcBaseUrl}/${pathWithQuery}`;
+  return bcAuth.fetchAllPages(firstUrl, { accessToken });
 }
 
 // Convenience wrapper to attach & encode company=
@@ -595,12 +834,10 @@ function withCompanyAndFilter(basePath, filterExpr, extraQuery) {
   let query = `company=${companyParam}`;
 
   if (filterExpr) {
-    // e.g. "postingDate ge 2000-01-01 and postingDate le 2100-12-31"
     query += `&$filter=${encodeURIComponent(filterExpr)}`;
   }
 
   if (extraQuery) {
-    // extraQuery should NOT start with "?" but can contain multiple & parts
     if (extraQuery.startsWith("&")) {
       query += extraQuery;
     } else {
@@ -988,30 +1225,6 @@ async function buildMdSnapshot(token) {
 
 // === 5. New analytics helpers ===============================================
 
-// Classify sales channel based on dimensions / your coding convention.
-// Adjust mapping to match your BC setup.
-function classifySalesChannel(invoice) {
-  const dim1 = String(invoice.shortcutDimension1Code || "")
-    .toUpperCase()
-    .trim();
-  if (dim1 === "D2C" || dim1 === "DIRECT") {
-    return { key: "domestic_d2c", label: "Domestic – Direct to Consumer" };
-  }
-  if (dim1 === "DIST" || dim1 === "DISTRIB") {
-    return { key: "domestic_distributor", label: "Domestic – Distributor" };
-  }
-  if (dim1 === "INTERCO" || dim1 === "IC") {
-    return { key: "intercompany", label: "Intercompany" };
-  }
-  return { key: "unclassified", label: "Unclassified" };
-}
-
-function normalizeAmount(inv) {
-  return Number(
-    inv.totalAmountIncludingTax ?? inv.totalAmountExcludingTax ?? 0
-  );
-}
-
 function ensureRangeFromQuery(query) {
   const now = new Date();
   const todayEnd = endOfDay(now);
@@ -1040,7 +1253,6 @@ function ensureRangeFromQuery(query) {
   if (!from) from = defaultFrom;
   if (!to) to = todayEnd;
 
-  // Normalize times
   from = startOfDay(from);
   to = endOfDay(to);
 
@@ -1064,7 +1276,6 @@ function classifyItemForProduction(item) {
     return "FG_2511";
   }
 
-  // Raw materials
   if (
     cat === "RM" ||
     cat === "RAW" ||
@@ -1074,7 +1285,6 @@ function classifyItemForProduction(item) {
     return "RM";
   }
 
-  // Packing material
   if (
     cat === "PM" ||
     cat === "PACK" ||
@@ -1084,17 +1294,12 @@ function classifyItemForProduction(item) {
     return "PM";
   }
 
-  // Semi finished goods
   if (cat === "SFG" || genProd.includes("SFG")) {
     return "SFG";
   }
 
   return "OTHER";
 }
-
-// === 6. Express router and routes ===========================================
-
-const router = express.Router();
 
 // ---------------------------------------------------------------------------
 // OLD-style routes (kept for compatibility; not used by new dashboard)
@@ -1335,13 +1540,6 @@ router.get("/summary", async (req, res) => {
 // NEW: Sales analytics (all from salesInvoice; lines are optional)
 // ---------------------------------------------------------------------------
 
-// ---------------------------------------------------------------------------
-// NEW: Sales analytics (all from salesInvoice; lines are optional)
-// - Adds incl/excl tax KPIs
-// - Uses Customers (17).xlsx for Domestic / Export & client type classification
-// - Supports filters: salesCategories, excludeIntercompany
-// ---------------------------------------------------------------------------
-
 router.get("/sales-analytics", async (req, res) => {
   try {
     const now = new Date();
@@ -1349,7 +1547,6 @@ router.get("/sales-analytics", async (req, res) => {
     const granularity =
       String(req.query.granularity || "month").toLowerCase() || "month";
 
-    // Optional filters
     const rawSalesCategories = String(req.query.salesCategories || "").trim();
     const excludeIntercompany =
       String(req.query.excludeIntercompany || "false").toLowerCase() === "true";
@@ -1368,11 +1565,27 @@ router.get("/sales-analytics", async (req, res) => {
 
     const token = await getAccessToken();
 
-    // Load customer classification (once, lazy)
     await ensureCustomerClassificationLoaded();
+    await ensureSkuClassificationLoaded();
 
-    // 1) Fetch invoices
-    const invoices = await bcFetchAll(withCompany("salesInvoices"), token);
+    // 1) Fetch invoices (try with expanded lines; fall back if needed)
+    let invoices;
+    try {
+      invoices = await bcFetchAll(
+        withCompanyAndFilter(
+          "salesInvoices",
+          null,
+          "$expand=salesInvoiceLines"
+        ),
+        token
+      );
+    } catch (e) {
+      console.warn(
+        "[MD] salesInvoices?$expand=salesInvoiceLines failed, falling back to invoices without lines:",
+        e.message || e
+      );
+      invoices = await bcFetchAll(withCompany("salesInvoices"), token);
+    }
 
     // Build enriched invoice meta array (for all invoices)
     const invoicesMeta = [];
@@ -1430,43 +1643,37 @@ router.get("/sales-analytics", async (req, res) => {
     let lastQuarterSalesExcl = 0;
     let lastQuarterSalesIncl = 0;
 
-    const monthlySeriesAllYears = []; // raw per-invoice basis
+    const monthlySeriesAllYears = [];
 
     for (const meta of invoicesMeta) {
       const postingDate = meta.postingDate;
       if (!invoicePassesCategoryFilters(meta, filters)) continue;
 
-      // Range KPI
       if (postingDate >= from && postingDate <= to) {
         totalRangeSalesExcl += meta.amountExcl;
         totalRangeSalesIncl += meta.amountIncl;
       }
 
-      // Fiscal YTD
       if (postingDate >= fyStart && postingDate <= now) {
         ytdSalesExcl += meta.amountExcl;
         ytdSalesIncl += meta.amountIncl;
       }
 
-      // MTD
       if (postingDate >= mStart && postingDate <= now) {
         mtdSalesExcl += meta.amountExcl;
         mtdSalesIncl += meta.amountIncl;
       }
 
-      // Current fiscal quarter (QTD)
       if (postingDate >= qStart && postingDate <= qEnd) {
         qtdSalesExcl += meta.amountExcl;
         qtdSalesIncl += meta.amountIncl;
       }
 
-      // Previous fiscal quarter
       if (postingDate >= lastQStart && postingDate <= lastQEnd) {
         lastQuarterSalesExcl += meta.amountExcl;
         lastQuarterSalesIncl += meta.amountIncl;
       }
 
-      // For line chart "one line per year" (calendar months)
       const mb = getMonthBucket(postingDate);
       monthlySeriesAllYears.push({
         year: mb.year,
@@ -1497,7 +1704,6 @@ router.get("/sales-analytics", async (req, res) => {
     const monthlyHistogram = Array.from(monthlyHistogramMap.values())
       .map((row) => ({
         ...row,
-        // For backward compatibility: charts in UI still read totalSales
         totalSales: row.totalSalesIncl,
       }))
       .sort((a, b) =>
@@ -1529,8 +1735,33 @@ router.get("/sales-analytics", async (req, res) => {
         label: mb.label,
         totalSalesExcl: r.amountExcl,
         totalSalesIncl: r.amountIncl,
-        // Backward compat field used by current React line builder
         totalSales: r.amountIncl,
+      };
+    });
+
+    // Facts for FE multi-filtering (invoice-level, after filters)
+    const facts = Array.from(invoiceMap.values()).map((meta) => {
+      const mb = getMonthBucket(meta.postingDate);
+      const fyMeta = getFiscalYearMetaForYearMonth(mb.year, mb.month);
+
+      let geoLabel = "Domestic";
+      if (meta.geo === "EXPORT") geoLabel = "Export";
+      else if (meta.geo === "DOMESTIC") geoLabel = "Domestic";
+
+      return {
+        postingDate: meta.postingDate.toISOString(),
+        year: mb.year,
+        month: mb.month,
+        monthId: mb.id,
+        monthLabel: mb.label,
+        fyId: fyMeta.fyId,
+        fyLabel: fyMeta.fyLabel,
+        customerNumber: meta.customerNumber,
+        customerName: meta.customerName,
+        geo: geoLabel,
+        salesCategoryKey: meta.salesCategoryKey,
+        salesCategoryLabel: meta.salesCategoryLabel,
+        amount: meta.amountIncl,
       };
     });
 
@@ -1557,40 +1788,33 @@ router.get("/sales-analytics", async (req, res) => {
     const salesByCustomer = Array.from(customerAgg.values())
       .map((row) => ({
         ...row,
-        // Backward compat field
         totalSales: row.totalSalesIncl,
       }))
       .sort((a, b) => b.totalSales - a.totalSales);
 
-    // 7) Sales by SKU (range; only if we actually have lines)
-    // Try to fetch lines; if BC complains (400) we just skip SKU analytics
-    let lines = [];
-    try {
-      lines = await bcFetchAll(withCompany("salesInvoiceLines"), token);
-    } catch (e) {
-      console.warn(
-        "Warning: salesInvoiceLines fetch failed, proceeding without SKU-level metrics:",
-        e.message || e
-      );
-      lines = [];
-    }
-
+    // 7) Sales by SKU (range; use lines from $expand on salesInvoices)
     const skuAgg = new Map();
-    if (lines && lines.length > 0) {
-      for (const line of lines) {
-        const invId = line.documentId;
-        const meta = invId ? invoiceMap.get(invId) : null;
-        if (!meta) continue; // only consider invoices in selected range + filters
+    const customerSkuAgg = new Map();
 
-        const itemNumber = line.itemNumber || "UNKNOWN";
+    for (const meta of invoiceMap.values()) {
+      const rawInv = meta.raw || {};
+
+      const lines = Array.isArray(rawInv.salesInvoiceLines)
+        ? rawInv.salesInvoiceLines
+        : [];
+
+      if (!lines.length) continue;
+
+      for (const line of lines) {
+        const itemNumber = line.itemNumber || line.no || "UNKNOWN";
         const desc = line.description || "No description";
         const qty = Number(line.quantity ?? 0);
         const valueExcl = Number(line.lineAmount ?? 0) || 0;
         const valueIncl =
           Number(line.amountIncludingTax ?? line.lineAmount ?? 0) || 0;
 
-        // 🔍 NEW: try to read "Package Type" from the raw line
-        const pkgType = extractPackageTypeFromLine(line);
+        const skuClass = getSkuClassification(itemNumber);
+        const pkgTypeFromLine = extractPackageTypeFromLine(line);
 
         const key = itemNumber;
         const prev = skuAgg.get(key) || {
@@ -1600,7 +1824,11 @@ router.get("/sales-analytics", async (req, res) => {
           totalSalesIncl: 0,
           totalQuantity: 0,
           lineCount: 0,
-          packageType: "", // store one label per SKU
+          masterCategory: "",
+          category: "",
+          subCategory: "",
+          productBaseName: "",
+          packageType: "",
         };
 
         prev.totalSalesExcl += valueExcl;
@@ -1608,25 +1836,88 @@ router.get("/sales-analytics", async (req, res) => {
         prev.totalQuantity += qty;
         prev.lineCount += 1;
 
-        // If we find a package type:
-        if (pkgType) {
-          if (!prev.packageType) {
-            // first non-empty value → use it
-            prev.packageType = pkgType;
-          } else if (prev.packageType !== pkgType) {
-            // different value for same SKU → mark as mixed
-            prev.packageType = "Mixed";
+        if (skuClass) {
+          prev.masterCategory = skuClass.masterCategory || prev.masterCategory;
+          prev.category = skuClass.category || prev.category;
+          prev.subCategory = skuClass.subCategory || prev.subCategory;
+          prev.productBaseName =
+            skuClass.productBaseName || prev.productBaseName;
+
+          if (skuClass.packageType) {
+            prev.packageType = skuClass.packageType;
           }
         }
 
+        if (!prev.packageType && pkgTypeFromLine) {
+          prev.packageType = pkgTypeFromLine;
+        } else if (
+          prev.packageType &&
+          pkgTypeFromLine &&
+          prev.packageType !== pkgTypeFromLine &&
+          (!skuClass || !skuClass.packageType)
+        ) {
+          prev.packageType = "Mixed";
+        }
+
         skuAgg.set(key, prev);
+
+        const custKey = meta.customerNumber || "UNKNOWN";
+        const custName = meta.customerName || "Unknown Customer";
+        const comboKey = `${custKey}::${itemNumber}`;
+
+        const prevCust = customerSkuAgg.get(comboKey) || {
+          customerNumber: custKey,
+          customerName: custName,
+          itemNumber,
+          description: desc,
+          totalSalesExcl: 0,
+          totalSalesIncl: 0,
+          totalQuantity: 0,
+          lineCount: 0,
+          masterCategory: "",
+          category: "",
+          subCategory: "",
+          productBaseName: "",
+          packageType: "",
+        };
+
+        prevCust.totalSalesExcl += valueExcl;
+        prevCust.totalSalesIncl += valueIncl;
+        prevCust.totalQuantity += qty;
+        prevCust.lineCount += 1;
+
+        prevCust.masterCategory =
+          prev.masterCategory || prevCust.masterCategory;
+        prevCust.category = prev.category || prevCust.category;
+        prevCust.subCategory = prev.subCategory || prevCust.subCategory;
+        prevCust.productBaseName =
+          prev.productBaseName || prevCust.productBaseName;
+        prevCust.packageType = prev.packageType || prevCust.packageType;
+
+        customerSkuAgg.set(comboKey, prevCust);
       }
     }
 
     const salesBySku = Array.from(skuAgg.values())
       .map((row) => ({
         ...row,
-        totalSales: row.totalSalesIncl, // compat
+        totalSales: row.totalSalesIncl,
+      }))
+      .sort((a, b) => b.totalSales - a.totalSales);
+
+    const salesByCustomerSku = Array.from(customerSkuAgg.values())
+      .map((row) => ({
+        customerNumber: row.customerNumber,
+        customerName: row.customerName,
+        itemNumber: row.itemNumber,
+        description: row.description,
+        totalSales: row.totalSalesIncl,
+        totalQuantity: row.totalQuantity,
+        masterCategory: row.masterCategory,
+        category: row.category,
+        subCategory: row.subCategory,
+        productBaseName: row.productBaseName,
+        packageType: row.packageType,
       }))
       .sort((a, b) => b.totalSales - a.totalSales);
 
@@ -1652,7 +1943,7 @@ router.get("/sales-analytics", async (req, res) => {
     const salesByChannel = Array.from(channelAgg.values())
       .map((row) => ({
         ...row,
-        totalSales: row.totalSalesIncl, // compat
+        totalSales: row.totalSalesIncl,
       }))
       .sort((a, b) => b.totalSales - a.totalSales);
 
@@ -1670,7 +1961,7 @@ router.get("/sales-analytics", async (req, res) => {
           customerName: meta.customerName,
           channelKey: meta.salesCategoryKey,
           channelLabel: meta.salesCategoryLabel,
-          amount: meta.amountIncl, // use incl. tax to match charts
+          amount: meta.amountIncl,
         };
       }
     );
@@ -1714,9 +2005,11 @@ router.get("/sales-analytics", async (req, res) => {
       yearMonthSeries,
       salesByCustomer,
       salesBySku,
+      salesByCustomerSku,
       salesByChannel,
       salesByChannelInvoices,
       granularity,
+      facts,
     });
   } catch (err) {
     console.error("GET /api/md/sales-analytics error:", err);
@@ -1746,7 +2039,6 @@ router.get("/inventory-analytics", async (req, res) => {
       itemMap.set(it.number, it);
     }
 
-    // Build inventory aging — based on last inbound movement date per item
     const now = new Date();
     const inboundTypes = new Set([
       "purchase",
@@ -1764,7 +2056,6 @@ router.get("/inventory-analytics", async (req, res) => {
       const itemNumber = e.itemNumber || "";
       const qty = Number(e.quantity ?? 0);
 
-      // Treat positive quantity and inbound entry types as inflow
       if (qty > 0 && [...inboundTypes].some((t) => entryType.includes(t))) {
         const prev = lastInflowByItem.get(itemNumber);
         if (!prev || postingDate > prev) {
@@ -1858,7 +2149,6 @@ router.get("/inventory-analytics", async (req, res) => {
 
     const agingBucketSummary = Object.values(agingBuckets);
 
-    // Inventory availability: simple "In stock / Low / Out" classification
     const availabilityRows = [];
     for (const it of items) {
       const itemNumber = it.number || "";
@@ -1888,8 +2178,7 @@ router.get("/inventory-analytics", async (req, res) => {
 
     availabilityRows.sort((a, b) => b.inventoryValue - a.inventoryValue);
 
-    // Production & consumption: RM/PM consumed vs SFG/FG produced
-    const prodBuckets = new Map(); // periodId -> aggregate
+    const prodBuckets = new Map();
 
     function getPeriodKey(date) {
       if (groupBy === "day") {
@@ -1907,7 +2196,6 @@ router.get("/inventory-analytics", async (req, res) => {
         const q = getQuarterBucket(date);
         return { id: q.id, label: q.label };
       }
-      // default month
       const m = getMonthBucket(date);
       return { id: m.id, label: m.label };
     }
@@ -2019,10 +2307,7 @@ router.get("/vendor-aging", async (req, res) => {
       const p2 = Number(r.period2Amount ?? 0);
       const p3 = Number(r.period3Amount ?? 0);
 
-      if (isTotalRow) {
-        // We'll recompute totals ourselves.
-        continue;
-      }
+      if (isTotalRow) continue;
 
       totalBalance += balanceDue;
       totalCurrent += currentAmount;
@@ -2071,48 +2356,26 @@ router.get("/vendor-aging", async (req, res) => {
 // RAW EXPORT: All Business Central salesInvoices -> Excel (.xlsx)
 // GET /api/md/sales-invoices-raw
 // ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------
-// RAW EXPORT: All Business Central salesInvoices -> Excel (.xlsx)
-// GET /api/md/sales-invoices-raw
-// ---------------------------------------------------------------------------
+
 router.get("/sales-invoices-raw", async (req, res) => {
   try {
     const token = await getAccessToken();
 
-    // 🔍 Force a very wide postingDate range so we don't depend on BC defaults
-    // You can tighten this later or make it configurable.
-    // keep the wide filter so BC doesn't default anything weird
     const filterExpr =
       "postingDate ge 2000-01-01 and postingDate le 2100-12-31";
 
-    // ❌ NO $top here – let the server paginate and bcFetchAll will follow @odata.nextLink
     const extraQuery = "$orderby=postingDate asc";
 
-    const path = withCompanyAndFilter("salesInvoices", filterExpr, extraQuery);
+    const bcPath = withCompanyAndFilter(
+      "salesInvoices",
+      filterExpr,
+      extraQuery
+    );
 
-    console.log("[sales-invoices-raw] Using BC path:", path);
+    console.log("[sales-invoices-raw] Using BC path:", bcPath);
 
-    const invoices = await bcFetchAll(path, token);
+    const invoices = await bcFetchAll(bcPath, token);
 
-    // Optional debug: see how many + max date
-    if (invoices && invoices.length > 0) {
-      let maxDate = null;
-      for (const inv of invoices) {
-        const d = parseBcDate(inv.postingDate || inv.invoiceDate);
-        if (!d) continue;
-        if (!maxDate || d > maxDate) maxDate = d;
-      }
-      console.log(
-        `[sales-invoices-raw] Fetched ${invoices.length} invoices. Max postingDate =`,
-        maxDate ? maxDate.toISOString() : "N/A"
-      );
-    } else {
-      console.log("[sales-invoices-raw] No invoices returned from BC");
-    }
-
-    console.log("[sales-invoices-raw] Using BC path:", path);
-
-    // Optional: log some debug info so you can verify the max postingDate
     if (invoices && invoices.length > 0) {
       let maxDate = null;
       for (const inv of invoices) {
@@ -2134,7 +2397,6 @@ router.get("/sales-invoices-raw", async (req, res) => {
     if (!invoices || invoices.length === 0) {
       sheet.addRow(["No invoices returned from Business Central"]);
     } else {
-      // Collect all keys across all rows so we don't miss any column
       const allKeys = new Set();
       for (const inv of invoices) {
         Object.keys(inv).forEach((k) => allKeys.add(k));
@@ -2178,33 +2440,28 @@ router.get("/sales-invoices-raw", async (req, res) => {
   }
 });
 
-/// === 7. CLI snapshot mode (new) =============================================
+/// === 7. CLI snapshot mode (kept) ===========================================
 //
 // When md.cjs is run directly (node md.cjs), build a snapshot JSON file
-// in the EXACT shape expected by the frontend:
+// by calling the local MD API.
 //
-// {
-//   salesAnalytics: { ...same as GET /api/md/sales-analytics },
-//   inventoryAnalytics: { ...same as GET /api/md/inventory-analytics },
-//   vendorAgingAnalytics: { ...same as GET /api/md/vendor-aging },
-//   meta: { builtAt, source, defaultFrom, defaultTo, granularity }
-// }
-//
-// It does this by calling the local MD API instead of duplicating logic.
-//
+
+function getFetchFn() {
+  if (typeof fetch === "function") return fetch;
+  // eslint-disable-next-line global-require
+  return require("node-fetch");
+}
 
 if (require.main === module) {
   (async () => {
     try {
-      // Where is the MD API server? Default is your BE:
-      //   http://localhost:4000
-      // You can override this with SNAPSHOT_API_BASE_URL if needed
+      const fetchFn = getFetchFn();
+
       const baseUrl =
         process.env.SNAPSHOT_API_BASE_URL || "http://localhost:4000";
 
-      // Use same broad default range as FE (all time → today)
       const now = new Date();
-      const defaultFrom = new Date(2000, 0, 1); // 2000-01-01
+      const defaultFrom = new Date(2000, 0, 1);
       const fromStr = defaultFrom.toISOString().slice(0, 10);
       const toStr = now.toISOString().slice(0, 10);
       const granularity = "month";
@@ -2227,9 +2484,9 @@ if (require.main === module) {
       const vendorUrl = `${baseUrl}/api/md/vendor-aging`;
 
       const [salesRes, invRes, vendorRes] = await Promise.all([
-        fetch(salesUrl),
-        fetch(invUrl),
-        fetch(vendorUrl),
+        fetchFn(salesUrl),
+        fetchFn(invUrl),
+        fetchFn(vendorUrl),
       ]);
 
       if (!salesRes.ok) {

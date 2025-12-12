@@ -10,7 +10,8 @@ const { execFile } = require("child_process");
 
 // 🔗 MD router (BC live endpoints)
 const mdRouter = require("./md.cjs");
-
+// 🔗 SD router (SalesDashboard FY table + xlsx)
+const sdRouter = require("./sd.cjs");
 const app = express();
 const PORT = Number(process.env.PORT || 4000);
 
@@ -67,6 +68,7 @@ app.use(express.json());
 
 // All /api/md/... routes from md.cjs (sales, receivables-aging, summary, etc.)
 app.use("/api/md", mdRouter);
+app.use("/api/sd", sdRouter);
 
 /* -------------------------------------------------------------------------- */
 /*  SNAPSHOT HELPERS (JSON FILE ON DISK)                                      */
@@ -88,10 +90,19 @@ function generateSnapshot() {
     const mdScriptName = "md.cjs";
     console.log(`Regenerating MD snapshot via ${mdScriptName}...`);
 
+    const snapshotBaseUrl = `http://localhost:${PORT}`;
+
     execFile(
       "node",
       [mdScriptName],
-      { cwd: __dirname }, // run from /server
+      {
+        cwd: __dirname, // run from /server
+        env: {
+          ...process.env,
+          SNAPSHOT_API_BASE_URL: snapshotBaseUrl,
+        },
+      },
+
       (error, stdout, stderr) => {
         if (error) {
           console.error(`Error running ${mdScriptName}:`, error);
