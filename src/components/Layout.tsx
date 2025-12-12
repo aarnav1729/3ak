@@ -75,7 +75,7 @@ export default function Layout({
 
       <footer className="border-t py-6">
         <div className="mx-auto max-w-7xl px-4 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} 3AK — Internal Analytics
+          © {new Date().getFullYear()} 3AK Chemie Pvt Ltd. All rights reserved.
         </div>
       </footer>
     </div>
