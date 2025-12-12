@@ -37,7 +37,7 @@ const STATIC_SNAPSHOT = staticSnapshot as MdSnapshot;
 // Treat backend as optional: NO default URL
 //const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.trim() || undefined;
 
-const API_BASE_URL = window.location.origin;
+const API_BASE_URL = "https://threeak.onrender.com";
 
 /*  Types                                                                     */
 type SalesKpis = {

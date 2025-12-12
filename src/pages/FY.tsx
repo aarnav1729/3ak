@@ -52,7 +52,7 @@ const DEFAULT_FY: FyLabel[] = ["FY24", "FY25", "FY26"];
 // Configure base URL (works both locally + behind proxy if you later mount sd.cjs under same origin)
 const SD_API_BASE =
   (import.meta as any).env?.VITE_SD_API_BASE_URL?.toString() ||
-  "http://localhost:4000";
+  "https://threeak.onrender.com";
 
 function fmtNumber(x: number) {
   // If you want INR currency symbol, change to style: "currency", currency: "INR"
