@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -11,7 +12,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Download, RefreshCcw, AlertTriangle } from "lucide-react";
+import { Download, RefreshCcw, AlertTriangle, Info } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type FyLabel = "FY24" | "FY25" | "FY26";
 
@@ -20,6 +29,8 @@ type FyRow = {
   month: string; // Apr..Mar
   [k: string]: string | number;
 };
+
+type GroupRow = { key: string; amount: number; count: number };
 
 type FyTablePayload = {
   meta: {
@@ -31,11 +42,25 @@ type FyTablePayload = {
     includeEntryTypes: string[];
     excludeIntercompany: boolean;
     intercompanyGroupCompanyCount: number;
+    intercompanyGroupCompanies?: string[];
+    appliedFilters?: {
+      customerContains?: string;
+      descriptionContains?: string;
+      categoryContains?: string;
+    };
   };
   table: {
     columns: string[];
     rows: FyRow[];
     totals: Record<string, number>;
+    groups?: {
+      byCustomer?: GroupRow[];
+      byDescription?: GroupRow[];
+      byCategory?: GroupRow[];
+      byMasterCategory?: GroupRow[];
+      bySubCategory?: GroupRow[];
+      byProductBaseName?: GroupRow[];
+    };
     debug?: {
       rowCount?: number;
       usedRowCount?: number;
@@ -43,19 +68,22 @@ type FyTablePayload = {
       skippedWrongType?: number;
       skippedBadDate?: number;
       skippedNotInFy?: number;
+      skippedCustomerFilter?: number;
+      skippedDescriptionFilter?: number;
+      skippedCategoryFilter?: number;
+      unmappedSkuCount?: number;
     };
   };
 };
 
 const DEFAULT_FY: FyLabel[] = ["FY24", "FY25", "FY26"];
 
-// Configure base URL (works both locally + behind proxy if you later mount sd.cjs under same origin)
+// Configure base URL (works both locally + behind proxy)
 const SD_API_BASE =
   (import.meta as any).env?.VITE_SD_API_BASE_URL?.toString() ||
   "https://threeak.onrender.com";
 
 function fmtNumber(x: number) {
-  // If you want INR currency symbol, change to style: "currency", currency: "INR"
   return new Intl.NumberFormat("en-IN", {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
@@ -63,10 +91,54 @@ function fmtNumber(x: number) {
 }
 
 function buildApiUrl(path: string) {
-  // Ensure no double slashes
   const base = SD_API_BASE.replace(/\/+$/, "");
   const p = path.startsWith("/") ? path : `/${path}`;
   return `${base}${p}`;
+}
+
+function TopTable({
+  rows,
+  titleKey,
+  limit = 50,
+}: {
+  rows: GroupRow[];
+  titleKey: string;
+  limit?: number;
+}) {
+  const show = rows.slice(0, limit);
+  return (
+    <div className="overflow-x-auto">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="min-w-[260px]">{titleKey}</TableHead>
+            <TableHead className="text-right w-[180px]">Amount</TableHead>
+            <TableHead className="text-right w-[100px]">Rows</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {show.map((r) => (
+            <TableRow key={r.key}>
+              <TableCell className="font-medium">{r.key}</TableCell>
+              <TableCell className="text-right tabular-nums">
+                {fmtNumber(Number(r.amount || 0))}
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {Number(r.count || 0)}
+              </TableCell>
+            </TableRow>
+          ))}
+          {rows.length > limit ? (
+            <TableRow>
+              <TableCell colSpan={3} className="text-sm text-muted-foreground">
+                Showing top {limit} of {rows.length}
+              </TableCell>
+            </TableRow>
+          ) : null}
+        </TableBody>
+      </Table>
+    </div>
+  );
 }
 
 export default function FY() {
@@ -74,14 +146,23 @@ export default function FY() {
   const [loading, setLoading] = useState<boolean>(true);
   const [err, setErr] = useState<string | null>(null);
 
+  const [customer, setCustomer] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+
   const query = useMemo(() => {
     const params = new URLSearchParams();
     params.set("service", "SalesDashboard");
     params.set("fy", DEFAULT_FY.join(","));
     params.set("includeEntryTypes", "Sale");
     params.set("excludeIntercompany", "true");
+
+    if (customer.trim()) params.set("customer", customer.trim());
+    if (description.trim()) params.set("description", description.trim());
+    if (category.trim()) params.set("category", category.trim());
+
     return params.toString();
-  }, []);
+  }, [customer, description, category]);
 
   const jsonUrl = useMemo(
     () => buildApiUrl(`/api/sd/fy-table?${query}`),
@@ -116,19 +197,16 @@ export default function FY() {
 
   const columns = useMemo(() => {
     const cols = (data?.table?.columns || DEFAULT_FY) as string[];
-    // keep only FY** columns
     return cols.filter((c) => /^FY\d{2}$/.test(c));
   }, [data]);
 
   const rows = data?.table?.rows || [];
   const totals = data?.table?.totals || {};
+  const groups = data?.table?.groups || {};
 
-  // For quarter grouping: FY sketch merges quarter label across 3 months
   const quarterRowSpans: Record<string, number> = useMemo(() => {
     const map: Record<string, number> = {};
-    for (const r of rows) {
-      map[r.fq] = (map[r.fq] || 0) + 1;
-    }
+    for (const r of rows) map[r.fq] = (map[r.fq] || 0) + 1;
     return map;
   }, [rows]);
 
@@ -147,7 +225,8 @@ export default function FY() {
           <div>
             <h1 className="text-2xl font-semibold">FY Sales Table</h1>
             <p className="text-sm text-muted-foreground">
-              SalesDashboard (Entry_Type = Sale) • Intercompany excluded
+              SalesDashboard (Entry_Type filtered in backend JS) • Intercompany
+              excluded
             </p>
           </div>
 
@@ -168,7 +247,7 @@ export default function FY() {
         </div>
 
         <Card>
-          <CardHeader className="space-y-2">
+          <CardHeader className="space-y-3">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <CardTitle>FY24 / FY25 / FY26</CardTitle>
 
@@ -179,20 +258,65 @@ export default function FY() {
                 {data?.meta?.environment ? (
                   <Badge variant="outline">{data.meta.environment}</Badge>
                 ) : null}
+
                 {data?.meta?.excludeIntercompany ? (
                   <Badge variant="outline">
                     Intercompany excluded (
                     {data.meta.intercompanyGroupCompanyCount} names)
                   </Badge>
                 ) : null}
+
+                {data?.meta?.intercompanyGroupCompanies?.length ? (
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="sm">
+                        <Info className="mr-2 h-4 w-4" />
+                        View excluded names
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl">
+                      <DialogHeader>
+                        <DialogTitle>
+                          Excluded intercompany customer names
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="max-h-[60vh] overflow-auto rounded-md border p-3 text-sm">
+                        <ol className="list-decimal pl-5 space-y-1">
+                          {data.meta.intercompanyGroupCompanies.map((n) => (
+                            <li key={n}>{n}</li>
+                          ))}
+                        </ol>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                ) : null}
               </div>
+            </div>
+
+            <div className="grid gap-2 sm:grid-cols-3">
+              <Input
+                placeholder="Filter: Customer contains…"
+                value={customer}
+                onChange={(e) => setCustomer(e.target.value)}
+              />
+              <Input
+                placeholder="Filter: Description contains…"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <Input
+                placeholder="Filter: Category/SKU contains…"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
             </div>
 
             {data?.table?.debug ? (
               <div className="text-xs text-muted-foreground">
                 Rows fetched: {data.table.debug.rowCount ?? "-"} • Used:{" "}
                 {data.table.debug.usedRowCount ?? "-"} • Skipped intercompany:{" "}
-                {data.table.debug.skippedIntercompany ?? "-"}
+                {data.table.debug.skippedIntercompany ?? "-"} • Unmapped SKU
+                hits: {data.table.debug.unmappedSkuCount ?? "-"}
               </div>
             ) : null}
           </CardHeader>
@@ -216,80 +340,105 @@ export default function FY() {
                       <code className="px-1 py-0.5 rounded bg-muted">
                         VITE_SD_API_BASE_URL
                       </code>{" "}
-                      to your sd.cjs host, or keep default{" "}
-                      <code className="px-1 py-0.5 rounded bg-muted">
-                        http://localhost:3399
-                      </code>
-                      .
+                      to your sd.cjs host.
                     </div>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[90px]">FQ</TableHead>
-                      <TableHead className="w-[90px]">Month</TableHead>
-                      {columns.map((c) => (
-                        <TableHead key={c} className="text-right min-w-[160px]">
-                          {c}
-                        </TableHead>
-                      ))}
-                    </TableRow>
-                  </TableHeader>
+              <Tabs defaultValue="fy" className="space-y-4">
+                <TabsList>
+                  <TabsTrigger value="fy">FY Table</TabsTrigger>
+                  <TabsTrigger value="cust">Plus: By Customer</TabsTrigger>
+                  <TabsTrigger value="cat">Plus: By Category</TabsTrigger>
+                </TabsList>
 
-                  <TableBody>
-                    {rows.map((r, idx) => {
-                      const fq = r.fq;
-                      const isFirstInQuarter = quarterFirstRowIndex[fq] === idx;
-                      const span = quarterRowSpans[fq] || 1;
-
-                      return (
-                        <TableRow key={`${fq}-${r.month}-${idx}`}>
-                          {isFirstInQuarter ? (
-                            <TableCell
-                              rowSpan={span}
-                              className="align-middle font-semibold"
+                <TabsContent value="fy">
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-[90px]">FQ</TableHead>
+                          <TableHead className="w-[90px]">Month</TableHead>
+                          {columns.map((c) => (
+                            <TableHead
+                              key={c}
+                              className="text-right min-w-[160px]"
                             >
-                              {fq}
-                            </TableCell>
-                          ) : null}
+                              {c}
+                            </TableHead>
+                          ))}
+                        </TableRow>
+                      </TableHeader>
 
-                          <TableCell className="font-medium">
-                            {r.month}
+                      <TableBody>
+                        {rows.map((r, idx) => {
+                          const fq = r.fq;
+                          const isFirstInQuarter =
+                            quarterFirstRowIndex[fq] === idx;
+                          const span = quarterRowSpans[fq] || 1;
+
+                          return (
+                            <TableRow key={`${fq}-${r.month}-${idx}`}>
+                              {isFirstInQuarter ? (
+                                <TableCell
+                                  rowSpan={span}
+                                  className="align-middle font-semibold"
+                                >
+                                  {fq}
+                                </TableCell>
+                              ) : null}
+
+                              <TableCell className="font-medium">
+                                {r.month}
+                              </TableCell>
+
+                              {columns.map((c) => (
+                                <TableCell
+                                  key={c}
+                                  className="text-right tabular-nums"
+                                >
+                                  {fmtNumber(Number(r[c] || 0))}
+                                </TableCell>
+                              ))}
+                            </TableRow>
+                          );
+                        })}
+
+                        <TableRow>
+                          <TableCell colSpan={2} className="font-semibold">
+                            Total
                           </TableCell>
-
                           {columns.map((c) => (
                             <TableCell
                               key={c}
-                              className="text-right tabular-nums"
+                              className="text-right font-semibold tabular-nums"
                             >
-                              {fmtNumber(Number(r[c] || 0))}
+                              {fmtNumber(Number(totals[c] || 0))}
                             </TableCell>
                           ))}
                         </TableRow>
-                      );
-                    })}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </TabsContent>
 
-                    {/* Total row */}
-                    <TableRow>
-                      <TableCell colSpan={2} className="font-semibold">
-                        Total
-                      </TableCell>
-                      {columns.map((c) => (
-                        <TableCell
-                          key={c}
-                          className="text-right font-semibold tabular-nums"
-                        >
-                          {fmtNumber(Number(totals[c] || 0))}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </div>
+                <TabsContent value="cust">
+                  <TopTable
+                    titleKey="Customer"
+                    rows={groups.byCustomer || []}
+                    limit={50}
+                  />
+                </TabsContent>
+
+                <TabsContent value="cat">
+                  <TopTable
+                    titleKey="Category"
+                    rows={groups.byCategory || []}
+                    limit={50}
+                  />
+                </TabsContent>
+              </Tabs>
             )}
           </CardContent>
         </Card>

@@ -53,6 +53,51 @@ const GROUP_COMPANIES = [
   "PT. PACIFIC DISTRIBUTION INDONESIA)",
 ];
 
+// ------------------------ SKU -> Category mapping (hardcoded) ------------------------
+// Paste your full TSV exactly (header + rows). Keep tabs between columns.
+// Columns:
+// SKU  Name  Master Category  Category  Sub Category  Product Base Name
+const CATEGORY_TSV = String.raw`SKU	Name	Master Category	Category	Sub Category	Product Base Name
+2511-0001	MR672F, Penetrant - Flourescent Level 2; Solvent & Water Removable  (400ml)	Non Destructive Testing	Dye Penetrant Testing	Penetrant	MR672F
+2511-0002	MR231, Dry Magnetic Powder - Grey (1Kg)	Non Destructive Testing	Magnetic Particle Testing	Dry Powders	MR231
+`;
+
+function buildCategoryMapFromTsv(tsv) {
+  const map = new Map();
+  const lines = String(tsv || "")
+    .split(/\r?\n/)
+    .map((l) => l.trimEnd())
+    .filter((l) => l.trim().length > 0);
+  if (!lines.length) return map;
+
+  // drop header row if present
+  const startIdx = lines[0].toUpperCase().startsWith("SKU\t") ? 1 : 0;
+  for (let i = startIdx; i < lines.length; i++) {
+    const parts = lines[i].split("\t");
+    const sku = (parts[0] || "").trim();
+    if (!sku) continue;
+    const obj = {
+      sku,
+      name: (parts[1] || "").trim(),
+      masterCategory: (parts[2] || "").trim(),
+      category: (parts[3] || "").trim(),
+      subCategory: (parts[4] || "").trim(),
+      productBaseName: (parts[5] || "").trim(),
+    };
+    // last write wins (lets you override duplicates)
+    map.set(sku.toUpperCase(), obj);
+  }
+  return map;
+}
+
+const CATEGORY_MAP = buildCategoryMapFromTsv(CATEGORY_TSV);
+
+function getCategoryForSku(sku) {
+  const key = String(sku || "").trim().toUpperCase();
+  if (!key) return null;
+  return CATEGORY_MAP.get(key) || null;
+}
+
 function normName(s) {
   return String(s || "")
     .toUpperCase()
@@ -191,6 +236,17 @@ function inferSalesDashboardKeys(sampleRow) {
     "Customer Posting Group",
   ]);
 
+    const descriptionKey = pickKey(sampleRow, ["Description", "Item_Description", "Item Description"]);
+  const itemNoKey = pickKey(sampleRow, [
+    "Item_No",
+    "ItemNo",
+    "Item No",
+    "No",
+    "No_",
+    "ItemNumber",
+    "Item Number",
+  ]);
+
   return {
     entryNoKey,
     postingDateKey,
@@ -198,6 +254,8 @@ function inferSalesDashboardKeys(sampleRow) {
     salesAmountActualKey,
     customerNameKey,
     customerPostingGroupKey,
+    descriptionKey,
+    itemNoKey,
   };
 }
 
@@ -217,6 +275,8 @@ function buildSelectParam(keys) {
     keys.salesAmountActualKey,
     keys.customerNameKey,
     keys.customerPostingGroupKey,
+    keys.descriptionKey,
+    keys.itemNoKey,
   ].filter(Boolean);
 
   return Array.from(new Set(list));
@@ -246,8 +306,10 @@ async function fetchAllSalesDashboard({
   }
 
   const canDateFilter = !!keys.postingDateKey;
-  const canEntryTypeFilter =
-    !!keys.entryTypeKey && includeEntryTypes && includeEntryTypes.size > 0;
+    // IMPORTANT: do NOT filter Entry_Type server-side.
+  // BC / OData string/enum comparisons can be case/format sensitive and can drop rows.
+  // We'll filter Entry_Type in JS (buildFyTableFromRows) to guarantee inclusion.
+  const canEntryTypeFilter = false;
 
   let lastEntryNo = 0;
   let all = [];
@@ -268,12 +330,7 @@ async function fetchAllSalesDashboard({
       );
     }
 
-    if (canEntryTypeFilter) {
-      const ors = Array.from(includeEntryTypes).map(
-        (t) => `${keys.entryTypeKey} eq '${String(t).replace(/'/g, "''")}'`
-      );
-      filterParts.push(`(${ors.join(" or ")})`);
-    }
+
 
     const $select = buildSelectParam(keys);
     const url = buildODataUrl(serviceName, {
@@ -319,7 +376,17 @@ function buildFyTableFromRows(rows, options) {
     keys,
     includeEntryTypes,
     excludeIntercompany = true,
+    customerContains,
+    descriptionContains,
+    categoryContains,
   } = options;
+
+    function incMatch(hay, needle) {
+     const h = String(hay || "").toUpperCase();
+        const n = String(needle || "").toUpperCase().trim();
+        if (!n) return true;
+        return h.includes(n);
+      }
 
   const buckets = {};
   for (const fy of fyLabels) {
@@ -331,6 +398,14 @@ function buildFyTableFromRows(rows, options) {
   let skippedBadDate = 0;
   let skippedIntercompany = 0;
   let skippedNotInFy = 0;
+
+    let skippedCustomerFilter = 0;
+  let skippedDescriptionFilter = 0;
+  let skippedCategoryFilter = 0;
+  let unmappedSkuCount = 0;
+
+  // Keep minimal used rows for grouping
+  const usedMini = [];
 
   for (const r of rows) {
     if (keys.entryTypeKey && includeEntryTypes && includeEntryTypes.size > 0) {
@@ -372,6 +447,40 @@ function buildFyTableFromRows(rows, options) {
       }
     }
 
+        // Filters
+    const custName = keys.customerNameKey ? String(r[keys.customerNameKey] || "") : "";
+    if (!incMatch(custName, customerContains)) {
+      skippedCustomerFilter++;
+      continue;
+    }
+
+    const desc = keys.descriptionKey ? String(r[keys.descriptionKey] || "") : "";
+    if (!incMatch(desc, descriptionContains)) {
+      skippedDescriptionFilter++;
+      continue;
+    }
+
+    const sku = keys.itemNoKey ? String(r[keys.itemNoKey] || "") : "";
+    const catObj = getCategoryForSku(sku);
+    if (!catObj) unmappedSkuCount++;
+
+    const categorySearchBlob = [
+      sku,
+      catObj?.name,
+      catObj?.masterCategory,
+      catObj?.category,
+      catObj?.subCategory,
+      catObj?.productBaseName,
+      desc, // allow fallback filtering by description too
+    ]
+      .filter(Boolean)
+      .join(" | ");
+
+    if (!incMatch(categorySearchBlob, categoryContains)) {
+      skippedCategoryFilter++;
+      continue;
+    }
+
     const monthKey = getMonthKey(dt);
     if (!monthKey) {
       skippedBadDate++;
@@ -383,7 +492,32 @@ function buildFyTableFromRows(rows, options) {
       : 0;
     buckets[fy][monthKey] += amt;
     used++;
+
+        usedMini.push({
+              fy,
+              monthKey,
+              amount: amt,
+              customerName: custName || "UNKNOWN",
+              description: desc || "UNKNOWN",
+              sku: sku || "",
+              category: (catObj?.category || "UNMAPPED") || "UNMAPPED",
+              masterCategory: (catObj?.masterCategory || "UNMAPPED") || "UNMAPPED",
+              subCategory: (catObj?.subCategory || "UNMAPPED") || "UNMAPPED",
+              productBaseName: (catObj?.productBaseName || "UNMAPPED") || "UNMAPPED",
+            });
   }
+
+    function groupTotals(arr, keyName) {
+        const m = new Map();
+        for (const x of arr) {
+          const k = String(x[keyName] || "UNKNOWN");
+          const prev = m.get(k) || { key: k, amount: 0, count: 0 };
+          prev.amount += Number(x.amount || 0);
+          prev.count += 1;
+          m.set(k, prev);
+        }
+        return Array.from(m.values()).sort((a, b) => b.amount - a.amount);
+      }
 
   const outRows = [];
   for (const fq of ["FQ1", "FQ2", "FQ3", "FQ4"]) {
@@ -407,6 +541,14 @@ function buildFyTableFromRows(rows, options) {
     columns: fyLabels,
     rows: outRows,
     totals,
+        groups: {
+              byCustomer: groupTotals(usedMini, "customerName"),
+              byDescription: groupTotals(usedMini, "description"),
+              byCategory: groupTotals(usedMini, "category"),
+              byMasterCategory: groupTotals(usedMini, "masterCategory"),
+              bySubCategory: groupTotals(usedMini, "subCategory"),
+              byProductBaseName: groupTotals(usedMini, "productBaseName"),
+            },
     debug: {
       rowCount: rows.length,
       usedRowCount: used,
@@ -414,6 +556,10 @@ function buildFyTableFromRows(rows, options) {
       skippedBadDate,
       skippedIntercompany,
       skippedNotInFy,
+            skippedCustomerFilter,
+      skippedDescriptionFilter,
+      skippedCategoryFilter,
+      unmappedSkuCount,
       detectedKeys: keys,
     },
   };
@@ -540,6 +686,44 @@ async function writeFyTableXlsx(res, payload) {
       .slice(0, 10)}.xlsx"`
   );
 
+    // ------------------ By Customer ------------------
+  if (table.groups?.byCustomer?.length) {
+    const s = wb.addWorksheet("By Customer", { views: [{ state: "frozen", ySplit: 1 }] });
+    s.columns = [
+      { header: "Customer", key: "key", width: 50 },
+      { header: "Amount", key: "amount", width: 18 },
+      { header: "Rows", key: "count", width: 10 },
+    ];
+    s.getRow(1).font = { bold: true };
+    for (const r of table.groups.byCustomer) {
+      s.addRow({ key: r.key, amount: Number(r.amount || 0), count: Number(r.count || 0) });
+    }
+    s.getColumn("amount").numFmt = "#,##0.00";
+  }
+
+  // ------------------ By Category ------------------
+  if (table.groups?.byCategory?.length) {
+    const s = wb.addWorksheet("By Category", { views: [{ state: "frozen", ySplit: 1 }] });
+    s.columns = [
+      { header: "Category", key: "key", width: 40 },
+      { header: "Amount", key: "amount", width: 18 },
+      { header: "Rows", key: "count", width: 10 },
+    ];
+    s.getRow(1).font = { bold: true };
+    for (const r of table.groups.byCategory) {
+      s.addRow({ key: r.key, amount: Number(r.amount || 0), count: Number(r.count || 0) });
+    }
+    s.getColumn("amount").numFmt = "#,##0.00";
+  }
+
+  // ------------------ Excluded Intercompany Names ------------------
+  if (meta?.intercompanyGroupCompanies?.length) {
+    const s = wb.addWorksheet("Excluded Intercompany", { views: [{ state: "frozen", ySplit: 1 }] });
+    s.columns = [{ header: "Excluded Customer Names", key: "name", width: 60 }];
+    s.getRow(1).font = { bold: true };
+    for (const n of meta.intercompanyGroupCompanies) s.addRow({ name: n });
+  }
+
   await wb.xlsx.write(res);
   res.end();
 }
@@ -566,6 +750,9 @@ async function buildFyTable({
   fyLabels,
   includeEntryTypes,
   excludeIntercompany,
+  customerContains,
+  descriptionContains,
+  categoryContains,
 }) {
   const accessToken = await getAccessToken({
     tenantId,
@@ -624,6 +811,9 @@ async function buildFyTable({
     keys,
     includeEntryTypes,
     excludeIntercompany,
+    customerContains,
+    descriptionContains,
+    categoryContains,
   });
 
   return {
@@ -637,6 +827,12 @@ async function buildFyTable({
       includeEntryTypes: Array.from(includeEntryTypes || []),
       excludeIntercompany,
       intercompanyGroupCompanyCount: GROUP_COMPANIES.length,
+            intercompanyGroupCompanies: GROUP_COMPANIES,
+      appliedFilters: {
+        customerContains: String(customerContains || ""),
+        descriptionContains: String(descriptionContains || ""),
+        categoryContains: String(categoryContains || ""),
+      },
     },
     table,
   };
@@ -655,11 +851,18 @@ router.get("/fy-table", async (req, res) => {
     const excludeIntercompany =
       String(req.query.excludeIntercompany || "true").toLowerCase() === "true";
 
+          const customerContains = String(req.query.customer || "").trim();
+    const descriptionContains = String(req.query.description || "").trim();
+    const categoryContains = String(req.query.category || "").trim();
+
     const payload = await buildFyTable({
       serviceName,
       fyLabels,
       includeEntryTypes,
       excludeIntercompany,
+      customerContains,
+        descriptionContains,
+        categoryContains,
     });
 
     res.json(payload);
@@ -679,11 +882,17 @@ router.get("/fy-table.xlsx", async (req, res) => {
     const excludeIntercompany =
       String(req.query.excludeIntercompany || "true").toLowerCase() === "true";
 
+          const customerContains = String(req.query.customer || "").trim();
+   const descriptionContains = String(req.query.description || "").trim();    const categoryContains = String(req.query.category || "").trim();
+
     const payload = await buildFyTable({
       serviceName,
       fyLabels,
       includeEntryTypes,
       excludeIntercompany,
+        customerContains,
+            descriptionContains,
+            categoryContains,
     });
 
     await writeFyTableXlsx(res, payload);
