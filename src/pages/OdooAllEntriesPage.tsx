@@ -30,7 +30,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Filter } from "lucide-react";
 import Layout from "@/components/Layout";
 
-const API_BASE_URL = `${window.location.origin}/api`;
+const API_BASE_URL = `https://threeakchemie.onrender.com/api`;
 
 type AnyRow = Record<string, any>;
 const HIDE_COLUMNS = new Set([

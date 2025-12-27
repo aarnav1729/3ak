@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const API_BASE_URL = `${window.location.origin}/api`;
+const API_BASE_URL = `https://threeakchemie.onrender.com/api`;
 
 type FyTableResponse = {
   meta?: any;

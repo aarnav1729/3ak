@@ -88,7 +88,7 @@ const DEFAULT_FY: FyLabel[] = ["FY24", "FY25", "FY26"];
 
 const SD_API_BASE =
   (import.meta as any).env?.VITE_SD_API_BASE_URL?.toString() ||
-  "http://localhost:4000";
+  "https://threeakchemie.onrender.com";
 
 function fmtNumber(x: number) {
   return new Intl.NumberFormat("en-IN", {
@@ -233,11 +233,11 @@ export default function FY() {
   ]);
 
   const jsonUrl = useMemo(
-    () => buildApiUrl(`/api/sd/fy-table?${query}`),
+    () => buildApiUrl(`https://threeakchemie.onrender.com/api/sd/fy-table?${query}`),
     [query]
   );
   const xlsxUrl = useMemo(
-    () => buildApiUrl(`/api/sd/fy-table.xlsx?${query}`),
+    () => buildApiUrl(`https://threeakchemie.onrender.com/api/sd/fy-table.xlsx?${query}`),
     [query]
   );
 
