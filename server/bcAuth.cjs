@@ -122,4 +122,5 @@ async function fetchJsonWithRetry(
 module.exports = {
   getAccessToken,
   fetchJsonWithRetry,
+  getAccessTokenCached: getAccessToken,
 };

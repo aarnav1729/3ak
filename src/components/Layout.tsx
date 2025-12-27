@@ -15,7 +15,10 @@ type LayoutProps = {
 const NAV = [
   { to: "/", label: "FY Table" },
   { to: "/fy", label: "Dashboard" },
+  { to: "/md/odoo", label: "Odoo (All Entries)" },
+  { to: "/md/bc-sales-analytics", label: "BC Sales (All Entries)" },
 ];
+
 
 export default function Layout({
   title,

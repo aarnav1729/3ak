@@ -48,6 +48,7 @@ type FyTablePayload = {
       descriptionContains?: string;
       categoryContains?: string;
     };
+    odoo?: { enabled: boolean; ok: boolean; rowCount: number; error?: string };
   };
   table: {
     columns: string[];
@@ -56,6 +57,8 @@ type FyTablePayload = {
     groups?: {
       byCustomer?: GroupRow[];
       byDescription?: GroupRow[];
+      byCompany?: GroupRow[];
+
       byCategory?: GroupRow[];
       byMasterCategory?: GroupRow[];
       bySubCategory?: GroupRow[];
@@ -79,15 +82,53 @@ type FyTablePayload = {
 const DEFAULT_FY: FyLabel[] = ["FY24", "FY25", "FY26"];
 
 // Configure base URL (works both locally + behind proxy)
+//const SD_API_BASE =
+//(import.meta as any).env?.VITE_SD_API_BASE_URL?.toString() ||
+//"https://threeak.onrender.com";
+
 const SD_API_BASE =
   (import.meta as any).env?.VITE_SD_API_BASE_URL?.toString() ||
-  "https://threeak.onrender.com";
+  "http://localhost:4000";
 
 function fmtNumber(x: number) {
   return new Intl.NumberFormat("en-IN", {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
   }).format(Number(x || 0));
+}
+function companyToCountry(input: string) {
+  const raw = String(input || "").trim();
+  const key = raw.toUpperCase();
+
+  // ✅ Hardcoded mapping for Odoo company labels
+  const MAP: Record<string, string> = {
+    "3AK CHEMIE (THAILAND) CO., LTD.": "Thailand",
+    "3AK CHEMIE AUSTRALIA PTY LTD": "Australia",
+    "3AK CHEMIE HONG KONG LIMITED": "Hong Kong",
+    "3AK CHEMIE KENYA LIMITED": "Kenya",
+    "3AK CHEMIE MALAYSIA SDN BHD": "Malaysia",
+    "3AK CHEMIE SINGAPORE PTE. LTD.": "Singapore",
+    "3AK CHEMIE VIETNAM COMPANY LIMITED": "Vietnam",
+  };
+
+  // Try exact match first
+  if (MAP[key]) return MAP[key];
+
+  // Small normalization for punctuation/extra spaces (helps if Odoo varies)
+  const normalized = key
+    .replace(/\s+/g, " ")
+    .replace(/[.]/g, "")
+    .replace(/[,]/g, "")
+    .trim();
+
+  const MAP2: Record<string, string> = Object.fromEntries(
+    Object.entries(MAP).map(([k, v]) => [
+      k.replace(/\s+/g, " ").replace(/[.]/g, "").replace(/[,]/g, "").trim(),
+      v,
+    ])
+  );
+
+  return MAP2[normalized] || raw; // fallback: keep original
 }
 
 function buildApiUrl(path: string) {
@@ -150,19 +191,46 @@ export default function FY() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
 
+  const [masterCategoryFilter, setMasterCategoryFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [subCategoryFilter, setSubCategoryFilter] = useState("");
+
+  const [source, setSource] = useState<"all" | "odoo" | "bc">("all");
+
   const query = useMemo(() => {
     const params = new URLSearchParams();
     params.set("service", "SalesDashboard");
     params.set("fy", DEFAULT_FY.join(","));
     params.set("includeEntryTypes", "Sale");
-    params.set("excludeIntercompany", "true");
+
+    params.set("source", source); // ✅ all | odoo | bc
+
+    // BC should still exclude inter-company; Odoo-only should not.
+    params.set("excludeIntercompany", source === "odoo" ? "false" : "true");
+
+    // includeOdoo only when source needs it
+    params.set("includeOdoo", source !== "bc" ? "true" : "false");
 
     if (customer.trim()) params.set("customer", customer.trim());
     if (description.trim()) params.set("description", description.trim());
     if (category.trim()) params.set("category", category.trim());
+    if (masterCategoryFilter.trim())
+      params.set("masterCategory", masterCategoryFilter.trim());
+    if (categoryFilter.trim())
+      params.set("categoryFilter", categoryFilter.trim());
+    if (subCategoryFilter.trim())
+      params.set("subCategory", subCategoryFilter.trim());
 
     return params.toString();
-  }, [customer, description, category]);
+  }, [
+    customer,
+    description,
+    category,
+    masterCategoryFilter,
+    categoryFilter,
+    subCategoryFilter,
+    source,
+  ]);
 
   const jsonUrl = useMemo(
     () => buildApiUrl(`/api/sd/fy-table?${query}`),
@@ -203,6 +271,18 @@ export default function FY() {
   const rows = data?.table?.rows || [];
   const totals = data?.table?.totals || {};
   const groups = data?.table?.groups || {};
+  const odooCompanyRows: GroupRow[] = useMemo(() => {
+    const src = groups.byCompany || [];
+
+    // 1) Drop empty buckets (this hides parent company if it's truly 0 rows)
+    const nonZero = src.filter((r) => Number(r.count || 0) > 0);
+
+    // 2) Replace key with just the country label
+    return nonZero.map((r) => ({
+      ...r,
+      key: companyToCountry(r.key),
+    }));
+  }, [groups.byCompany]);
 
   const quarterRowSpans: Record<string, number> = useMemo(() => {
     const map: Record<string, number> = {};
@@ -224,10 +304,6 @@ export default function FY() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold">FY Sales Table</h1>
-            <p className="text-sm text-muted-foreground">
-              SalesDashboard (Entry_Type filtered in backend JS) • Intercompany
-              excluded
-            </p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -249,7 +325,29 @@ export default function FY() {
         <Card>
           <CardHeader className="space-y-3">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <CardTitle>FY24 / FY25 / FY26</CardTitle>
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  variant={source === "all" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSource("all")}
+                >
+                  All (BC + Odoo)
+                </Button>
+                <Button
+                  variant={source === "odoo" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSource("odoo")}
+                >
+                  Odoo only
+                </Button>
+                <Button
+                  variant={source === "bc" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSource("bc")}
+                >
+                  BC only
+                </Button>
+              </div>
 
               <div className="flex flex-wrap items-center gap-2">
                 {data?.meta?.company ? (
@@ -257,6 +355,17 @@ export default function FY() {
                 ) : null}
                 {data?.meta?.environment ? (
                   <Badge variant="outline">{data.meta.environment}</Badge>
+                ) : null}
+
+                {data?.meta?.odoo?.enabled ? (
+                  <Badge
+                    variant={data.meta.odoo.ok ? "secondary" : "destructive"}
+                  >
+                    Foreign (Odoo):{" "}
+                    {data.meta.odoo.ok
+                      ? `${data.meta.odoo.rowCount} rows`
+                      : "failed"}
+                  </Badge>
                 ) : null}
 
                 {data?.meta?.excludeIntercompany ? (
@@ -310,6 +419,23 @@ export default function FY() {
                 onChange={(e) => setCategory(e.target.value)}
               />
             </div>
+            <div className="grid gap-2 sm:grid-cols-3">
+              <Input
+                placeholder="Filter: Master Category contains…"
+                value={masterCategoryFilter}
+                onChange={(e) => setMasterCategoryFilter(e.target.value)}
+              />
+              <Input
+                placeholder="Filter: Category contains…"
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+              />
+              <Input
+                placeholder="Filter: Sub Category contains…"
+                value={subCategoryFilter}
+                onChange={(e) => setSubCategoryFilter(e.target.value)}
+              />
+            </div>
 
             {data?.table?.debug ? (
               <div className="text-xs text-muted-foreground">
@@ -350,7 +476,35 @@ export default function FY() {
                 <TabsList>
                   <TabsTrigger value="fy">FY Table</TabsTrigger>
                   <TabsTrigger value="cust">Plus: By Customer</TabsTrigger>
-                  <TabsTrigger value="cat">Plus: By Category</TabsTrigger>
+
+                  {/* existing "cat" tab kept (works for all/odoo/bc with your current logic) */}
+                  <TabsTrigger value="cat">
+                    {source === "odoo"
+                      ? "Plus: By Line"
+                      : source === "bc"
+                      ? "Plus: By Description"
+                      : "Plus: By Category"}
+                  </TabsTrigger>
+
+                  {source === "odoo" ? (
+                    <TabsTrigger value="co">Odoo: By Company</TabsTrigger>
+                  ) : null}
+
+                  {/* ✅ NEW: BC-only classification tabs */}
+                  {source === "bc" ? (
+                    <>
+                      <TabsTrigger value="bc_master">
+                        BC: Master Category
+                      </TabsTrigger>
+                      <TabsTrigger value="bc_category">
+                        BC: Category
+                      </TabsTrigger>
+                      <TabsTrigger value="bc_sub">BC: Sub Category</TabsTrigger>
+                      <TabsTrigger value="bc_base">
+                        BC: Product Base
+                      </TabsTrigger>
+                    </>
+                  ) : null}
                 </TabsList>
 
                 <TabsContent value="fy">
@@ -422,6 +576,15 @@ export default function FY() {
                     </Table>
                   </div>
                 </TabsContent>
+                {source === "odoo" ? (
+                  <TabsContent value="co">
+                    <TopTable
+                      titleKey="Company"
+                      rows={odooCompanyRows}
+                      limit={50}
+                    />
+                  </TabsContent>
+                ) : null}
 
                 <TabsContent value="cust">
                   <TopTable
@@ -433,11 +596,57 @@ export default function FY() {
 
                 <TabsContent value="cat">
                   <TopTable
-                    titleKey="Category"
-                    rows={groups.byCategory || []}
-                    limit={50}
+                    titleKey={
+                      source === "odoo"
+                        ? "Line"
+                        : source === "bc"
+                        ? "Description"
+                        : "Category"
+                    }
+                    rows={
+                      source === "odoo"
+                        ? groups.byDescription || []
+                        : groups.byCategory || []
+                    }
+                    limit={100}
                   />
                 </TabsContent>
+                {/* ✅ NEW: BC-only classification tables */}
+                {source === "bc" ? (
+                  <>
+                    <TabsContent value="bc_master">
+                      <TopTable
+                        titleKey="Master Category"
+                        rows={groups.byMasterCategory || []}
+                        limit={100}
+                      />
+                    </TabsContent>
+
+                    <TabsContent value="bc_category">
+                      <TopTable
+                        titleKey="Category"
+                        rows={groups.byCategory || []}
+                        limit={100}
+                      />
+                    </TabsContent>
+
+                    <TabsContent value="bc_sub">
+                      <TopTable
+                        titleKey="Sub Category"
+                        rows={groups.bySubCategory || []}
+                        limit={100}
+                      />
+                    </TabsContent>
+
+                    <TabsContent value="bc_base">
+                      <TopTable
+                        titleKey="Product Base Name"
+                        rows={groups.byProductBaseName || []}
+                        limit={150}
+                      />
+                    </TabsContent>
+                  </>
+                ) : null}
               </Tabs>
             )}
           </CardContent>

@@ -69,6 +69,13 @@ app.use(express.json());
 // All /api/md/... routes from md.cjs (sales, receivables-aging, summary, etc.)
 app.use("/api/md", mdRouter);
 app.use("/api/sd", sdRouter);
+// Backward-compatible alias (frontend still calls /api/md/sales-analytics)
+app.get("/api/md/sales-analytics", (req, res, next) => {
+  // forward internally to sd router path
+  req.url = "/sales-analytics" + (req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "");
+  next();
+});
+app.use("/api/md", require("./sd.cjs")); // or the correct path to sd.cjs
 
 /* -------------------------------------------------------------------------- */
 /*  SNAPSHOT HELPERS (JSON FILE ON DISK)                                      */
