@@ -233,11 +233,11 @@ export default function FY() {
   ]);
 
   const jsonUrl = useMemo(
-    () => buildApiUrl(`https://threeakchemie.onrender.com/api/sd/fy-table?${query}`),
+    () => buildApiUrl(`/api/sd/fy-table?${query}`),
     [query]
   );
   const xlsxUrl = useMemo(
-    () => buildApiUrl(`https://threeakchemie.onrender.com/api/sd/fy-table.xlsx?${query}`),
+    () => buildApiUrl(`api/sd/fy-table.xlsx?${query}`),
     [query]
   );
 
